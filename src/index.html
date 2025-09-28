@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graph Visualizer</title>
+    <link rel="stylesheet" href="templates/styles.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
+    <!-- HEADER -->
+    <header id="header-bar" role="banner">
+      <div class="toolbar-left">
+        <!-- CSV Loader -->
+        <input type="file" id="pag-matrix-file" accept=".csv,.txt" />
+        <label
+          for="pag-matrix-file"
+          class="file-button"
+          title="Load Matrix-File"
+        >
+          <i class="fa fa-file-csv"></i> Matrix
+        </label>
+        <!-- JSON Loader -->
+        <input type="file" id="graph-file" accept=".json" />
+        <label for="graph-file" class="file-button" title="Load Graph-File">
+          <i class="fa fa-project-diagram"></i> Graph
+        </label>
+      </div>
+      <div class="toolbar-center">
+        <button id="undo-btn" title="Undo (Strg+Z)" aria-label="Rückgängig">
+          <i class="fa fa-undo"></i>
+        </button>
+        <button id="redo-btn" title="Redo (Strg+Y)" aria-label="Wiederholen">
+          <i class="fa fa-redo"></i>
+        </button>
+        <button
+          id="add-node-btn"
+          title="Add Node (Strg+Alt+N)"
+          aria-label="Knoten hinzufügen"
+        >
+          <i class="fa fa-plus-circle"></i>
+        </button>
+        <button
+          id="delete-btn"
+          title="Delete Selection (Entf)"
+          aria-label="Löschen"
+        >
+          <i class="fa fa-trash"></i>
+        </button>
+        <button
+          id="grid-toggle-btn"
+          title="Toggle Grid (G)"
+          aria-label="Gitter"
+        >
+          <i class="fa fa-th"></i>
+        </button>
+      </div>
+      <div class="toolbar-right">
+        <button id="download-graph" title="Download Graph (.json)">
+          <i class="fa fa-file-download"></i>
+        </button>
+        <button id="download-matrix" title="Download Matrix (.csv)">
+          <i class="fa fa-table"></i>
+        </button>
+        <button id="download-pdf" title="Download as PDF">
+          <i class="fa fa-file-pdf"></i>
+        </button>
+        <button id="download-png" title="Download as PNG">
+          <i class="fa fa-image"></i>
+        </button>
+      </div>
+    </header>
+    <!-- MAIN -->
+    <main id="main-content" role="main">
+      <div
+        id="graph-container"
+        aria-label="Graph Visualisierung"
+        tabindex="0"
+      ></div>
+      <aside
+        id="property-panel"
+        role="complementary"
+        aria-label="Eigenschafts-Panel"
+      >
+        <div id="info-panel" class="panel active">
+          <p>
+            Import a graph, or add the first node.
+            <small
+              >(Leftclick the canvas and then press alt+n to add a node)</small
+            >
+          </p>
+        </div>
+        <div id="node-panel" class="panel">
+          <p>Wähle einen Knoten aus, um Details anzuzeigen.</p>
+        </div>
+        <div id="link-panel" class="panel">
+          <p>Wähle eine Kante aus, um Details anzuzeigen.</p>
+        </div>
+      </aside>
+    </main>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

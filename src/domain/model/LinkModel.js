@@ -2,9 +2,9 @@ import * as uuid from "https://cdn.jsdelivr.net/npm/uuid@9.0.1/+esm";
 
 export default class LinkModel {
   constructor(
-    linkId = uuid.v4(), //validierung needed das es vorhanden es sonst exception
-    sourceNodeId, //validierung needed das es vorhanden es sonst exception
-    targetNodeId, //validierung needed das es vorhanden es sonst exception
+    linkId = uuid.v4(),
+    sourceNodeId,
+    targetNodeId,
     arrowhead = "normal",
     arrowtail = "tail",
     arrowheadWidth = 10,
@@ -39,7 +39,6 @@ export default class LinkModel {
     this.highlighted = highlighted;
   }
 
-  //Setter
   setLinkId(linkId) {
     this.linkId = linkId;
   }
@@ -129,7 +128,6 @@ export default class LinkModel {
     this.highlighted = state;
   }
 
-  //Getter
   getLinkId() {
     return this.linkId;
   }

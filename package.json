@@ -1,6 +1,6 @@
 {
   "name": "causal-graph-visualizer",
-  "version": "1.0.1",
+  "version": "1.0.1", 
   "description": "Interactive graph visualization and editing tool",
   "author": "Erik",
   "type": "module",

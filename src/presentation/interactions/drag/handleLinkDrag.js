@@ -1,9 +1,3 @@
-//Das würde ich gerne auch noch, falls möglich und vorallem nur falls sinvoll
-//in Hilfsfunktionen unterteilen, wieder basierend auf meinen 3 Kategorien:
-//(1.)Auswahl-Funktionen
-//(2.)Zustands-Aenderungs-Funktionen
-//(3.)Visualisierungs-Funktionen
-
 import * as d3 from "d3";
 import { computeLinkPath } from "../../../visualization/utils/computeLinkPath.js";
 import { isGridEnabled, getGridSpacing } from "../../utils/GridManager.js";

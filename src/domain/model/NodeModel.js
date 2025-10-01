@@ -1,12 +1,11 @@
-//nodeId und label sind mandatory, x und y sind optional wenn nicht gesetzt beide 0.
 import * as uuid from "https://cdn.jsdelivr.net/npm/uuid@9.0.1/+esm";
 
 export default class NodeModel {
   constructor(
-    nodeId = uuid.v4(), //validierung needed das es vorhanden es sonst exception
+    nodeId = uuid.v4(),
     x = 100,
     y = 100,
-    label = "undefined", //validierung needed das es vorhanden es sonst exception
+    label = "undefined",
     shape = "circle",
     radius = 15,
     fillColor = "white",
@@ -18,8 +17,7 @@ export default class NodeModel {
     labelColor = "black",
     highlighted = false
   ) {
-    //knoten
-    this.nodeId = nodeId; //uuid.v4 lieber hier hin ne? //  this.nodeId = nodeId || `node-${uuidv4()}`;
+    this.nodeId = nodeId;
     this.x = x;
     this.y = y;
     this.shape = shape;
@@ -30,15 +28,14 @@ export default class NodeModel {
 
     this.highlighted = highlighted;
 
-    //knotenlabel
+    //--------------------------
+
     this.label = label;
     this.labelFontSize = labelFontSize;
     this.labelOffsetX = labelOffsetX;
     this.labelOffsetY = labelOffsetY;
     this.labelColor = labelColor;
   }
-
-  //Setter-Knoten
 
   setNodeId(nodeId) {
     this.nodeId = nodeId;
@@ -87,7 +84,6 @@ export default class NodeModel {
     this.highlighted = state;
   }
 
-  //Getter-Knoten
   getNodeId() {
     return this.nodeId;
   }
@@ -130,7 +126,6 @@ export default class NodeModel {
 
   //--------------------------
 
-  //Setter-KnotenName
   setLabel(newLabel) {
     this.label = newLabel;
   }
@@ -156,7 +151,6 @@ export default class NodeModel {
     this.labelColor = labelColor;
   }
 
-  //Getter-KnotenName
   getLabel() {
     return this.label;
   }

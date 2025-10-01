@@ -1,6 +1,3 @@
-//Canvas vorbereiten
-
-//hier muss ich mir iwann mal nen richtigen eigenen import raussuchen
 import * as d3 from "d3";
 
 export function initializeSvgCanvas() {

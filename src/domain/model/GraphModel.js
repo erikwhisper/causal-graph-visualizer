@@ -6,7 +6,6 @@ export default class GraphModel {
     this.links = [];
   }
 
-  //check ob nodeId schon verhanden, falls ja neue generieren.
   addNode(newNode) {
     const node = new NodeModel(
       newNode.nodeId,
@@ -26,7 +25,6 @@ export default class GraphModel {
     this.nodes.push(node);
   }
 
-  //check ob linkId schon verhanden, falls ja neue generieren.
   addLink(newLink) {
     const link = new LinkModel(
       newLink.linkId,
@@ -48,12 +46,12 @@ export default class GraphModel {
   }
 
   setAllNodes(nodes) {
-    this.nodes = []; //erst alles löschen //aner idk ob das notwendig ist
+    this.nodes = [];
     nodes.forEach((node) => this.addNode(node));
   }
 
   setAllLinks(links) {
-    this.links = []; //erst alles löschen //aber idk ob das notwendig ist
+    this.links = [];
     links.forEach((link) => this.addLink(link));
   }
 
@@ -85,7 +83,6 @@ export default class GraphModel {
     };
   }
 
-  //man könnte in deleteNode auch deleteLink aufrufen aber whatever tbh
   deleteNode(nodeId) {
     this.nodes = this.nodes.filter((node) => node.nodeId !== nodeId);
     this.links = this.links.filter(

@@ -1,8 +1,3 @@
-
-
-//wenn drawLabels angepasst wurde zur entgegenname von graph anstatt nodes kann ganz viel getNodes und so
-// in andere funktionen weg, getLinks ist schon überall obsolet.
-
 export function drawLabels(svg, graph) {
   const labelGroup = svg.select("#label-layer");
 

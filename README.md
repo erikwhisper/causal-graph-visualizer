@@ -85,7 +85,6 @@ npm install
 
 
 ### Development Commands
-```bash
 npm run dev          # Web development server
 npm run electron:dev # Electron development
 npm run build        # Build web version

@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { updateVisualStyles } from "../../../visualization/update/updateVisualStyles";
+import { updateVisualStyles } from "../../../visualization/update/updateVisualStyles.js";
 import { renderNodePropertiesPanel } from "../../ui/renderNodePropertiesPanel.js";
 
 export function handleNodeMultiHighlight(element, graph, svg, graphHistory) {

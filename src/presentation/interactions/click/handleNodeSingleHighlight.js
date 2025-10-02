@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { updateVisualStyles } from "../../../visualization/update/updateVisualStyles";
+import { updateVisualStyles } from "../../../visualization/update/updateVisualStyles.js";
 import { renderNodePropertiesPanel } from "../../ui/renderNodePropertiesPanel.js";
 import { unhighlightAll } from "../../utils/unhighlightAll.js";
 

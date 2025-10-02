@@ -12,5 +12,3 @@ export function getCurrentMousePosition() {
   return currentMousePos;
 }
 
-//optional könnte hier nur alle paar ms mit einer schedueled die position aktualisiert werden
-//wäre eine idee performance zu verbessern.

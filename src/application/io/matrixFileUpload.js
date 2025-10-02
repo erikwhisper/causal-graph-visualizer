@@ -43,8 +43,6 @@ export function matrixFileUpload(svg, graph, graphHistory) {
         drawLinks(svg, graph, graphHistory);
         renderInfoPanel(graph);
 
-        registerClickHandlers(svg, graph, graphHistory);
-
         graphHistory.setNewState(graph.getEverything());
       } catch (err) {
         alert(`Import fehlgeschlagen:\n${err.message}`);

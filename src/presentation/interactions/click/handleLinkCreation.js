@@ -1,46 +1,38 @@
 import * as d3 from "d3";
-import { drawNodes } from "../../../visualization/draw/drawNodes.js";
-import { drawLabels } from "../../../visualization/draw/drawLabels.js";
 import { drawLinks } from "../../../visualization/draw/drawLinks.js";
-import { updateVisualStyles } from "../../../visualization/update/updateVisualStyles.js";
-import { registerClickHandlers } from "./registerClickHandlers.js";
 import { unhighlightAll } from "../../utils/unhighlightAll.js";
-import { renderInfoPanel } from "../../ui/renderInfoPanel.js"; //RENDER_INFO_PANEL: experimentell
+import { renderInfoPanel } from "../../ui/renderInfoPanel.js";
 
-//OG VERSION:
-let firstNode = null;
+export function handleLinkCreation(svg, graph, graphHistory) {
+  let firstNode = null;
 
-export function handleLinkCreation(element, svg, graph, graphHistory) {
-  unhighlightAll(svg, graph);
+  return {
+    handleClick(element) {
+      unhighlightAll(svg, graph);
+      const clickedNode = d3.select(element).datum();
 
-  const clickedNode = d3.select(element).datum();
+      if (!firstNode) {
+        firstNode = clickedNode;
+        return;
+      }
 
-  if (!firstNode) {
-    firstNode = clickedNode;
-    return;
-  }
+      const secondNode = clickedNode;
 
-  const secondNode = clickedNode;
+      if (firstNode.getNodeId() === secondNode.getNodeId()) {
+        firstNode = null;
+        return;
+      }
 
-  if (firstNode.getNodeId() === secondNode.getNodeId()) {
-    firstNode = null;
-    return;
-  }
+      graph.addLink({
+        sourceNodeId: firstNode.getNodeId(),
+        targetNodeId: secondNode.getNodeId(),
+      });
 
-  graph.addLink({
-    sourceNodeId: firstNode.getNodeId(),
-    targetNodeId: secondNode.getNodeId(),
-  });
+      drawLinks(svg, graph, graphHistory);
+      renderInfoPanel(graph);
+      graphHistory.setNewState(graph.getEverything());
 
-  //PERFORMANCE ISSUE
-  drawNodes(svg, graph, graphHistory);
-  drawLabels(svg, graph);
-  drawLinks(svg, graph, graphHistory);
-  updateVisualStyles(svg, graph);
-  renderInfoPanel(graph);
-
-  registerClickHandlers(svg, graph, graphHistory);
-  graphHistory.setNewState(graph.getEverything());
-
-  firstNode = null;
+      firstNode = null;
+    },
+  };
 }

@@ -1,6 +1,6 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-import { addMouseMoveListener } from "./presentation/utils/mousePosition.js";
+//import { addMouseMoveListener } from "./presentation/interactions/keydown/utils/mousePosition.js";
 import { GraphHistoryManager } from "./domain/service/GraphHistoryManager.js";
 import { registerClickHandlers } from "./presentation/interactions/click/registerClickHandlers.js";
 import { registerKeydownHandlers } from "./presentation/interactions/keydown/registerKeydownHandlers.js";
@@ -28,9 +28,7 @@ let svg = initializeSvgCanvas();
 
 drawGraph(svg, graph, graphHistory);
 
-addMouseMoveListener(svg);
-
-//wird für jeden neuen knoten und kante wieder aufgerufen
+//das wird einmalig aufgerufen und festgelegt
 registerClickHandlers(svg, graph, graphHistory);
 
 //das wird einmalig aufgerufen und festgelegt

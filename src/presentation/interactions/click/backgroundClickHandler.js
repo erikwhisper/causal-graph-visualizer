@@ -5,11 +5,14 @@ export function registerBackgroundClick(svg, graph) {
     if (event.ctrlKey) return;
 
     const target = event.target;
-    const clickedNode = target.closest?.(".node");
-    const clickedLink = target.closest?.(".link");
 
-    //idee: hier könnte ich auch unhighlightAll verwenden.
-    if (!clickedNode && !clickedLink) {
+    if (
+      !(
+        target.classList.contains("node") ||
+        target.classList.contains("link") ||
+        target.classList.contains("node-label")
+      )
+    ) {
       unhighlightAll(svg, graph);
     }
   });

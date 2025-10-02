@@ -32,8 +32,6 @@ export function jsonFileUpload(svg, graph, graphHistory) {
         drawLinks(svg, graph, graphHistory);
         renderInfoPanel(graph);
 
-        registerClickHandlers(svg, graph, graphHistory);
-
         graphHistory.setNewState(graph.getEverything());
       } catch (error) {
         console.error("Fehler beim Laden des Graphen:", error);

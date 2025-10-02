@@ -4,9 +4,13 @@ import { handleUndo } from "./handleUndo.js";
 import { handleRedo } from "./handleRedo.js";
 import { handleGridToggle } from "./handleGridToggle.js";
 
-import { getCurrentMousePosition } from "../../utils/mousePosition.js";
+import { addMouseMoveListener } from "./utils/mousePosition.js";
+import { getCurrentMousePosition } from "./utils/mousePosition.js";
 
 export function registerKeydownHandlers(svg, graph, graphHistory) {
+
+  addMouseMoveListener(svg);
+
   document.addEventListener("keydown", (event) => {
     const currentMousePos = getCurrentMousePosition();
     const xCoor = currentMousePos[0];

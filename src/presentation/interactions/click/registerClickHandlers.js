@@ -1,32 +1,44 @@
 import { handleLinkCreation } from "./handleLinkCreation.js";
-import { handleNodeSingleHighlight } from "./nodeClickHandlers.js";
-import { handleNodeMultiHighlight } from "./nodeClickHandlers.js";
-import { handleLinkSingleHighlight } from "./linkClickHandlers.js";
-import { handleLinkMultiHighlight } from "./linkClickHandlers.js";
+import { handleNodeMultiHighlight } from "./handleNodeMultiHighlight.js";
+import { handleNodeSingleHighlight } from "./handleNodeSingleHighlight.js";
+import { handleLinkMultiHighlight } from "./handleLinkMultiHighlight.js";
+import { handleLinkSingleHighlight } from "./handleLinkSingleHighlight.js";
 import { registerBackgroundClick } from "./backgroundClickHandler.js";
 
+//Damit die Funktion nur einmalig aufgerufen werden muss, werden clickHandler nun auf den
+//jeweiligen Event Layers regestriert und nicht auf den einzelnen zum aktuellen Zeitpunkt
+//des Aufrufs vorhandenen nodes/links. Dadurch werden ne menge Functioncalls gespart.
 export function registerClickHandlers(svg, graph, graphHistory) {
-  svg.selectAll(".node").on("click", null);
-  svg.selectAll(".link").on("click", null);
+  const linkCreationHandler = handleLinkCreation(svg, graph, graphHistory);
 
-  svg.selectAll(".node").on("click", function (event) {
-    if (event.altKey) {
-      handleLinkCreation( this, svg, graph, graphHistory);
-    } else if (event.ctrlKey) {
-      handleNodeMultiHighlight(this, graph, svg, graphHistory);
-    } else {
-      handleNodeSingleHighlight(this, graph, svg, graphHistory);
+  const nodeLayer = svg.select("#node-layer");
+  const linkLayer = svg.select("#link-layer");
+
+  nodeLayer.on("click", function (event) {
+    const target = event.target;
+
+    if (target.classList.contains("node")) {
+      if (event.altKey) {
+        linkCreationHandler.handleClick(target);
+      } else if (event.ctrlKey) {
+        handleNodeMultiHighlight(target, graph, svg, graphHistory);
+      } else {
+        handleNodeSingleHighlight(target, graph, svg, graphHistory);
+      }
     }
   });
 
-  svg.selectAll(".link").on("click", function (event) {
-    if (event.ctrlKey) {
-      handleLinkMultiHighlight(this, graph, svg, graphHistory);
-    } else {
-      handleLinkSingleHighlight(this, graph, svg, graphHistory);
+  linkLayer.on("click", function (event) {
+    const target = event.target;
+
+    if (target.classList.contains("link")) {
+      if (event.ctrlKey) {
+        handleLinkMultiHighlight(target, graph, svg, graphHistory);
+      } else {
+        handleLinkSingleHighlight(target, graph, svg, graphHistory);
+      }
     }
   });
 
   registerBackgroundClick(svg, graph);
 }
-

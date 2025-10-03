@@ -39,12 +39,12 @@ Download the latest version for your operating system from the [Releases](../../
 ### Desktop App
 1. Download the installer for your OS
 2. Install and launch the application
-3. Left-click on the canvas and press **`Alt+N`** to add your first node
+3. Left-click on the canvas and press **`Ctrl+Alt+N`** to add your first node
    - Alternatively, import a CSV matrix or JSON graph (see [File Formats](#-file-formats))
 
 ### Web Version
 1. Visit the [web application](#)
-2. Left-click on the canvas and press **`Alt+N`** to add your first node
+2. Left-click on the canvas and press **`Ctrl+Alt+N`** to add your first node
    - Alternatively, import a CSV matrix or JSON graph (see [File Formats](#-file-formats))
 3. Start building your causal graph!
 

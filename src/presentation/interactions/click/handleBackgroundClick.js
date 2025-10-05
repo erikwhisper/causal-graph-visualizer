@@ -1,6 +1,6 @@
 import { unhighlightAll } from "../../utils/unhighlightAll.js";
 
-export function registerBackgroundClick(svg, graph) {
+export function handleBackgroundClick(svg, graph) {
   svg.on("click", function (event) {
     if (event.ctrlKey) return;
 

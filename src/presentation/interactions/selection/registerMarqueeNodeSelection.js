@@ -19,8 +19,6 @@ export function registerMarqueeNodeSelection(svg, graph, graphHistory) {
     const target = event.target;
     if (target.closest?.(".node") || target.closest?.(".link")) return;
 
-    console.log("node marquee down");
-
     isDragging = true;
     start = d3.pointer(event, svg.node());
 

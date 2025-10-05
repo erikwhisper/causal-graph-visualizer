@@ -6,7 +6,6 @@ import { renderInfoPanel } from "../../ui/renderInfoPanel.js";
 export function handleRedo(svg, graph, graphHistory) {
   unhighlightAll(svg, graph);
 
-  console.log("Redo!");
   graphHistory.redo();
 
   const state = graphHistory.getState();

@@ -6,7 +6,6 @@ import { renderInfoPanel } from "../../ui/renderInfoPanel.js";
 export function handleUndo(svg, graph, graphHistory) {
   unhighlightAll(svg, graph);
 
-  console.log("Undo!");
   graphHistory.undo();
 
   const state = graphHistory.getState();

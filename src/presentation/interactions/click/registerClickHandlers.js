@@ -3,7 +3,7 @@ import { handleNodeMultiHighlight } from "./handleNodeMultiHighlight.js";
 import { handleNodeSingleHighlight } from "./handleNodeSingleHighlight.js";
 import { handleLinkMultiHighlight } from "./handleLinkMultiHighlight.js";
 import { handleLinkSingleHighlight } from "./handleLinkSingleHighlight.js";
-import { registerBackgroundClick } from "./backgroundClickHandler.js";
+import { handleBackgroundClick } from "./handleBackgroundClick.js";
 
 //Damit die Funktion nur einmalig aufgerufen werden muss, werden clickHandler nun auf den
 //jeweiligen Event Layers regestriert und nicht auf den einzelnen zum aktuellen Zeitpunkt
@@ -40,5 +40,5 @@ export function registerClickHandlers(svg, graph, graphHistory) {
     }
   });
 
-  registerBackgroundClick(svg, graph);
+  handleBackgroundClick(svg, graph);
 }

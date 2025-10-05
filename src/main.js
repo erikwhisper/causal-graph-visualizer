@@ -1,6 +1,5 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-//import { addMouseMoveListener } from "./presentation/interactions/keydown/utils/mousePosition.js";
 import { GraphHistoryManager } from "./domain/service/GraphHistoryManager.js";
 import { registerClickHandlers } from "./presentation/interactions/click/registerClickHandlers.js";
 import { registerKeydownHandlers } from "./presentation/interactions/keydown/registerKeydownHandlers.js";
@@ -28,35 +27,25 @@ let svg = initializeSvgCanvas();
 
 drawGraph(svg, graph, graphHistory);
 
-//das wird einmalig aufgerufen und festgelegt
 registerClickHandlers(svg, graph, graphHistory);
 
-//das wird einmalig aufgerufen und festgelegt
 registerMarqueeNodeSelection(svg, graph, graphHistory);
 
-//das wird einmalig aufgerufen und festgelegt
 registerMarqueeLinkSelection(svg, graph, graphHistory);
 
-//das wird einmalig aufgerufen und festgelegt
 registerKeydownHandlers(svg, graph, graphHistory);
 
-//das wird einmalig aufgerufen und festgelegt
 registerToolbarButtons(svg, graph, graphHistory);
 
 //-----Hier nach ist erstmal irrelevant, das wird sich bestimmt noch paar mal ändern:
 
-//not yet validated (just minor things to validate, due to standartwerte)
 jsonFileUpload(svg, graph, graphHistory);
 
-//validated
 matrixFileUpload(svg, graph, graphHistory);
 
-//not yet validated (nothing to validate rlly tho)
 jsonFileDownload(graph);
 
-//validated
 matrixFileDownload(graph);
 
-//for export, is it necessary to call it here?
 setupPngExport();
 setupPdfExport();

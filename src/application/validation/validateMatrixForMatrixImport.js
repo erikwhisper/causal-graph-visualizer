@@ -1,10 +1,4 @@
-//TODO: Die Funkton mal aufräumen und menschen leserlich machen.
-//Kann man bestimmt hunderte utils funktionen machen, also maybe /validation/utils
-//erstellen und da rein moven
-
-//Variablen sinnvollere namen geben
-
-/* ------------------  erlaubte Paar‑Kodierungen  ------------------ */
+//Erlaubte Paar‑Kodierungen
 const allowedPairKeys = new Set([
   //Keine Kante
   "0_0",
@@ -58,73 +52,56 @@ export function validateMatrixForMatrixImport(text) {
 function checkCornerCell(lines) {
   if (lines[0][0] !== '""') {
     throw new Error(
-      "Der linke-obere Eintrag muss genau" +
-        ' "" ' +
-        "sein (leerer Label-Platzhalter)."
+      `Top-left cell must be exactly "" (empty label placeholder), got: ${lines[0][0]}`
     );
   }
 }
 
 function checkLabelSyntax(lines) {
-  //Kopfzeile: alle Zellen ausser dem ersten
   const header = lines[0];
   header.forEach((cell, i) => {
     if (!/^".*"$/.test(cell)) {
       throw new Error(
-        "Kopfzeile: Label in Spalte " +
-          `${i}` +
-          ' muss in Anführungszeichen stehen (z.B. "A").'
+        `Header column ${i}: Label must be quoted (e.g., "A"), got: ${cell}`
       );
     }
   });
 
-  //Erste Spalte jeder Zeile außer der Kopfzeile
   lines.slice(1).forEach((row, i) => {
     const cell = row[0];
     if (!/^".*"$/.test(cell)) {
       throw new Error(
-        "Zeile " +
-          `${i + 1}` +
-          ': Label in erster Spalte muss in Anführungszeichen stehen (z.B. "A").'
+        `Row ${
+          i + 1
+        }: Label in first column must be quoted (e.g., "A"), got: ${cell}`
       );
     }
   });
 }
 
 function checkSquare(lines) {
-  const n = lines[0].length - 1; //Spaltenzahlen
+  const n = lines[0].length - 1;
   if (lines.length !== n + 1) {
     throw new Error(
-      "Matrix hat " +
-        `${lines.length - 1}` +
-        "Zeilen, erwartet: " +
-        `${n}` +
-        "."
+      `Matrix has ${
+        lines.length - 1
+      } rows but ${n} columns (expected square matrix)`
     );
   }
   lines.forEach((row, i) => {
     if (row.length !== n + 1) {
-      //Anzahl zeileneinträge pro Zeile
-      throw new Error(
-        "Zeile " +
-          `${i}` +
-          " hat " +
-          `${row.length - 1}` +
-          " Werte, erwartet: " +
-          `${n}` +
-          "."
-      );
+      throw new Error(`Row ${i} has ${row.length - 1} values, expected ${n}`);
     }
   });
 }
 
 function extractLabels(lines) {
-  const raw = lines[0].slice(1); //erste Zeile,ohne erstes‑Feld
+  const raw = lines[0].slice(1);
   const labels = raw.map(cleanLabel);
 
-  const dup = labels.find((lab, i) => labels.indexOf(lab) !== i);
-  if (dup) {
-    throw new Error("Label " + `${dup}` + " kommt mehrfach vor.");
+  const duplicate = labels.find((lab, i) => labels.indexOf(lab) !== i);
+  if (duplicate) {
+    throw new Error(`Duplicate label found: "${duplicate}"`);
   }
   return labels;
 }
@@ -134,13 +111,7 @@ function checkRowColumnMatch(lines, colLabels) {
   colLabels.forEach((lab, i) => {
     if (lab !== rowLabels[i]) {
       throw new Error(
-        "Label-Mismatch an Index " +
-          `${i}` +
-          ": Spalte " +
-          `${lab}` +
-          ", Zeile " +
-          `${rowLabels[i]}` +
-          "."
+        `Label mismatch at index ${i}: Column="${lab}", Row="${rowLabels[i]}"`
       );
     }
   });
@@ -152,29 +123,17 @@ function checkAllCellsFilled(lines) {
     for (let c = 1; c < lines[r].length; c++) {
       const cell = lines[r][c].trim();
       if (cell === "") {
-        throw new Error(
-          "Leeres Feld in Zeile " + `${r}` + ", Spalte " + `${c}` + "."
-        );
+        throw new Error(`Empty cell at row ${r}, column ${c}`);
       }
       const v = Number(cell);
       if (Number.isNaN(v) || !validNumbers.has(v)) {
-        throw new Error(
-          "Ungültiger Wert " +
-            `${cell}` +
-            " in Feld [" +
-            `${r}` +
-            "," +
-            `${c}` +
-            "]" +
-            "."
-        );
+        throw new Error(`Invalid value "${cell}" at [${r}, ${c}]. Must be 0-5`);
       }
     }
   }
 }
 
 function checkDiagonalZero(lines) {
-  //Anzahl Zahlen pro Zeile = Spaltenzahl = n
   const n = lines[0].length - 1;
 
   for (let i = 0; i < n; i++) {
@@ -182,15 +141,9 @@ function checkDiagonalZero(lines) {
     if (value !== 0) {
       const label = lines[0][i + 1].replace(/"/g, "");
       throw new Error(
-        "Diagonaleintrag für Knoten " +
-          `${label}` +
-          " (Zeile " +
-          `${i + 1}` +
-          ", Spalte " +
-          `${i + 1}` +
-          ") ist " +
-          `${value}` +
-          ", erwartet 0."
+        `Diagonal entry for node "${label}" at [${i + 1}, ${
+          i + 1
+        }] is ${value}, expected 0 (no self-loops)`
       );
     }
   }
@@ -205,15 +158,9 @@ function checkAllowedPairs(lines) {
       const key = `${a}_${b}`;
       if (!allowedPairKeys.has(key)) {
         throw new Error(
-          "Ungültige Kombination (" +
-            `${a}` +
-            ", " +
-            `${b}` +
-            ") zwischen " +
-            `${cleanLabel(lines[i][0])}` +
-            " und " +
-            `${cleanLabel(lines[j][0])}` +
-            "."
+          `Invalid edge combination (${a}, ${b}) between "${cleanLabel(
+            lines[i][0]
+          )}" and "${cleanLabel(lines[j][0])}"`
         );
       }
     }

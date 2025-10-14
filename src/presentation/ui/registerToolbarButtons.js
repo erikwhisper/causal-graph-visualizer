@@ -1,5 +1,3 @@
-// presentation/ui/registerToolbarButtons.js
-
 import { handleAddNode } from "../interactions/keydown/handleAddNode.js";
 import { handleUndo } from "../interactions/keydown/handleUndo.js";
 import { handleRedo } from "../interactions/keydown/handleRedo.js";

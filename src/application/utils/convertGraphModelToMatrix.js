@@ -1,7 +1,6 @@
 //utils sollte eher eine /io/utils sein und keine /application/utils
 //denn für validation wäre auch eien /validation/utils keine schlechte idee
 
-
 export function convertGraphModelToMatrix(graphData) {
   const { nodes, links } = graphData;
   const idToLabel = {};
@@ -21,9 +20,9 @@ export function convertGraphModelToMatrix(graphData) {
     const fromIndex = labelToIndex[idToLabel[link.sourceNodeId]];
     const toIndex = labelToIndex[idToLabel[link.targetNodeId]];
     matrix[fromIndex][toIndex] =
-      matrix[fromIndex][toIndex] + edgeMap[link.arrowhead] ?? 0; //lowkey hier ?? 0 unnoetig
+      matrix[fromIndex][toIndex] + edgeMap[link.arrowhead] ?? 0;
     matrix[toIndex][fromIndex] =
-      matrix[toIndex][fromIndex] + edgeMap[link.arrowtail] ?? 0; //lowkey hier ?? 0 unnoetig
+      matrix[toIndex][fromIndex] + edgeMap[link.arrowtail] ?? 0;
   });
 
   const header = [`""`, ...nodes.map((n) => `"${n.label}"`)].join(",");

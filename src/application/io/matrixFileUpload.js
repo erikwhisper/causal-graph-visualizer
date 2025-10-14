@@ -2,50 +2,55 @@ import { convertMatrixToGraphModel } from "../utils/convertMatrixToGraphModel.js
 import { drawNodes } from "../../visualization/draw/drawNodes.js";
 import { drawLinks } from "../../visualization/draw/drawLinks.js";
 import { drawLabels } from "../../visualization/draw/drawLabels.js";
-import { registerClickHandlers } from "../../presentation/interactions/click/registerClickHandlers.js";
 import { validateMatrixForMatrixImport } from "../validation/validateMatrixForMatrixImport.js";
-
-import { layoutHierarchical } from "../../visualization/utils/layoutHierarchical.js";
+import { layoutHierarchical } from "../layout/layoutHierarchical.js";
 import { renderInfoPanel } from "../../presentation/ui/renderInfoPanel.js";
 
 export function matrixFileUpload(svg, graph, graphHistory) {
-  document
-    .getElementById("pag-matrix-file")
-    .addEventListener("change", async (event) => {
-      const file = event.target.files[0];
-      if (!file) return;
+  const fileInput = document.getElementById("pag-matrix-file");
 
-      try {
-        const text = await file.text();
+  if (!fileInput) {
+    console.warn("Matrix file input element not found");
+    return;
+  }
 
-        validateMatrixForMatrixImport(text);
+  const handler = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
 
-        const { nodes, links } = convertMatrixToGraphModel(text);
+    try {
+      const text = await file.text();
 
-        if (!Array.isArray(nodes) || !Array.isArray(links)) {
-          throw new Error(
-            "Die Datei enthält kein gültiges GraphModel mit 'nodes' und 'links'."
-          );
-        }
+      validateMatrixForMatrixImport(text);
 
-        //width und height von svg canvas, anpassen wenn dynamisch auch hier
-        const width = svg.attr("width");
-        const height = svg.attr("height");
+      const { nodes, links } = convertMatrixToGraphModel(text);
 
-        layoutHierarchical(nodes, links, width, height);
-
-        graph.deleteEverything();
-        nodes.forEach((node) => graph.addNode(node));
-        links.forEach((link) => graph.addLink(link));
-
-        drawNodes(svg, graph, graphHistory);
-        drawLabels(svg, graph);
-        drawLinks(svg, graph, graphHistory);
-        renderInfoPanel(graph);
-
-        graphHistory.setNewState(graph.getEverything());
-      } catch (err) {
-        alert(`Import fehlgeschlagen:\n${err.message}`);
+      if (!Array.isArray(nodes) || !Array.isArray(links)) {
+        throw new Error("Conversion failed: Invalid graph structure");
       }
-    });
+
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      layoutHierarchical(nodes, links, width, height);
+
+      graph.deleteEverything();
+      nodes.forEach((node) => graph.addNode(node));
+      links.forEach((link) => graph.addLink(link));
+
+      drawNodes(svg, graph, graphHistory);
+      drawLabels(svg, graph);
+      drawLinks(svg, graph, graphHistory);
+      renderInfoPanel(graph);
+
+      graphHistory.setNewState(graph.getEverything());
+    } catch (err) {
+      console.error("Matrix import error:", err);
+      alert(`Import failed:\n${err.message}`);
+    } finally {
+      event.target.value = "";
+    }
+  };
+
+  fileInput.addEventListener("change", handler);
+  return () => fileInput.removeEventListener("change", handler);
 }

@@ -1,11 +1,5 @@
 import GraphModel from "../../domain/model/GraphModel.js";
 
-//Mögliche Verbesserungen an der Matrix eingabe.
-//(1.)
-//Man könnte sich anschauen was der löngste Labelname ist und basierend daruaf einen
-//Knoten Radius berechnen den man dann für alle Knoten setzen, so das bei jedem Knoten
-//der Text/Label auf jeden Fall innerhalb des Radius ist.
-
 const edgePairMap = {
   /*----------Keine Kante----------*/
   "0_0": [],
@@ -35,7 +29,6 @@ const edgePairMap = {
 export function convertMatrixToGraphModel(text) {
   const lines = text.trim().split(/\r?\n/);
 
-  //knoten anlegen
   const nodeLabels = lines[0]
     .split(",")
     .slice(1)
@@ -51,9 +44,8 @@ export function convertMatrixToGraphModel(text) {
 
   const nodes = tempGraph.getAllNodes();
   const getNodeIdByLabel = (label) =>
-    nodes.find((node) => node.label === label)?.nodeId; //is das ? hier noch notwendig?
+    nodes.find((node) => node.label === label).nodeId;
 
-  //Kanten erzeugen
   for (let i = 1; i < lines.length; i++) {
     const row = lines[i].split(",");
     const fromLabel = row[0].replace(/"/g, "").trim();
@@ -63,7 +55,6 @@ export function convertMatrixToGraphModel(text) {
       const toLabel = nodeLabels[j - 1];
       const toNodeId = getNodeIdByLabel(toLabel);
 
-      //10 für dezimal
       const v1 = parseInt(row[j], 10); // i -> j
       const v2 = parseInt(lines[j].split(",")[i], 10); // j -> i
 
@@ -71,17 +62,6 @@ export function convertMatrixToGraphModel(text) {
 
       const pairKey = `${v1}_${v2}`;
       const specs = edgePairMap[pairKey];
-
-      //entweder hier lassen oder nochmal mit boiler code in validateMatrixForMatrixImport.js
-      //als eigene hilfsdatei moven, aber lowkey overkill
-      //eigentlich kann der check hier jetzt weg, da wir ihn in validateMatrix Funktion
-      //bereits implementiert haben.
-      if (!specs) {
-        console.error(
-          `Ungültige Kombination: zwischen "${fromLabel}"=${v1} und "${toLabel}"=${v2}.`
-        );
-        return { nodes: [], links: [] };
-      }
 
       if (specs && specs.length) {
         specs.forEach((spec) =>

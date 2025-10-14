@@ -37,7 +37,7 @@ registerKeydownHandlers(svg, graph, graphHistory);
 
 registerToolbarButtons(svg, graph, graphHistory);
 
-//-----Hier nach ist erstmal irrelevant, das wird sich bestimmt noch paar mal ändern:
+//-----Ab hier weiter:
 
 jsonFileUpload(svg, graph, graphHistory);
 

@@ -1,4 +1,4 @@
-import { convertGraphModelToMatrix } from "../utils/convertGraphModelToMatrix.js";
+import { convertGraphModelToMatrix } from "../conversion/convertGraphModelToMatrix.js";
 import { validateGraphForMatrixExport } from "../validation/validateGraphForMatrixExport.js";
 
 export function matrixFileDownload(graph) {

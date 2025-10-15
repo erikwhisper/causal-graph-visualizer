@@ -1,6 +1,3 @@
-//utils sollte eher eine /io/utils sein und keine /application/utils
-//denn für validation wäre auch eien /validation/utils keine schlechte idee
-
 export function convertGraphModelToMatrix(graphData) {
   const { nodes, links } = graphData;
   const idToLabel = {};

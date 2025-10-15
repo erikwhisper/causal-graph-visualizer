@@ -1,4 +1,4 @@
-import { convertMatrixToGraphModel } from "../utils/convertMatrixToGraphModel.js";
+import { convertMatrixToGraphModel } from "../conversion/convertMatrixToGraphModel.js";
 import { drawNodes } from "../../visualization/draw/drawNodes.js";
 import { drawLinks } from "../../visualization/draw/drawLinks.js";
 import { drawLabels } from "../../visualization/draw/drawLabels.js";

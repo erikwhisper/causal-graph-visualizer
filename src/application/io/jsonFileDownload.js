@@ -1,5 +1,12 @@
+//hier ist ein validate vermutlich unnötig, da das interne graph modell ja
+//zwangsweise korrekt sein muss
+//entsprechend brauch die funktion im vergleich zu matrixFileDownload
+//auf keinen try / carch block.
+
 export function jsonFileDownload(graph) {
-  document.getElementById("download-graph").addEventListener("click", () => {
+  const button = document.getElementById("download-graph");
+
+  const handler = () => {
     const graphData = graph.getEverything();
 
     const jsonStr = JSON.stringify(graphData, null, 2);
@@ -13,5 +20,8 @@ export function jsonFileDownload(graph) {
     downloadLink.click();
     document.body.removeChild(downloadLink);
     URL.revokeObjectURL(url);
-  });
+  };
+
+  button.addEventListener("click", handler);
+  return () => button.removeEventListener("click", handler);
 }

@@ -1,5 +1,6 @@
 import dagre from "dagre";
 import { rescaleToCanvas } from "./utils/rescaleToCanvas";
+import { applyCurvatureOffsets } from "./utils/applyCurvatureOffsets";
 
 export function layoutHierarchical(nodes, links, width, height) {
   const g = new dagre.graphlib.Graph();

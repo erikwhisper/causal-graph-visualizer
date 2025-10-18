@@ -43,9 +43,9 @@ export function matrixFileUpload(svg, graph, graphHistory) {
       renderInfoPanel(graph);
 
       graphHistory.setNewState(graph.getEverything());
-    } catch (err) {
-      console.error("Matrix import error:", err);
-      alert(`Import failed:\n${err.message}`);
+    } catch (error) {
+      console.error("Matrix import error:", error);
+      alert(`Import failed:\n${error.message}`);
     } finally {
       event.target.value = "";
     }

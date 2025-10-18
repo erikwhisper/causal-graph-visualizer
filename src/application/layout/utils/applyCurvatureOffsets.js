@@ -1,4 +1,4 @@
-function applyCurvatureOffsets(links, nodes) {
+export function applyCurvatureOffsets(links, nodes) {
   const nodeMap = new Map(nodes.map((n) => [n.getNodeId(), n]));
   const linkGroups = new Map();
 

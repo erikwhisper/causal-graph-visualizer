@@ -37,8 +37,6 @@ registerKeydownHandlers(svg, graph, graphHistory);
 
 registerToolbarButtons(svg, graph, graphHistory);
 
-//-----Ab hier weiter:
-
 jsonFileUpload(svg, graph, graphHistory);
 
 matrixFileUpload(svg, graph, graphHistory);

@@ -2,10 +2,12 @@ import { convertGraphModelToMatrix } from "../conversion/convertGraphModelToMatr
 import { validateGraphForMatrixExport } from "../validation/validateGraphForMatrixExport.js";
 
 export function matrixFileDownload(graph) {
-  document.getElementById("download-matrix").addEventListener("click", () => {
-    const graphData = graph.getEverything();
+  const button = document.getElementById("download-matrix");
 
+  const handler = () => {
     try {
+      const graphData = graph.getEverything();
+
       validateGraphForMatrixExport(graphData);
 
       const matrixCsv = convertGraphModelToMatrix(graphData);
@@ -20,8 +22,12 @@ export function matrixFileDownload(graph) {
       downloadLink.click();
       document.body.removeChild(downloadLink);
       URL.revokeObjectURL(url);
-    } catch (err) {
-      alert(`Export fehlgeschlagen:\n${err.message}`);
+    } catch (error) {
+      console.error("Matrix export failed:", error);
+      alert(`Export failed:\n${error.message}`);
     }
-  });
+  };
+
+  button.addEventListener("click", handler);
+  return () => button.removeEventListener("click", handler);
 }

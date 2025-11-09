@@ -1,15 +1,16 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import { copyFileSync } from 'fs';
 
 export default defineConfig({
-  // Vite root auf src setzen
   root: 'src',
   base: './',
+  publicDir: '../assets',
   build: {
     outDir: '../dist',
     emptyOutDir: true,
     rollupOptions: {
-      input: resolve(__dirname, 'src/index.html') // index.html direkt in src
+      input: resolve(__dirname, 'src/index.html')
     }
   },
   resolve: {
@@ -20,5 +21,16 @@ export default defineConfig({
   server: {
     port: 3000,
     strictPort: true
-  }
+  },
+  plugins: [
+    {
+      name: 'copy-favicon',
+      closeBundle() {
+        copyFileSync(
+          resolve(__dirname, 'assets/favicon.ico'),
+          resolve(__dirname, 'dist/favicon.ico')
+        );
+      }
+    }
+  ]
 });

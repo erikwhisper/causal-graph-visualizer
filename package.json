@@ -30,35 +30,38 @@
       "dist/**/*",
       "electron/**/*"
     ],
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": ["x64"]
-        },
-        {
-          "target": "portable",
-          "arch": ["x64"]
-        }
-      ]
-    },
-    "mac": {
-      "target": [
-        {
-          "target": "dmg",
-          "arch": ["x64", "arm64"]
-        }
-      ]
-    },
-    "linux": {
-      "target": [
-        {
-          "target": "AppImage",
-          "arch": ["x64"]
-        }
-      ],
-      "category": "Utility"
-    },
+  "win": {
+    "target": [
+     {
+       "target": "nsis",
+       "arch": ["x64"]
+      },
+      {
+        "target": "portable",
+        "arch": ["x64"]
+      }
+   ],
+   "icon": "assets/icon.ico"
+  },  
+  "mac": {
+   "target": [
+     {
+       "target": "dmg",
+       "arch": ["x64", "arm64"]
+     }
+    ],
+    "icon": "assets/icon.icns"
+  },
+  "linux": {
+    "target": [
+     {
+       "target": "AppImage",
+       "arch": ["x64"]
+     }
+    ],
+    "category": "Utility",
+    "icon": "assets/icon.png"
+  },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,

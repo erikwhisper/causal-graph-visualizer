@@ -7,7 +7,7 @@ Available as both a **desktop application** and a **web application**.
 
 ## Try it Online
 
-[Web version (link coming soon)](#)
+[Web version](https://causal-graph-visualizer-014f12.pages.imims.de/)
 
 ---
 
@@ -43,7 +43,7 @@ Download the latest version for your operating system from the [Releases](../../
    - Alternatively, import a CSV matrix or JSON graph (see [File Formats](#-file-formats))
 
 ### Web Version
-1. Visit the [web application](#)
+1. Visit the [web application](https://causal-graph-visualizer-014f12.pages.imims.de/)
 2. Left-click on the canvas and press **`Ctrl+Alt+N`** to add your first node
    - Alternatively, import a CSV matrix or JSON graph (see [File Formats](#-file-formats))
 3. Start building your causal graph!

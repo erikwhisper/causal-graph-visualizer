@@ -6,7 +6,7 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1200,
+    width: 1500,
     height: 800,
     webPreferences: {
       preload: path.join(__dirname, "preload.cjs"),
@@ -15,6 +15,8 @@ function createWindow() {
       enableRemoteModule: false,
     },
   });
+
+  mainWindow.setMenu(null);
 
   if (isDev) {
     mainWindow.loadURL("http://localhost:3000");

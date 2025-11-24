@@ -59,15 +59,15 @@ Download the latest version for your operating system from the [Releases](../../
 | Undo | Yes | **Ctrl+Z** |
 | Redo | Yes | **Ctrl+Y** |
 | Add Node | Yes | **Ctrl+Alt+N** (opens popup to enter name) |
+| Add Link | No | **Ctrl+Alt+LeftClick** on two nodes |
+| Multi-select Nodes | No | **Ctrl+Drag** |
+| Multi-select Edges | No | **Ctrl+Shift+Drag** |
 | Delete Selection | Yes | **Delete** |
 | Toggle Grid & Clipping | Yes | **Alt+G** |
 | Export CSV Matrix | Yes | – |
 | Export JSON Graph | Yes | – |
 | Export PDF | Yes | – |
 | Export PNG | Yes | (popup: DPI & transparent background) |
-| Add Link | No | **Alt+LeftClick** on two nodes |
-| Multi-select Nodes | No | **Ctrl+Drag** |
-| Multi-select Edges | No | **Ctrl+Shift+Drag** |
 
 ---
 

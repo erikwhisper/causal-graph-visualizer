@@ -19,6 +19,7 @@ export function drawLabels(svg, graph) {
     .text((d) => d.getLabel())
     .attr("fill", (d) => d.getLabelColor())
     .style("font-size", (d) => `${d.getLabelFontSize()}px`)
+    //.style("font-family", (d) => d.getLabelFontFamily())
     .style("pointer-events", "none")
     .style("user-select", "none");
 }

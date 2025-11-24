@@ -13,7 +13,7 @@ import { applySnapToLinkCurvatures } from "./utils/applySnapToLinkCurvatures.js"
 import { isGridEnabled } from "../../utils/GridManager.js";
 import * as d3 from "d3";
 
-export function handleNodeDrag(svg, graph, links, graphHistory) {
+export function handleNodeDrag(svg, graph, graphHistory) {
   return d3
     .drag()
     .on("start", function (event, d) {
@@ -28,7 +28,7 @@ export function handleNodeDrag(svg, graph, links, graphHistory) {
 
       const nodesToMove = getDraggedNodes(graph, d);
       const movedNodeIds = new Set(nodesToMove.map((n) => n.getNodeId()));
-      const linksToUpdate = getAffectedLinks(links, movedNodeIds);
+      const linksToUpdate = getAffectedLinks(graph.getAllLinks(), movedNodeIds);
 
       moveNodes(nodesToMove, dx, dy);
       moveLinkCurvatures(linksToUpdate, dx, dy);
@@ -36,7 +36,6 @@ export function handleNodeDrag(svg, graph, links, graphHistory) {
       updateNodeVisuals(nodesToMove, svg, graph);
       updateLinkVisuals(linksToUpdate, svg, graph);
       updateLabelVisuals(nodesToMove, svg);
-
       updateVisualStyles(svg, graph);
 
       d.initalX = event.x;
@@ -48,7 +47,10 @@ export function handleNodeDrag(svg, graph, links, graphHistory) {
       if (isGridEnabled()) {
         const nodesToSnap = getDraggedNodes(graph, d);
         const movedNodeIds = new Set(nodesToSnap.map((n) => n.getNodeId()));
-        const linksToUpdate = getAffectedLinks(links, movedNodeIds);
+        const linksToUpdate = getAffectedLinks(
+          graph.getAllLinks(),
+          movedNodeIds
+        );
 
         const snapDeltas = snapNodePositionsToGrid(nodesToSnap);
         applySnapToLinkCurvatures(linksToUpdate, movedNodeIds, snapDeltas);
@@ -56,7 +58,6 @@ export function handleNodeDrag(svg, graph, links, graphHistory) {
         updateNodeVisuals(nodesToSnap, svg, graph);
         updateLinkVisuals(linksToUpdate, svg, graph);
         updateLabelVisuals(nodesToSnap, svg);
-
         updateVisualStyles(svg, graph);
       }
 

@@ -20,7 +20,8 @@ export default class GraphModel {
       newNode.labelFontSize,
       newNode.labelOffsetX,
       newNode.labelOffsetY,
-      newNode.labelColor
+      newNode.labelColor,
+      //newNode.labelFontFamily
     );
     this.nodes.push(node);
   }

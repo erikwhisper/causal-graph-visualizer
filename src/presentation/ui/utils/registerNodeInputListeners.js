@@ -12,6 +12,7 @@ export function registerNodeInputListeners(
     { id: "node-fill", setter: "setFillColor" },
     { id: "node-stroke", setter: "setStrokeColor" },
     { id: "node-label-color", setter: "setLabelColor" },
+    //{ id: "node-label-font-family", setter: "setLabelFontFamily" },
   ];
 
   const numberInputs = [

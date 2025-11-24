@@ -15,6 +15,7 @@ export default class NodeModel {
     labelOffsetX = 0,
     labelOffsetY = 0,
     labelColor = "black",
+    //labelFontFamily = "Arial, sans-serif",
     highlighted = false
   ) {
     this.nodeId = nodeId;
@@ -35,6 +36,7 @@ export default class NodeModel {
     this.labelOffsetX = labelOffsetX;
     this.labelOffsetY = labelOffsetY;
     this.labelColor = labelColor;
+    //this.labelFontFamily = labelFontFamily;
   }
 
   setNodeId(nodeId) {
@@ -151,6 +153,12 @@ export default class NodeModel {
     this.labelColor = labelColor;
   }
 
+  /*
+  setLabelFontFamily(fontFamily) {
+    this.labelFontFamily = fontFamily;
+  }
+  */
+
   getLabel() {
     return this.label;
   }
@@ -177,4 +185,10 @@ export default class NodeModel {
   getLabelColor() {
     return this.labelColor;
   }
+
+  /*
+  getLabelFontFamily() {
+    return this.labelFontFamily;
+  }
+  */
 }

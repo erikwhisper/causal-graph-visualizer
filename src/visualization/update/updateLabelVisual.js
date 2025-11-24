@@ -8,4 +8,5 @@ export function updateLabelVisual(node, svg) {
     .attr("y", node.getYValue() + node.getLabelOffsetY())
     .attr("fill", node.getLabelColor())
     .style("font-size", `${node.getLabelFontSize()}px`);
+    //.style("font-family", node.getLabelFontFamily());
 }

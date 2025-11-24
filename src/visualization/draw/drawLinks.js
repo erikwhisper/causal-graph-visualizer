@@ -11,7 +11,7 @@ export function drawLinks(svg, graph, graphHistory) {
 
   const links = graph.getAllLinks();
 
-  //zeichne marker (einmalig)
+  //draw marker (once)
   drawMarkers(svg, links);
 
   linkGroup

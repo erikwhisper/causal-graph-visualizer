@@ -612,3 +612,25 @@ input[type="file"] {
   stroke-dasharray: 6 4;
   pointer-events: none;
 }
+
+/* FontFamily selection (wenn zu viel zeit an richtige stelle in css moven */
+/*
+.form-field--font select {
+  width: 100%;
+  padding: clamp(0.25rem, 0.6vw, 0.4rem);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  background-color: white;
+  cursor: pointer;
+}
+  */
+
+/*
+.form-field--font select option {
+  padding: 0.3rem;
+}
+.form-field--font select option[value*="Arial"] { font-family: Arial, sans-serif; }
+.form-field--font select option[value*="Georgia"] { font-family: Georgia, serif; }
+.form-field--font select option[value*="Courier"] { font-family: 'Courier New', monospace; }
+*/

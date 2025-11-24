@@ -7,8 +7,6 @@ export function drawNodes(svg, graph, graphHistory) {
 
   const nodes = graph.getAllNodes();
 
-  const links = graph.getAllLinks();
-
   nodeGroup
     .selectAll(".node")
     .data(nodes)
@@ -22,5 +20,5 @@ export function drawNodes(svg, graph, graphHistory) {
     .attr("stroke-width", (d) => d.getStrokeWidth())
     .attr("cx", (d) => d.getXValue())
     .attr("cy", (d) => d.getYValue())
-    .call(handleNodeDrag(svg, graph, links, graphHistory));
+    .call(handleNodeDrag(svg, graph, graphHistory));
 }

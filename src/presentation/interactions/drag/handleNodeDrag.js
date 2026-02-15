@@ -9,10 +9,9 @@ import { moveLinkCurvatures } from "./utils/moveLinkCurvatures.js";
 import { snapNodePositionsToGrid } from "./utils/snapNodePositionsToGrid.js";
 import { applySnapToLinkCurvatures } from "./utils/applySnapToLinkCurvatures.js";
 
-import { isGridEnabled } from "../../utils/GridManager.js";
 import * as d3 from "d3";
 
-export function handleNodeDrag(svg, graph, graphHistory) {
+export function handleNodeDrag(svg, graph, graphHistory, gridManager) {
   return d3
     .drag()
     .on("start", function (event, d) {
@@ -42,12 +41,12 @@ export function handleNodeDrag(svg, graph, graphHistory) {
     .on("end", function (event, d) {
       if (!d.wasDragged) return;
 
-      if (isGridEnabled()) {
+      if (gridManager.isGridEnabled()) {
         const nodesToSnap = getDraggedNodes(graph, d);
         const movedNodeIds = new Set(nodesToSnap.map((n) => n.getNodeId()));
         const linksToUpdate = getLinksForNodes(graph, movedNodeIds);
 
-        const snapDeltas = snapNodePositionsToGrid(nodesToSnap);
+        const snapDeltas = snapNodePositionsToGrid(nodesToSnap, gridManager);
         applySnapToLinkCurvatures(linksToUpdate, movedNodeIds, snapDeltas);
 
         nodesToSnap.forEach((node) => updateNodeVisual(node, svg, graph));

@@ -5,8 +5,8 @@ import { handleLinkMultiHighlight } from "./handleLinkMultiHighlight.js";
 import { handleLinkSingleHighlight } from "./handleLinkSingleHighlight.js";
 import { handleBackgroundClick } from "./handleBackgroundClick.js";
 
-export function registerClickHandlers(svg, graph, graphHistory) {
-  const linkCreationHandler = handleLinkCreation(svg, graph, graphHistory);
+export function registerClickHandlers(svg, graph, graphHistory, gridManager) {
+  const linkCreationHandler = handleLinkCreation(svg, graph, graphHistory, gridManager);
 
   const nodeLayer = svg.select("#node-layer");
   const linkLayer = svg.select("#link-layer");

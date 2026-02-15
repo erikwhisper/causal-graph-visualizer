@@ -6,7 +6,7 @@ import { handleGridToggle } from "./handleGridToggle.js";
 import { addMouseMoveListener } from "./utils/mousePosition.js";
 import { getCurrentMousePosition } from "./utils/mousePosition.js";
 
-export function registerKeydownHandlers(svg, graph, graphHistory) {
+export function registerKeydownHandlers(svg, graph, graphHistory, gridManager) {
   addMouseMoveListener(svg);
 
   document.addEventListener("keydown", (event) => {
@@ -15,23 +15,23 @@ export function registerKeydownHandlers(svg, graph, graphHistory) {
     const yCoor = currentMousePos[1];
 
     if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "n") {
-      handleAddNode(svg, graph, graphHistory, xCoor, yCoor);
+      handleAddNode(svg, graph, graphHistory, xCoor, yCoor, gridManager);
     }
 
     if (event.ctrlKey && event.key.toLowerCase() === "z") {
-      handleUndo(svg, graph, graphHistory);
+      handleUndo(svg, graph, graphHistory, gridManager);
     }
 
     if (event.ctrlKey && event.key.toLowerCase() === "y") {
-      handleRedo(svg, graph, graphHistory);
+      handleRedo(svg, graph, graphHistory, gridManager);
     }
 
     if (event.key === "Delete") {
-      handleDelete(svg, graph, graphHistory);
+      handleDelete(svg, graph, graphHistory, gridManager);
     }
 
     if (event.altKey && event.key.toLowerCase() === "g") {
-      handleGridToggle(svg);
+      handleGridToggle(svg, gridManager);
     }
   });
 }

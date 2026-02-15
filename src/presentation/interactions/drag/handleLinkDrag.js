@@ -1,8 +1,7 @@
 import * as d3 from "d3";
 import { computeLinkPath } from "../../../visualization/utils/computeLinkPath.js";
-import { isGridEnabled, getGridSpacing } from "../../utils/GridManager.js";
 
-export function handleLinkDrag(graph, graphHistory) {
+export function handleLinkDrag(graph, graphHistory, gridManager) {
   const nodes = graph.getAllNodes();
 
   return d3
@@ -22,8 +21,8 @@ export function handleLinkDrag(graph, graphHistory) {
     .on("end", function (event, d) {
       if (!d.wasDragged) return;
 
-      if (isGridEnabled()) {
-        const spacing = getGridSpacing() / 2;
+      if (gridManager.isGridEnabled()) {
+        const spacing = gridManager.getGridSpacing() / 2;
         const snappedX = Math.round(event.x / spacing) * spacing;
         const snappedY = Math.round(event.y / spacing) * spacing;
 

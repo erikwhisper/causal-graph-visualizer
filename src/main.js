@@ -1,6 +1,9 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import { GraphHistoryManager } from "./domain/service/GraphHistoryManager.js";
+
+import { GridManager } from "./utils/GridManager.js";
+
 import { registerClickHandlers } from "./presentation/interactions/click/registerClickHandlers.js";
 import { registerKeydownHandlers } from "./presentation/interactions/keydown/registerKeydownHandlers.js";
 import { registerToolbarButtons } from "./presentation/ui/registerToolbarButtons.js";
@@ -23,9 +26,11 @@ const graph = new GraphModel();
 
 const graphHistory = new GraphHistoryManager(graph.getEverything());
 
+const gridManager = new GridManager(50, false);
+
 let svg = initializeSvgCanvas();
 
-drawGraph(svg, graph, graphHistory);
+drawGraph(svg, graph, graphHistory, gridManager);
 
 registerClickHandlers(svg, graph, graphHistory);
 
@@ -33,13 +38,13 @@ registerMarqueeNodeSelection(svg, graph, graphHistory);
 
 registerMarqueeLinkSelection(svg, graph, graphHistory);
 
-registerKeydownHandlers(svg, graph, graphHistory);
+registerKeydownHandlers(svg, graph, graphHistory, gridManager);
 
-registerToolbarButtons(svg, graph, graphHistory);
+registerToolbarButtons(svg, graph, graphHistory, gridManager);
 
-jsonFileUpload(svg, graph, graphHistory);
+jsonFileUpload(svg, graph, graphHistory, gridManager);
 
-matrixFileUpload(svg, graph, graphHistory);
+matrixFileUpload(svg, graph, graphHistory, gridManager);
 
 jsonFileDownload(graph);
 

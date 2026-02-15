@@ -2,7 +2,7 @@ import { drawMarkers } from "./drawMarkers.js";
 import { computeLinkPath } from "../utils/computeLinkPath.js";
 import { handleLinkDrag } from "../../presentation/interactions/drag/handleLinkDrag.js";
 
-export function drawLinks(svg, graph, graphHistory) {
+export function drawLinks(svg, graph, graphHistory, gridManager) {
   const linkGroup = svg.select("#link-layer");
 
   linkGroup.selectAll(".link").remove();
@@ -37,5 +37,5 @@ export function drawLinks(svg, graph, graphHistory) {
     .attr("marker-start", (d) => `url(#arrowtail-${d.getLinkId()})`)
     .attr("marker-end", (d) => `url(#arrowhead-${d.getLinkId()})`)
     .attr("d", (d) => computeLinkPath(d, nodes))
-    .call(handleLinkDrag(graph, graphHistory));
+    .call(handleLinkDrag(graph, graphHistory, gridManager));
 }

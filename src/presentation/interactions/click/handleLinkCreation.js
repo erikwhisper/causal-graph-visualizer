@@ -3,7 +3,7 @@ import { drawLinks } from "../../../visualization/draw/drawLinks.js";
 import { unhighlightAll } from "../../utils/unhighlightAll.js";
 import { renderInfoPanel } from "../../ui/renderInfoPanel.js";
 
-export function handleLinkCreation(svg, graph, graphHistory) {
+export function handleLinkCreation(svg, graph, graphHistory, gridManager) {
   let firstNode = null;
 
   return {
@@ -28,7 +28,7 @@ export function handleLinkCreation(svg, graph, graphHistory) {
         targetNodeId: secondNode.getNodeId(),
       });
 
-      drawLinks(svg, graph, graphHistory);
+      drawLinks(svg, graph, graphHistory, gridManager);
       renderInfoPanel(graph);
       graphHistory.setNewState(graph.getEverything());
 

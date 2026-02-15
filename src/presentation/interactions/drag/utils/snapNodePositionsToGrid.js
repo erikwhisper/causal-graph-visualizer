@@ -1,7 +1,5 @@
-import { getGridSpacing } from "../../../utils/GridManager.js";
-
-export function snapNodePositionsToGrid(nodes) {
-  const spacing = getGridSpacing();
+export function snapNodePositionsToGrid(nodes, gridManager) {
+  const spacing = gridManager.getGridSpacing();
   const deltas = new Map();
 
   nodes.forEach((node) => {

@@ -1,7 +1,4 @@
-import { isGridEnabled } from "../../../presentation/utils/GridManager.js";
-import { getGridSpacing } from "../../../presentation/utils/GridManager.js";
-
-export function rescaleToCanvas(positions, width, height) {
+export function rescaleToCanvas(positions, width, height, gridManager) {
   const xs = positions.map((p) => p.x);
   const ys = positions.map((p) => p.y);
   const minX = Math.min(...xs);
@@ -22,8 +19,8 @@ export function rescaleToCanvas(positions, width, height) {
     let x = marginX + nx * availableWidth;
     let y = marginY + ny * availableHeight;
 
-    if (isGridEnabled()) {
-      const spacing = getGridSpacing();
+    if (gridManager.isGridEnabled()) {
+      const spacing = gridManager.getGridSpacing();
       x = Math.round(x / spacing) * spacing;
       y = Math.round(y / spacing) * spacing;
     }

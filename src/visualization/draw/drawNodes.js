@@ -1,6 +1,6 @@
 import { handleNodeDrag } from "../../presentation/interactions/drag/handleNodeDrag.js";
 
-export function drawNodes(svg, graph, graphHistory) {
+export function drawNodes(svg, graph, graphHistory, gridManager) {
   const nodeGroup = svg.select("#node-layer");
 
   nodeGroup.selectAll(".node").remove();
@@ -20,5 +20,5 @@ export function drawNodes(svg, graph, graphHistory) {
     .attr("stroke-width", (d) => d.getStrokeWidth())
     .attr("cx", (d) => d.getXValue())
     .attr("cy", (d) => d.getYValue())
-    .call(handleNodeDrag(svg, graph, graphHistory));
+    .call(handleNodeDrag(svg, graph, graphHistory, gridManager));
 }

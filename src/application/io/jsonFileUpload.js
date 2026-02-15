@@ -1,7 +1,7 @@
 import { ErrorHandler } from "../../utils/ErrorHandler.js";
 import { redrawGraph } from "../../visualization/redrawGraph.js";
 
-export function jsonFileUpload(svg, graph, graphHistory) {
+export function jsonFileUpload(svg, graph, graphHistory, gridManager) {
   const fileInput = document.getElementById("graph-file");
   if (!fileInput) {
     ErrorHandler.warn(
@@ -35,7 +35,7 @@ export function jsonFileUpload(svg, graph, graphHistory) {
       nodes.forEach((node) => graph.addNode(node));
       links.forEach((link) => graph.addLink(link));
 
-      redrawGraph(svg, graph, graphHistory);
+      redrawGraph(svg, graph, graphHistory, gridManager);
 
       ErrorHandler.info(
         `Loaded ${nodes.length} nodes and ${links.length} links`,

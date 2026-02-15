@@ -1,14 +1,11 @@
-import { toggleGrid } from "../../utils/GridManager.js";
-import { isGridEnabled } from "../../utils/GridManager.js";
-import { getGridSpacing } from "../../utils/GridManager.js";
 import { drawGrid, removeGrid } from "../../../visualization/draw/drawGrid.js";
 
-export function handleGridToggle(svg) {
-  toggleGrid();
-  const isEnabled = isGridEnabled();
+export function handleGridToggle(svg, gridManager) {
+  gridManager.toggleGrid();
+  const isEnabled = gridManager.isGridEnabled();
 
   if (isEnabled) {
-    drawGrid(svg, getGridSpacing());
+    drawGrid(svg, gridManager.getGridSpacing());
   } else {
     removeGrid(svg);
   }

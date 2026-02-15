@@ -2,7 +2,7 @@ import dagre from "dagre";
 import { rescaleToCanvas } from "./utils/rescaleToCanvas";
 import { applyCurvatureOffsets } from "./utils/applyCurvatureOffsets";
 
-export function layoutHierarchical(nodes, links, width, height) {
+export function layoutHierarchical(nodes, links, width, height, gridManager) {
   const g = new dagre.graphlib.Graph();
 
   g.setGraph({
@@ -33,7 +33,7 @@ export function layoutHierarchical(nodes, links, width, height) {
 
   //Rescale damit die von dagre berechneten Koordinaten auf meine aktuelle
   //SVG Canvas größe angepasst werden.
-  const scaledPositions = rescaleToCanvas(dagrePositions, width, height);
+  const scaledPositions = rescaleToCanvas(dagrePositions, width, height, gridManager);
 
   scaledPositions.forEach((pos) => {
     const node = nodes.find((n) => n.getNodeId() === pos.id);

@@ -4,7 +4,7 @@ import { layoutHierarchical } from "../layout/layoutHierarchical.js";
 import { ErrorHandler } from "../../utils/ErrorHandler.js";
 import { redrawGraph } from "../../visualization/redrawGraph.js";
 
-export function matrixFileUpload(svg, graph, graphHistory) {
+export function matrixFileUpload(svg, graph, graphHistory, gridManager) {
   const fileInput = document.getElementById("pag-matrix-file");
   if (!fileInput) {
     ErrorHandler.warn(
@@ -30,13 +30,13 @@ export function matrixFileUpload(svg, graph, graphHistory) {
 
       const width = +svg.attr("width");
       const height = +svg.attr("height");
-      layoutHierarchical(nodes, links, width, height);
+      layoutHierarchical(nodes, links, width, height, gridManager);
 
       graph.deleteEverything();
       nodes.forEach((node) => graph.addNode(node));
       links.forEach((link) => graph.addLink(link));
 
-      redrawGraph(svg, graph, graphHistory);
+      redrawGraph(svg, graph, graphHistory, gridManager);
 
       ErrorHandler.info(
         `Imported ${nodes.length} nodes and ${links.length} links from matrix`,

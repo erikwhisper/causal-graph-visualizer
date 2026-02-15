@@ -1,8 +1,5 @@
-import { drawNodes } from "../../../visualization/draw/drawNodes.js";
-import { drawLinks } from "../../../visualization/draw/drawLinks.js";
-import { drawLabels } from "../../../visualization/draw/drawLabels.js";
 import { unhighlightAll } from "../../utils/unhighlightAll.js";
-import { renderInfoPanel } from "../../ui/renderInfoPanel.js";
+import { redrawGraph } from "../../../visualization/redrawGraph.js";
 export function handleRedo(svg, graph, graphHistory) {
   unhighlightAll(svg, graph);
 
@@ -11,8 +8,5 @@ export function handleRedo(svg, graph, graphHistory) {
   const state = graphHistory.getState();
   graph.setEverything(state);
 
-  drawNodes(svg, graph, graphHistory);
-  drawLabels(svg, graph);
-  drawLinks(svg, graph, graphHistory);
-  renderInfoPanel(graph);
+  redrawGraph(svg, graph, graphHistory, { saveState: false });
 }

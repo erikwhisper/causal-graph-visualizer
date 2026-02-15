@@ -1,16 +1,16 @@
 import { convertMatrixToGraphModel } from "../conversion/convertMatrixToGraphModel.js";
-import { drawNodes } from "../../visualization/draw/drawNodes.js";
-import { drawLinks } from "../../visualization/draw/drawLinks.js";
-import { drawLabels } from "../../visualization/draw/drawLabels.js";
 import { validateMatrixForMatrixImport } from "../validation/validateMatrixForMatrixImport.js";
 import { layoutHierarchical } from "../layout/layoutHierarchical.js";
-import { renderInfoPanel } from "../../presentation/ui/renderInfoPanel.js";
+import { ErrorHandler } from "../../utils/ErrorHandler.js";
+import { redrawGraph } from "../../visualization/redrawGraph.js";
 
 export function matrixFileUpload(svg, graph, graphHistory) {
   const fileInput = document.getElementById("pag-matrix-file");
-
   if (!fileInput) {
-    console.warn("Matrix file input element not found");
+    ErrorHandler.warn(
+      "Matrix file input element not found",
+      "Matrix Upload Setup"
+    );
     return;
   }
 
@@ -20,7 +20,6 @@ export function matrixFileUpload(svg, graph, graphHistory) {
 
     try {
       const text = await file.text();
-
       validateMatrixForMatrixImport(text);
 
       const { nodes, links } = convertMatrixToGraphModel(text);
@@ -37,15 +36,14 @@ export function matrixFileUpload(svg, graph, graphHistory) {
       nodes.forEach((node) => graph.addNode(node));
       links.forEach((link) => graph.addLink(link));
 
-      drawNodes(svg, graph, graphHistory);
-      drawLabels(svg, graph);
-      drawLinks(svg, graph, graphHistory);
-      renderInfoPanel(graph);
+      redrawGraph(svg, graph, graphHistory);
 
-      graphHistory.setNewState(graph.getEverything());
+      ErrorHandler.info(
+        `Imported ${nodes.length} nodes and ${links.length} links from matrix`,
+        "Matrix Upload"
+      );
     } catch (error) {
-      console.error("Matrix import error:", error);
-      alert(`Import failed:\n${error.message}`);
+      ErrorHandler.handle(error, "Matrix File Import");
     } finally {
       event.target.value = "";
     }

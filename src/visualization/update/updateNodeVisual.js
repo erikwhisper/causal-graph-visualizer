@@ -1,9 +1,10 @@
 import { updateLinkVisual } from "./updateLinkVisual.js";
+import { updateLabelVisual } from "./updateLabelVisual.js";
+import { getLinksForNodes } from "../../utils/getLinksForNodes.js";
 
 export function updateNodeVisual(node, svg, graph) {
   const nodeId = node.getNodeId();
 
-  //update node (circle part)
   const circle = svg.select(`#node-${nodeId}`);
   circle
     .attr("r", node.getRadius())
@@ -13,26 +14,10 @@ export function updateNodeVisual(node, svg, graph) {
     .attr("cx", node.getXValue())
     .attr("cy", node.getYValue());
 
-  //update label
-  const label = svg.select(`#label-${nodeId}`);
-  label
-    .text(node.getLabel())
-    .attr("x", node.getXValue() + node.getLabelOffsetX())
-    .attr("y", node.getYValue() + node.getLabelOffsetY())
-    .attr("fill", node.getLabelColor())
-    .style("font-size", `${node.getLabelFontSize()}px`);
+  updateLabelVisual(node, svg);
 
-  //iwann performanter besser machen:
-  //Hier gibt es meines wissens nach aktuell in handleNodeDrag.js auch schon eine
-  //passende Hilfsfunktion die ich hier nutzen kann!
-  const affectedLinks = graph
-    .getAllLinks()
-    .filter(
-      (link) =>
-        link.getSourceNodeId() === nodeId || link.getTargetNodeId() === nodeId
-    );
+  const affectedLinks = getLinksForNodes(graph, nodeId);
 
-  //hier koennte man die updateLinkVisuals funktion aus aktuell handleNodeDrag.js nutzen
   affectedLinks.forEach((link) => {
     updateLinkVisual(link, svg, graph);
   });

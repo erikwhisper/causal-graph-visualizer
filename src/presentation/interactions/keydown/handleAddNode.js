@@ -1,8 +1,5 @@
-import { drawNodes } from "../../../visualization/draw/drawNodes.js";
-import { drawLinks } from "../../../visualization/draw/drawLinks.js";
-import { drawLabels } from "../../../visualization/draw/drawLabels.js";
 import { unhighlightAll } from "../../utils/unhighlightAll.js";
-import { renderInfoPanel } from "../../ui/renderInfoPanel.js";
+import { redrawGraph } from "../../../visualization/redrawGraph.js";
 
 export function handleAddNode(svg, graph, graphHistory, xCoor, yCoor) {
   unhighlightAll(svg, graph);
@@ -14,12 +11,7 @@ export function handleAddNode(svg, graph, graphHistory, xCoor, yCoor) {
       label: nodeName,
     });
 
-    drawNodes(svg, graph, graphHistory);
-    drawLabels(svg, graph);
-    drawLinks(svg, graph, graphHistory);
-    renderInfoPanel(graph);
-
-    graphHistory.setNewState(graph.getEverything());
+    redrawGraph(svg, graph, graphHistory);
   });
 }
 

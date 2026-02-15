@@ -1,5 +1,6 @@
 import { convertGraphModelToMatrix } from "../conversion/convertGraphModelToMatrix.js";
 import { validateGraphForMatrixExport } from "../validation/validateGraphForMatrixExport.js";
+import { ErrorHandler } from "../../utils/ErrorHandler.js";
 
 export function matrixFileDownload(graph) {
   const button = document.getElementById("download-matrix");
@@ -7,11 +8,9 @@ export function matrixFileDownload(graph) {
   const handler = () => {
     try {
       const graphData = graph.getEverything();
-
       validateGraphForMatrixExport(graphData);
 
       const matrixCsv = convertGraphModelToMatrix(graphData);
-
       const blob = new Blob([matrixCsv], { type: "text/csv" });
       const url = URL.createObjectURL(blob);
 
@@ -22,9 +21,10 @@ export function matrixFileDownload(graph) {
       downloadLink.click();
       document.body.removeChild(downloadLink);
       URL.revokeObjectURL(url);
+
+      ErrorHandler.info("Matrix exported successfully", "Matrix Download");
     } catch (error) {
-      console.error("Matrix export failed:", error);
-      alert(`Export failed:\n${error.message}`);
+      ErrorHandler.handle(error, "Matrix Export");
     }
   };
 

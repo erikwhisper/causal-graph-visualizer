@@ -13,8 +13,8 @@ import { drawGraph } from "./visualization/draw/drawGraph.js";
 
 import GraphModel from "./domain/model/GraphModel.js";
 
-import { setupPngExport } from "./application/io/exportPng.js";
-import { setupPdfExport } from "./application/io/exportPdf.js";
+import { setupPdfExport } from "./application/io/export/pdf/setupPdfExport.js";
+import { setupPngExport } from "./application/io/export/png/setupPngExport.js";
 
 import { registerMarqueeNodeSelection } from "./presentation/interactions/selection/registerMarqueeNodeSelection.js";
 import { registerMarqueeLinkSelection } from "./presentation/interactions/selection/registerMarqueeLinkSelection.js";

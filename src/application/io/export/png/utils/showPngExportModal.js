@@ -5,7 +5,7 @@ export function showPngExportModal() {
   const modal = document.createElement("div");
   modal.id = "png-export-modal";
   modal.classList.add("modal");
-  modal.innerHTML = generatePngModalHTML(); // ← Ausgelagert!
+  modal.innerHTML = generatePngModalHTML();
 
   document.body.appendChild(modal);
 

@@ -22,6 +22,8 @@ import { setupPngExport } from "./application/io/export/png/setupPngExport.js";
 import { registerMarqueeNodeSelection } from "./presentation/interactions/selection/registerMarqueeNodeSelection.js";
 import { registerMarqueeLinkSelection } from "./presentation/interactions/selection/registerMarqueeLinkSelection.js";
 
+import { handleCanvasResize } from "./visualization/handleCanvasResize.js";
+
 const graph = new GraphModel();
 
 const graphHistory = new GraphHistoryManager(graph.getEverything());
@@ -52,3 +54,7 @@ matrixFileDownload(graph);
 
 setupPngExport();
 setupPdfExport();
+
+window.addEventListener("resize", () => {
+  handleCanvasResize(svg);
+});

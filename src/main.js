@@ -28,7 +28,7 @@ const graph = new GraphModel();
 
 const graphHistory = new GraphHistoryManager(graph.getEverything());
 
-const gridManager = new GridManager(50, false);
+const gridManager = new GridManager();
 
 let svg = initializeSvgCanvas();
 

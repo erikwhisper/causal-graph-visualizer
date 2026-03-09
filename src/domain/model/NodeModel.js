@@ -1,20 +1,36 @@
 import * as uuid from "https://cdn.jsdelivr.net/npm/uuid@9.0.1/+esm";
+import {
+  NODE_DEFAULT_X,
+  NODE_DEFAULT_Y,
+  NODE_DEFAULT_LABEL,
+  NODE_DEFAULT_SHAPE,
+  NODE_DEFAULT_RADIUS,
+  NODE_DEFAULT_FILL_COLOR,
+  NODE_DEFAULT_STROKE_COLOR,
+  NODE_DEFAULT_STROKE_WIDTH,
+  NODE_DEFAULT_LABEL_FONT_SIZE,
+  NODE_DEFAULT_LABEL_OFFSET_X,
+  NODE_DEFAULT_LABEL_OFFSET_Y,
+  NODE_DEFAULT_LABEL_COLOR,
+  NODE_RADIUS_MIN,
+  NODE_RADIUS_MAX,
+} from "../../utils/defaultValues.js";
 
 export default class NodeModel {
   constructor(
     nodeId = uuid.v4(),
-    x = 100,
-    y = 100,
-    label = "undefined",
-    shape = "circle",
-    radius = 15,
-    fillColor = "white",
-    strokeColor = "black",
-    strokeWidth = 1.5,
-    labelFontSize = 15,
-    labelOffsetX = 0,
-    labelOffsetY = 0,
-    labelColor = "black",
+    x = NODE_DEFAULT_X,
+    y = NODE_DEFAULT_Y,
+    label = NODE_DEFAULT_LABEL,
+    shape = NODE_DEFAULT_SHAPE,
+    radius = NODE_DEFAULT_RADIUS,
+    fillColor = NODE_DEFAULT_FILL_COLOR,
+    strokeColor = NODE_DEFAULT_STROKE_COLOR,
+    strokeWidth = NODE_DEFAULT_STROKE_WIDTH,
+    labelFontSize = NODE_DEFAULT_LABEL_FONT_SIZE,
+    labelOffsetX = NODE_DEFAULT_LABEL_OFFSET_X,
+    labelOffsetY = NODE_DEFAULT_LABEL_OFFSET_Y,
+    labelColor = NODE_DEFAULT_LABEL_COLOR,
     //labelFontFamily = "Arial, sans-serif",
     highlighted = false
   ) {
@@ -61,10 +77,10 @@ export default class NodeModel {
   }
 
   setRadius(radius) {
-    if (radius < 5) {
-      this.radius = 5;
-    } else if (radius > 500) {
-      this.radius = 500;
+    if (radius < NODE_RADIUS_MIN) {
+      this.radius = NODE_RADIUS_MIN;
+    } else if (radius > NODE_RADIUS_MAX) {
+      this.radius = NODE_RADIUS_MAX;
     } else {
       this.radius = radius;
     }

@@ -1,19 +1,32 @@
 import * as uuid from "https://cdn.jsdelivr.net/npm/uuid@9.0.1/+esm";
+import {
+  LINK_DEFAULT_ARROWHEAD,
+  LINK_DEFAULT_ARROWTAIL,
+  LINK_DEFAULT_ARROWHEAD_WIDTH,
+  LINK_DEFAULT_ARROWTAIL_WIDTH,
+  LINK_DEFAULT_ARROWHEAD_COLOR,
+  LINK_DEFAULT_ARROWTAIL_COLOR,
+  LINK_DEFAULT_STROKE_COLOR,
+  LINK_DEFAULT_STROKE_WIDTH,
+  LINK_DEFAULT_STYLE,
+  LINK_ARROW_WIDTH_MIN,
+  LINK_STROKE_WIDTH_MIN,
+} from "../../utils/defaultValues.js";
 
 export default class LinkModel {
   constructor(
     linkId = uuid.v4(),
     sourceNodeId,
     targetNodeId,
-    arrowhead = "normal",
-    arrowtail = "tail",
-    arrowheadWidth = 10,
-    arrowtailWidth = 10,
-    arrowheadColor = "black",
-    arrowtailColor = "black",
-    strokeColor = "black",
-    strokeWidth = 2,
-    linkStyle = "solid",
+    arrowhead = LINK_DEFAULT_ARROWHEAD,
+    arrowtail = LINK_DEFAULT_ARROWTAIL,
+    arrowheadWidth = LINK_DEFAULT_ARROWHEAD_WIDTH,
+    arrowtailWidth = LINK_DEFAULT_ARROWTAIL_WIDTH,
+    arrowheadColor = LINK_DEFAULT_ARROWHEAD_COLOR,
+    arrowtailColor = LINK_DEFAULT_ARROWTAIL_COLOR,
+    strokeColor = LINK_DEFAULT_STROKE_COLOR,
+    strokeWidth = LINK_DEFAULT_STROKE_WIDTH,
+    linkStyle = LINK_DEFAULT_STYLE,
     linkCurvatureX = null,
     linkCurvatureY = null,
     highlighted = false
@@ -60,16 +73,16 @@ export default class LinkModel {
   }
 
   setArrowheadWidth(arrowheadWidth) {
-    if (arrowheadWidth < 5) {
-      this.arrowheadWidth = 5;
+    if (arrowheadWidth < LINK_ARROW_WIDTH_MIN) {
+      this.arrowheadWidth = LINK_ARROW_WIDTH_MIN;
     } else {
       this.arrowheadWidth = arrowheadWidth;
     }
   }
 
   setArrowtailWidth(arrowtailWidth) {
-    if (arrowtailWidth < 5) {
-      this.arrowtailWidth = 5;
+    if (arrowtailWidth < LINK_ARROW_WIDTH_MIN) {
+      this.arrowtailWidth = LINK_ARROW_WIDTH_MIN;
     } else {
       this.arrowtailWidth = arrowtailWidth;
     }
@@ -88,8 +101,8 @@ export default class LinkModel {
   }
 
   setStrokeWidth(strokeWidth) {
-    if (strokeWidth < 1) {
-      this.strokeWidth = 1;
+    if (strokeWidth < LINK_STROKE_WIDTH_MIN) {
+      this.strokeWidth = LINK_STROKE_WIDTH_MIN;
     } else {
       this.strokeWidth = strokeWidth;
     }

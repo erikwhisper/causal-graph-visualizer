@@ -1,3 +1,5 @@
+import { LAYOUT_CURVATURE_SPACING } from "../../../utils/visualConstants.js";
+
 export function applyCurvatureOffsets(links, nodes) {
   const nodeMap = new Map(nodes.map((n) => [n.getNodeId(), n]));
   const linkGroups = new Map();
@@ -35,7 +37,7 @@ export function applyCurvatureOffsets(links, nodes) {
 
       const nx = -dy / len;
       const ny = dx / len;
-      const spacing = 100;
+      const spacing = LAYOUT_CURVATURE_SPACING;
       const offset = (index + 1) * spacing;
 
       link.setLinkCurvatureX(mx + offset * nx);

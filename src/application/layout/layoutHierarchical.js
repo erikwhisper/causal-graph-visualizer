@@ -1,14 +1,18 @@
 import dagre from "dagre";
 import { rescaleToCanvas } from "./utils/rescaleToCanvas";
 import { applyCurvatureOffsets } from "./utils/applyCurvatureOffsets";
+import {
+  LAYOUT_NODESEP,
+  LAYOUT_RANKSEP,
+} from "../../utils/visualConstants.js";
 
 export function layoutHierarchical(nodes, links, width, height, gridManager) {
   const g = new dagre.graphlib.Graph();
 
   g.setGraph({
     rankdir: "TB",
-    nodesep: 50,
-    ranksep: 80,
+    nodesep: LAYOUT_NODESEP,
+    ranksep: LAYOUT_RANKSEP,
   });
 
   g.setDefaultEdgeLabel(() => ({}));

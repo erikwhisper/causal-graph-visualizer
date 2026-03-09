@@ -1,3 +1,5 @@
+import { LINK_ENDPOINT_PUFFER } from "../../utils/visualConstants.js";
+
 export function computeLinkPath(link, nodes) {
   function getNodePosition(nodeId) {
     const node = nodes.find((n) => n.getNodeId() === nodeId);
@@ -25,7 +27,7 @@ export function computeLinkPath(link, nodes) {
   const arrowtailWidth =
     link.getArrowtail() === "tail" ? 0 : link.getArrowtailWidth();
 
-  const puffer = 1;
+  const puffer = LINK_ENDPOINT_PUFFER;
 
   const cx = link.getLinkCurvatureX();
   const cy = link.getLinkCurvatureY();

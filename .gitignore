@@ -38,3 +38,7 @@ build/
 # Temporary files
 *.tmp
 *.temp
+
+# Copilot context files
+.github/copilot-instructions.md
+docs/

@@ -1,3 +1,5 @@
+import { ODOT_STROKE_WIDTH } from "../../utils/visualConstants.js";
+
 export function createMarker(defs, { id, type, width, color, orientation }) {
   if (type === "normal") {
     defs
@@ -14,7 +16,7 @@ export function createMarker(defs, { id, type, width, color, orientation }) {
       .attr("d", `M 0,-${width / 2} L ${width} 0 L 0,${width / 2}`)
       .attr("fill", color);
   } else if (type === "odot") {
-    const circleStrokeWidth = 2;
+    const circleStrokeWidth = ODOT_STROKE_WIDTH;
     defs
       .append("marker")
       .attr("id", id)

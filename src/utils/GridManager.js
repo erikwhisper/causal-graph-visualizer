@@ -1,5 +1,11 @@
+import {
+  GRID_SPACING_DEFAULT,
+  GRID_SPACING_MIN,
+  GRID_SPACING_MAX,
+} from "./visualConstants.js";
+
 export class GridManager {
-  constructor(defaultSpacing = 50, initiallyEnabled = false) {
+  constructor(defaultSpacing = GRID_SPACING_DEFAULT, initiallyEnabled = false) {
     this.enabled = initiallyEnabled;
     this.spacing = defaultSpacing;
   }
@@ -19,10 +25,10 @@ export class GridManager {
 
   //Deadcode bis ich Nutzereingabe für Spacing hinzufüge
   setGridSpacing(spacing) {
-    if (spacing < 5) {
-      this.spacing = 5;
-    } else if (spacing > 200) {
-      this.spacing = 200;
+    if (spacing < GRID_SPACING_MIN) {
+      this.spacing = GRID_SPACING_MIN;
+    } else if (spacing > GRID_SPACING_MAX) {
+      this.spacing = GRID_SPACING_MAX;
     } else {
       this.spacing = spacing;
     }

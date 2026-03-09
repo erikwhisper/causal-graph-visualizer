@@ -1,6 +1,7 @@
 import { drawMarkers } from "./drawMarkers.js";
 import { computeLinkPath } from "../utils/computeLinkPath.js";
 import { handleLinkDrag } from "../../presentation/interactions/drag/handleLinkDrag.js";
+import { LINK_DASH_ARRAY } from "../../utils/visualConstants.js";
 
 export function drawLinks(svg, graph, graphHistory, gridManager) {
   const linkGroup = svg.select("#link-layer");
@@ -28,7 +29,7 @@ export function drawLinks(svg, graph, graphHistory, gridManager) {
       const style = d.getLinkStyle();
       switch (style) {
         case "dashed":
-          return "6,4";
+          return LINK_DASH_ARRAY;
         case "solid":
         default:
           return "none";

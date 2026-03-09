@@ -1,7 +1,8 @@
 import * as d3 from "d3";
+import { HIGHLIGHT_STROKE_OFFSET } from "../../utils/visualConstants.js";
 
 export function updateVisualStyles(svg, graph) {
-  const highlightOffset = 2;
+  const highlightOffset = HIGHLIGHT_STROKE_OFFSET;
 
   svg.selectAll(".node").each(function () {
     const el = d3.select(this);

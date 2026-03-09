@@ -1,12 +1,16 @@
 export class GraphHistoryManager {
-  constructor(initialGraphData) {
+  constructor(initialGraphData, maxSize = 100) {
     this.past = [];
     this.present = structuredClone(initialGraphData);
     this.future = [];
+    this.maxSize = maxSize;
   }
 
   setNewState(newGraphData) {
     this.past.push(structuredClone(this.present));
+    if (this.past.length > this.maxSize) {
+      this.past.shift();
+    }
     this.present = structuredClone(newGraphData);
     this.future = [];
   }

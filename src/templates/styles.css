@@ -1,3 +1,8 @@
+
+.input-invalid {
+  outline: 2px solid #e53e3e;
+  background-color: #fff5f5;
+}
 /* Reset */
 * {
   box-sizing: border-box;

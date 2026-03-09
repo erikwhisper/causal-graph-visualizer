@@ -5,7 +5,7 @@ export function registerNodeInputListeners(
   selectedNodes,
   svg,
   graph,
-  graphHistory
+  graphHistory,
 ) {
   const stringInputs = [
     { id: "node-label", setter: "setLabel" },
@@ -55,24 +55,29 @@ export function registerNodeInputListeners(
     const input = document.getElementById(config.id);
     if (!input) return;
 
-    const handler = () => {
-      const value = parseFloat(input.value);
-      if (isNaN(value)) return;
-
+    const inputHandler = () => {
+      const value = input.value;
+      const parsedValue = parseFloat(value);
+      const isValid = !isNaN(parsedValue) && value.trim() !== "";
+      input.classList.toggle("input-invalid", !isValid);
+      if (!isValid) return;
       selectedNodes.forEach((node) => {
-        node[config.setter](value);
+        node[config.setter](parsedValue);
         updateNodeVisual(node, svg, graph);
       });
       updateVisualStyles(svg, graph);
     };
 
-    const saveHandler = () => graphHistory.setNewState(graph.getEverything());
+    const changeHandler = () => {
+      input.classList.remove("input-invalid");
+      graphHistory.setNewState(graph.getEverything());
+    };
 
-    input.addEventListener("input", handler);
-    input.addEventListener("change", saveHandler);
+    input.addEventListener("input", inputHandler);
+    input.addEventListener("change", changeHandler);
     listeners.push(() => {
-      input.removeEventListener("input", handler);
-      input.removeEventListener("change", saveHandler);
+      input.removeEventListener("input", inputHandler);
+      input.removeEventListener("change", changeHandler);
     });
   });
 

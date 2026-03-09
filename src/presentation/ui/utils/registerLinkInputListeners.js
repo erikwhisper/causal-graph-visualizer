@@ -49,24 +49,29 @@ export function registerLinkInputListeners(
     const input = document.getElementById(config.id);
     if (!input) return;
 
-    const handler = () => {
-      const value = parseFloat(input.value);
-      if (isNaN(value)) return;
-
+    const inputHandler = () => {
+      const value = input.value;
+      const parsedValue = parseFloat(value);
+      const isValid = !isNaN(parsedValue) && value.trim() !== "";
+      input.classList.toggle("input-invalid", !isValid);
+      if (!isValid) return;
       selectedLinks.forEach((link) => {
-        link[config.setter](value);
+        link[config.setter](parsedValue);
         updateLinkVisual(link, svg, graph);
       });
       updateVisualStyles(svg, graph);
     };
 
-    const saveHandler = () => graphHistory.setNewState(graph.getEverything());
+    const changeHandler = () => {
+      input.classList.remove("input-invalid");
+      graphHistory.setNewState(graph.getEverything());
+    };
 
-    input.addEventListener("input", handler);
-    input.addEventListener("change", saveHandler);
+    input.addEventListener("input", inputHandler);
+    input.addEventListener("change", changeHandler);
     listeners.push(() => {
-      input.removeEventListener("input", handler);
-      input.removeEventListener("change", saveHandler);
+      input.removeEventListener("input", inputHandler);
+      input.removeEventListener("change", changeHandler);
     });
   });
 
@@ -94,7 +99,7 @@ export function registerLinkInputListeners(
     svg,
     graph,
     graphHistory,
-    listeners
+    listeners,
   );
 
   //fuer arrowtail
@@ -105,7 +110,7 @@ export function registerLinkInputListeners(
     svg,
     graph,
     graphHistory,
-    listeners
+    listeners,
   );
 
   //reset curvature (weder string noch number)
@@ -139,7 +144,7 @@ function registerArrowButtons(
   svg,
   graph,
   graphHistory,
-  listeners
+  listeners,
 ) {
   const buttons = document.querySelectorAll(`${selector} button`);
 

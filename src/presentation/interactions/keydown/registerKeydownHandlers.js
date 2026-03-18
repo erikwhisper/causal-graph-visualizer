@@ -3,12 +3,15 @@ import { handleDelete } from "./handleDelete.js";
 import { handleUndo } from "./handleUndo.js";
 import { handleRedo } from "./handleRedo.js";
 import { handleGridToggle } from "./handleGridToggle.js";
-import { addMouseMoveListener } from "./utils/mousePosition.js";
-import { getCurrentMousePosition } from "./utils/mousePosition.js";
+import { handleFitToScreen } from "./handleFitToScreen.js";
+import {
+  addMouseMoveListener,
+  getCurrentMousePosition,
+} from "./utils/mousePosition.js";
 
 export function registerKeydownHandlers(svg, graph, graphHistory, gridManager) {
   addMouseMoveListener(svg);
-
+  
   document.addEventListener("keydown", (event) => {
     const currentMousePos = getCurrentMousePosition();
     const xCoor = currentMousePos[0];
@@ -32,6 +35,9 @@ export function registerKeydownHandlers(svg, graph, graphHistory, gridManager) {
 
     if (event.altKey && event.key.toLowerCase() === "g") {
       handleGridToggle(svg, gridManager);
+    }
+    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "f") {
+      handleFitToScreen(svg, graph, graphHistory, gridManager);
     }
   });
 }

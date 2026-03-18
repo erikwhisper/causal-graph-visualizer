@@ -12,6 +12,7 @@ import {
   NODE_DEFAULT_LABEL_OFFSET_X,
   NODE_DEFAULT_LABEL_OFFSET_Y,
   NODE_DEFAULT_LABEL_COLOR,
+  NODE_DEFAULT_LABEL_FONT_FAMILY,
   NODE_RADIUS_MIN,
   NODE_RADIUS_MAX,
 } from "../../utils/defaultValues.js";
@@ -31,8 +32,8 @@ export default class NodeModel {
     labelOffsetX = NODE_DEFAULT_LABEL_OFFSET_X,
     labelOffsetY = NODE_DEFAULT_LABEL_OFFSET_Y,
     labelColor = NODE_DEFAULT_LABEL_COLOR,
-    //labelFontFamily = "Arial, sans-serif",
-    highlighted = false
+    labelFontFamily = NODE_DEFAULT_LABEL_FONT_FAMILY,
+    highlighted = false,
   ) {
     this.nodeId = nodeId;
     this.x = x;
@@ -42,18 +43,17 @@ export default class NodeModel {
     this.fillColor = fillColor;
     this.strokeColor = strokeColor;
     this.strokeWidth = strokeWidth;
-
     this.highlighted = highlighted;
-
-    //--------------------------
 
     this.label = label;
     this.labelFontSize = labelFontSize;
     this.labelOffsetX = labelOffsetX;
     this.labelOffsetY = labelOffsetY;
     this.labelColor = labelColor;
-    //this.labelFontFamily = labelFontFamily;
+    this.labelFontFamily = labelFontFamily;
   }
+
+ // Node related methods
 
   setNodeId(nodeId) {
     this.nodeId = nodeId;
@@ -142,7 +142,7 @@ export default class NodeModel {
     return this.highlighted;
   }
 
-  //--------------------------
+  // Label related methods
 
   setLabel(newLabel) {
     this.label = newLabel;
@@ -169,11 +169,9 @@ export default class NodeModel {
     this.labelColor = labelColor;
   }
 
-  /*
   setLabelFontFamily(fontFamily) {
     this.labelFontFamily = fontFamily;
   }
-  */
 
   getLabel() {
     return this.label;
@@ -202,9 +200,7 @@ export default class NodeModel {
     return this.labelColor;
   }
 
-  /*
   getLabelFontFamily() {
     return this.labelFontFamily;
   }
-  */
 }

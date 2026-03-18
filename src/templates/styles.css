@@ -1,14 +1,15 @@
-
 .input-invalid {
   outline: 2px solid #e53e3e;
   background-color: #fff5f5;
 }
+
 /* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
 html,
 body {
   height: 100%;
@@ -17,7 +18,7 @@ body {
   font-size: 16px;
 }
 
-/* Layout-Container */
+/* Layout */
 body {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -56,6 +57,7 @@ main {
   font-size: clamp(0.875rem, 1.2vw, 1rem);
 }
 
+/* Toolbar */
 .toolbar-left,
 .toolbar-center,
 .toolbar-right {
@@ -64,6 +66,7 @@ main {
   gap: clamp(0.4rem, 1vw, 0.75rem);
 }
 
+/* Buttons */
 button {
   background-color: #4caf50;
   color: white;
@@ -114,13 +117,13 @@ input[type="file"] {
   font-size: clamp(1rem, 2vh, 1.3rem);
 }
 
+/* Panels */
 .panel {
   display: none;
 }
 .panel.active {
   display: block;
 }
-
 .panel p {
   font-size: clamp(0.9rem, 1.2vw, 1rem);
   line-height: 1.5;
@@ -152,23 +155,21 @@ input[type="file"] {
   body {
     grid-template-rows: auto auto;
   }
-
   main {
     grid-template-columns: 100%;
     grid-template-rows: 50% 50%;
   }
-
   #graph-container {
     border-right: none;
     border-bottom: 1px solid #ccc;
   }
-
   #property-panel {
     border-left: none;
     border-top: 1px solid #ccc;
   }
 }
 
+/* Color rows */
 .color-row {
   display: flex;
   justify-content: space-between;
@@ -207,22 +208,6 @@ input[type="file"] {
   cursor: pointer;
   flex-shrink: 0;
 }
-
-.color-hex-input {
-  width: clamp(70px, 15vw, 90px);
-  padding: clamp(0.2rem, 0.5vw, 0.3rem) clamp(0.3rem, 0.7vw, 0.4rem);
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: clamp(0.8rem, 1vw, 0.9rem);
-  font-family: monospace;
-  text-align: center;
-}
-
-.color-hex-input:focus {
-  outline: 2px solid #4caf50;
-  border-color: #4caf50;
-}
-
 .color-circle::-webkit-color-swatch-wrapper {
   padding: 0;
 }
@@ -235,6 +220,21 @@ input[type="file"] {
   border-radius: 50%;
 }
 
+.color-hex-input {
+  width: clamp(70px, 15vw, 90px);
+  padding: clamp(0.2rem, 0.5vw, 0.3rem) clamp(0.3rem, 0.7vw, 0.4rem);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  font-family: monospace;
+  text-align: center;
+}
+.color-hex-input:focus {
+  outline: 2px solid #4caf50;
+  border-color: #4caf50;
+}
+
+/* Edge controls */
 .edge-controls {
   display: flex;
   justify-content: space-between;
@@ -242,9 +242,14 @@ input[type="file"] {
   width: 100%;
   margin-bottom: 1rem;
 }
+
 #arrowhead-buttons {
   justify-content: flex-start;
 }
+#arrowtail-buttons {
+  justify-content: flex-end;
+}
+
 #link-style {
   padding: clamp(0.3rem, 0.8vw, 0.5rem) clamp(0.6rem, 1.2vw, 1rem);
   border-radius: 4px;
@@ -253,9 +258,7 @@ input[type="file"] {
   flex-shrink: 0;
   font-size: clamp(0.875rem, 1.1vw, 1rem);
 }
-#arrowtail-buttons {
-  justify-content: flex-end;
-}
+
 .arrow-buttons {
   display: flex;
   gap: 0.3rem;
@@ -277,6 +280,7 @@ input[type="file"] {
   border: 1px solid #2e7d32;
 }
 
+/* Thickness controls */
 .thickness-controls {
   display: flex;
   justify-content: space-between;
@@ -305,13 +309,15 @@ input[type="file"] {
   font-size: clamp(0.875rem, 1.1vw, 1rem);
 }
 
+/* Panel section headers */
 .panel-section-header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   background: #e0e0e0;
   padding: clamp(0.4rem, 1vw, 0.6rem) clamp(0.75rem, 1.5vw, 1.5rem);
-  margin: 0.8rem calc(-1 * clamp(0.75rem, 1.5vw, 1.5rem)) 0.6rem calc(-1 * clamp(0.75rem, 1.5vw, 1.5rem));
+  margin: 0.8rem calc(-1 * clamp(0.75rem, 1.5vw, 1.5rem)) 0.6rem
+    calc(-1 * clamp(0.75rem, 1.5vw, 1.5rem));
   font-weight: bold;
   font-size: clamp(0.9rem, 1.2vw, 1.05rem);
   border-top: 1px solid #ccc;
@@ -322,6 +328,7 @@ input[type="file"] {
   font-size: clamp(0.95rem, 1.3vw, 1.1rem);
 }
 
+/* Reset curvature button */
 #reset-curvature {
   display: block;
   width: calc(100% - 2rem);
@@ -340,6 +347,7 @@ input[type="file"] {
   background: #e0e0e0;
 }
 
+/* Field labels */
 .field-label {
   font-weight: normal;
   font-size: clamp(0.75rem, 1vw, 0.875rem);
@@ -347,6 +355,7 @@ input[type="file"] {
   margin-bottom: 0.2rem;
 }
 
+/* Bounds grid */
 .bounds-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -375,17 +384,12 @@ input[type="file"] {
   font-size: clamp(0.875rem, 1.1vw, 1rem);
 }
 
+/* Stroke field */
 .node-stroke-field {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 0.4rem 0 0.4rem 0.4rem;
-}
-.node-stroke-field .field-label {
-  font-weight: normal;
-  font-size: clamp(0.75rem, 1vw, 0.875rem);
-  color: #555;
-  margin-bottom: 0.2rem;
 }
 .node-stroke-field input[type="number"] {
   width: clamp(3rem, 8vw, 4rem);
@@ -396,8 +400,7 @@ input[type="file"] {
   font-size: clamp(0.875rem, 1.1vw, 1rem);
 }
 
-/* ---------- Label Properties (node panel) --------- */
-
+/* Label Properties */
 .label-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -417,7 +420,6 @@ input[type="file"] {
   display: flex;
   flex-direction: column;
 }
-
 .form-field .field-label {
   font-weight: normal;
   font-size: clamp(0.75rem, 1vw, 0.875rem);
@@ -445,6 +447,22 @@ input[type="file"] {
   width: 100%;
 }
 
+/* Font-Family select — passend zu anderen Panel-Inputs */
+.form-field--font-family {
+  grid-column: 1 / -1;
+}
+.form-field--font-family select {
+  width: 100%;
+  padding: clamp(0.25rem, 0.6vw, 0.4rem);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  background-color: white;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Shared left margin for panel content */
 .node-stroke-field,
 .color-row,
 .bounds-grid,
@@ -463,6 +481,7 @@ input[type="file"] {
   }
 }
 
+/* Info panel */
 #info-panel .info-row {
   display: flex;
   align-items: center;
@@ -471,7 +490,6 @@ input[type="file"] {
   margin: 0.5rem 0;
   margin-left: 0.4rem;
 }
-
 #info-panel i {
   color: #555;
   font-size: clamp(1rem, 1.3vw, 1.15rem);
@@ -485,7 +503,6 @@ input[type="file"] {
   color: #333;
   font-size: clamp(0.9rem, 1.2vw, 1rem);
 }
-
 .info-row i {
   width: 20px;
   text-align: center;
@@ -493,8 +510,7 @@ input[type="file"] {
   font-size: clamp(1rem, 1.3vw, 1.15rem);
 }
 
-/*Png-download Pop Up*/
-
+/* PNG Export Modal */
 .modal {
   position: fixed;
   top: 0;
@@ -507,7 +523,6 @@ input[type="file"] {
   justify-content: center;
   z-index: 1000;
 }
-
 .modal-content {
   position: relative;
   background: #fff;
@@ -518,11 +533,10 @@ input[type="file"] {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   font-family: sans-serif;
 }
-
 .modal-close {
   position: absolute;
   top: 0.4rem;
-  right: 0rem;
+  right: 0;
   border: none;
   background: transparent;
   font-size: clamp(1.1rem, 2vw, 1.3rem);
@@ -533,7 +547,6 @@ input[type="file"] {
   color: #000;
   background: transparent;
 }
-
 .modal-content h3 {
   margin-top: 0;
   margin-bottom: 1rem;
@@ -541,7 +554,6 @@ input[type="file"] {
   font-weight: 600;
   color: #222;
 }
-
 .option {
   display: flex;
   align-items: center;
@@ -550,33 +562,28 @@ input[type="file"] {
   font-size: clamp(0.9rem, 1.4vw, 1rem);
   color: #333;
 }
-
 .option i {
   color: #555;
   min-width: 18px;
   text-align: center;
   font-size: clamp(1rem, 1.5vw, 1.1rem);
 }
-
 .option input[type="checkbox"] {
   margin-left: auto;
   transform: scale(clamp(1.1, 1.5vw, 1.3));
   cursor: pointer;
   accent-color: #4caf50;
 }
-
 .scale-control {
   display: flex;
   align-items: center;
   gap: 0.8rem;
   margin-top: 0.3rem;
 }
-
 .scale-control input[type="range"] {
   flex: 1;
   accent-color: #4caf50;
 }
-
 .scale-control span {
   min-width: 120px;
   text-align: right;
@@ -584,13 +591,11 @@ input[type="file"] {
   color: #444;
   white-space: nowrap;
 }
-
 .modal-actions {
   display: flex;
   justify-content: flex-start;
   margin-top: 1.2rem;
 }
-
 .btn-export {
   display: flex;
   align-items: center;
@@ -607,9 +612,7 @@ input[type="file"] {
   background: #2e7d32;
 }
 
-/*Pdf-Download-Pop-Up*/
-
-/* Marquee selection rectangle */
+/* Marquee selection */
 .marquee-rect {
   fill: rgba(76, 175, 80, 0.08);
   stroke: #4caf50;
@@ -617,25 +620,3 @@ input[type="file"] {
   stroke-dasharray: 6 4;
   pointer-events: none;
 }
-
-/* FontFamily selection (wenn zu viel zeit an richtige stelle in css moven */
-/*
-.form-field--font select {
-  width: 100%;
-  padding: clamp(0.25rem, 0.6vw, 0.4rem);
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
-  background-color: white;
-  cursor: pointer;
-}
-  */
-
-/*
-.form-field--font select option {
-  padding: 0.3rem;
-}
-.form-field--font select option[value*="Arial"] { font-family: Arial, sans-serif; }
-.form-field--font select option[value*="Georgia"] { font-family: Georgia, serif; }
-.form-field--font select option[value*="Courier"] { font-family: 'Courier New', monospace; }
-*/

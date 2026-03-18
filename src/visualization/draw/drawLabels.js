@@ -1,5 +1,3 @@
-import { LABEL_BASELINE_OFFSET } from "../../utils/visualConstants.js";
-
 export function drawLabels(svg, graph) {
   const labelGroup = svg.select("#label-layer");
 
@@ -16,12 +14,12 @@ export function drawLabels(svg, graph) {
     .attr("class", "node-label")
     .attr("x", (d) => d.getXValue() + d.getLabelOffsetX())
     .attr("y", (d) => d.getYValue() + d.getLabelOffsetY())
-    .attr("dy", LABEL_BASELINE_OFFSET)
     .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "central")
     .text((d) => d.getLabel())
     .attr("fill", (d) => d.getLabelColor())
     .style("font-size", (d) => `${d.getLabelFontSize()}px`)
-    //.style("font-family", (d) => d.getLabelFontFamily())
+    .style("font-family", (d) => d.getLabelFontFamily())
     .style("pointer-events", "none")
     .style("user-select", "none");
 }

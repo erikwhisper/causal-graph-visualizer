@@ -4,8 +4,9 @@ import { getLinksForNodes } from "../../utils/getLinksForNodes.js";
 
 export function updateNodeVisual(node, svg, graph) {
   const nodeId = node.getNodeId();
-
   const circle = svg.select(`#node-${nodeId}`);
+  if (circle.empty()) return;
+  
   circle
     .attr("r", node.getRadius())
     .attr("fill", node.getFillColor())
@@ -17,7 +18,6 @@ export function updateNodeVisual(node, svg, graph) {
   updateLabelVisual(node, svg);
 
   const affectedLinks = getLinksForNodes(graph, nodeId);
-
   affectedLinks.forEach((link) => {
     updateLinkVisual(link, svg, graph);
   });

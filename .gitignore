@@ -41,4 +41,5 @@ build/
 
 # Copilot context files
 .github/copilot-instructions.md
+.github/instructions/tasks.instructions.md
 docs/

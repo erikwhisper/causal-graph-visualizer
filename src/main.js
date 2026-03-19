@@ -34,7 +34,7 @@ let svg = initializeSvgCanvas();
 
 drawGraph(svg, graph, graphHistory, gridManager);
 
-registerClickHandlers(svg, graph, graphHistory);
+registerClickHandlers(svg, graph, graphHistory, gridManager);
 
 registerMarqueeNodeSelection(svg, graph, graphHistory);
 

@@ -29,5 +29,5 @@ export function fitToScreen(svg, graph, graphHistory, gridManager) {
     if (node) node.setPosition(x, y);
   });
 
-  redrawGraph(svg, graph, graphHistory);
+  redrawGraph(svg, graph, graphHistory, gridManager);
 }

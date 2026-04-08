@@ -6,15 +6,14 @@ import { ensureGhostArrowhead } from "./utils/ensureGhostArrowhead.js";
 import { createGhostLink } from "./utils/createGhostLink.js";
 import { updateGhostLink } from "./utils/updateGhostLink.js";
 import { removeGhostLink } from "./utils/removeGhostLink.js";
+import { computeMultiEdgeCurvature } from "./utils/computeMultiEdgeCurvature.js";
 
 export function handleLinkCreation(svg, graph, graphHistory, gridManager) {
   let firstNode = null;
-
   return {
     handleClick(element) {
       unhighlightAll(svg, graph);
       const clickedNode = d3.select(element).datum();
-
       if (!firstNode) {
         firstNode = clickedNode;
         ensureGhostArrowhead(svg);
@@ -25,18 +24,23 @@ export function handleLinkCreation(svg, graph, graphHistory, gridManager) {
         });
         return;
       }
-
       const secondNode = clickedNode;
       if (firstNode.getNodeId() === secondNode.getNodeId()) {
         removeGhostLink(svg);
         firstNode = null;
         return;
       }
-
       removeGhostLink(svg);
+      const { linkCurvatureX, linkCurvatureY } = computeMultiEdgeCurvature(
+        graph,
+        firstNode,
+        secondNode,
+      );
       graph.addLink({
         sourceNodeId: firstNode.getNodeId(),
         targetNodeId: secondNode.getNodeId(),
+        linkCurvatureX,
+        linkCurvatureY,
       });
       drawLinks(svg, graph, graphHistory, gridManager);
       renderInfoPanel(graph);

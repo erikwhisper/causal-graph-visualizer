@@ -14,3 +14,5 @@ export const LAYOUT_NODESEP = 50;
 export const LAYOUT_RANKSEP = 80;
 export const LAYOUT_CURVATURE_SPACING = 100;
 
+export const MULTI_EDGE_CURVATURE_STEP = 50;
+

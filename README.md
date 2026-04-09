@@ -47,15 +47,9 @@ Download the latest version for your operating system from the [Releases](../../
 | **ADMG** | Acyclic Directed Mixed Graph, includes bidirected edges for latent confounders | [admg.csv](assets/examples/admg/admg.csv) · [admg.json](assets/examples/admg/admg.json) |
 | **PAG** | Partial Ancestral Graph, represents equivalence classes with circle endpoints | [pag.csv](assets/examples/pag/pag.csv) · [pag.json](assets/examples/pag/pag.json) |
 
-### DAG
-
-<img src="assets/examples/dag/dag.png" alt="DAG Example" width="120"/>
-
-### ADMG
-<img src="assets/examples/admg/admg.png" alt="ADMG Example" width="120"/>
-
-### PAG
-<img src="assets/examples/pag/pag.png" alt="PAG Example" width="120"/>
+| DAG | ADMG | PAG |
+| :---: | :---: | :---: |
+| <img src="assets/examples/dag/dag.png" alt="DAG" width="180"/> | <img src="assets/examples/admg/admg.png" alt="ADMG" width="180"/> | <img src="assets/examples/pag/pag.png" alt="PAG" width="180"/> |
 
 ---
 

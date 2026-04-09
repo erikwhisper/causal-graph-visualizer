@@ -1,8 +1,8 @@
 # Causal Graph Visualizer
 
-An interactive tool for visualizing and editing causal graphs — available as both a **web application** and a **desktop application**.
-
 <img src="assets/icon.png" alt="Causal Graph Visualizer" width="80"/>
+
+An interactive tool for visualizing and editing causal graphs — available as both a **web application** and a **desktop application**.
 
 ---
 

@@ -2,7 +2,7 @@
 
 An interactive tool for visualizing and editing causal graphs — available as both a **web application** and a **desktop application**.
 
-![Causal Graph Visualizer Logo](assets/icon.png)
+<img src="assets/icon.png" alt="Causal Graph Visualizer" width="80"/>
 
 ---
 
@@ -41,18 +41,20 @@ Download the latest version for your operating system from the [Releases](../../
 
 ## Graph Types Supported
 
-The tool supports three types of causal graphs out of the box:
+| Type | Description | Example Files |
+|------|-------------|---------------|
+| **DAG** | Directed Acyclic Graph, standard causal model | [dag.csv](assets/examples/dag/dag.csv) · [dag.json](assets/examples/dag/dag.json) |
+| **ADMG** | Acyclic Directed Mixed Graph, includes bidirected edges for latent confounders | [admg.csv](assets/examples/admg/admg.csv) · [admg.json](assets/examples/admg/admg.json) |
+| **PAG** | Partial Ancestral Graph, represents equivalence classes with circle endpoints | [pag.csv](assets/examples/pag/pag.csv) · [pag.json](assets/examples/pag/pag.json) |
 
-<!-- Example image placeholders -->
-<!-- ![DAG Example](assets/examples/dag-example.png) -->
-<!-- ![ADMG Example](assets/examples/admg-example.png) -->
-<!-- ![PAG Example](assets/examples/pag-example.png) -->
+### DAG
+![DAG Example](assets/examples/dag/dag.png)
 
-| Type | Description |
-|------|-------------|
-| **DAG** | Directed Acyclic Graph, standard causal model |
-| **ADMG** | Acyclic Directed Mixed Graph, includes bidirected edges for latent confounders |
-| **PAG** | Partial Ancestral Graph, represents equivalence classes with circle endpoints |
+### ADMG
+![ADMG Example](assets/examples/admg/admg.png)
+
+### PAG
+![PAG Example](assets/examples/pag/pag.png)
 
 ---
 
@@ -62,11 +64,11 @@ The tool supports three types of causal graphs out of the box:
 1. Open the [web application](https://causal-graph-visualizer-014f12.pages.imims.de/)
 2. Left-click the canvas and press **`Ctrl+Alt+N`** to add your first node
 3. Hold **`Ctrl+Alt`** and click two nodes to connect them with a directed edge
-4. Or import an existing file, see [File Formats](#file-formats) below
+4. Or import an existing file — see [File Formats](#file-formats) below
 
 ### Desktop App
 1. Download the installer for your OS from [Releases](../../releases)
-2. Install and launch, the app works fully offline
+2. Install and launch — the app works fully offline
 3. Same workflow as the web version
 
 ---
@@ -100,10 +102,7 @@ The tool supports three types of causal graphs out of the box:
 ### JSON Graph (`.json`)
 
 Stores the full graph including all visual properties (positions, colors, fonts, curvature).
-Recommended for saving and reopening work.
-
-<!-- Sample file placeholder: add once examples/ folder is set up -->
-<!-- [Download example JSON](assets/examples/example-graph.json) -->
+Recommended for saving and reopening work, and for sharing with collaborators.
 
 ### CSV Matrix (`.csv`)
 
@@ -118,9 +117,6 @@ Encodes the graph as an adjacency matrix. Useful for interoperability with causa
 | `2` | Arrowhead (`>`) |
 | `3` | Tail (`—`) |
 | `4–5` | ADMG bidirected combinations |
-
-<!-- Sample file placeholder: add once examples/ folder is set up -->
-<!-- [Download example CSV matrix](assets/examples/example-matrix.csv) -->
 
 ---
 
@@ -152,5 +148,5 @@ npm run dist          # Build desktop installers
 
 ## Roadmap
 
-- [ ] Pan & Zoom (camera abstraction with `d3.zoom()`)
 - [ ] Copy / Paste and Duplicate nodes
+- [ ] Align nodes horizontally / vertically

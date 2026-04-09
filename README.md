@@ -48,13 +48,13 @@ Download the latest version for your operating system from the [Releases](../../
 | **PAG** | Partial Ancestral Graph, represents equivalence classes with circle endpoints | [pag.csv](assets/examples/pag/pag.csv) · [pag.json](assets/examples/pag/pag.json) |
 
 ### DAG
-![DAG Example](assets/examples/dag/dag.png)
+<img src="assets/examples/dag/dag.png" alt="DAG Example" width="480"/>
 
 ### ADMG
-![ADMG Example](assets/examples/admg/admg.png)
+<img src="assets/examples/admg/admg.png" alt="ADMG Example" width="480"/>
 
 ### PAG
-![PAG Example](assets/examples/pag/pag.png)
+<img src="assets/examples/pag/pag.png" alt="PAG Example" width="480"/>
 
 ---
 

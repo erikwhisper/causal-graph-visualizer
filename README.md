@@ -1,6 +1,6 @@
 # Causal Graph Visualizer
 
-<img src="assets/icon.png" alt="Causal Graph Visualizer" width="80"/>
+<img src="assets/icon_name.png" alt="Causal Graph Visualizer" width="80"/>
 
 An interactive tool for visualizing and editing causal graphs — available as both a **web application** and a **desktop application**.
 

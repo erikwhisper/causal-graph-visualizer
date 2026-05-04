@@ -27,12 +27,16 @@ body {
 
 #header-bar {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
+  gap: clamp(0.3rem, 0.8vw, 0.6rem);
   background-color: #ececec;
   border-bottom: 1px solid #ccc;
-  padding: clamp(0.5rem, 1.5vh, 1rem) clamp(0.5rem, 2vw, 1.5rem);
-  min-height: 60px;
+  padding: 0 clamp(0.5rem, 2vw, 1.5rem);
+  height: clamp(56px, 8vh, 80px);
+  position: relative;
+  z-index: 600;
+  overflow: visible;
 }
 
 main {
@@ -58,20 +62,106 @@ main {
 }
 
 /* Toolbar */
-.toolbar-left,
-.toolbar-center,
-.toolbar-right {
+.toolbar-group {
   display: flex;
   align-items: center;
-  gap: clamp(0.4rem, 1vw, 0.75rem);
+  gap: clamp(0.25rem, 0.6vw, 0.5rem);
+}
+
+.toolbar-separator {
+  width: 1px;
+  height: clamp(24px, 3.5vh, 36px);
+  background-color: #ccc;
+  flex-shrink: 0;
+}
+
+.toolbar-spacer {
+  flex-grow: 1;
+}
+
+/* Dropdown trigger button - same look as normal buttons */
+.toolbar-dropdown {
+  position: relative;
+}
+
+.toolbar-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: clamp(0.5rem, 1.2vh, 0.75rem) clamp(0.6rem, 1.5vw, 0.9rem);
+  cursor: pointer;
+  font-size: clamp(0.95rem, 1.8vh, 1.1rem);
+  min-width: 40px;
+  min-height: 40px;
+}
+.toolbar-dropdown-trigger:hover {
+  background-color: #45a049;
+}
+.toolbar-caret {
+  font-size: 0.7em;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* Dropdown menu - hidden until .open */
+.toolbar-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  z-index: 500;
+  padding: 4px 0;
+}
+.toolbar-dropdown.open .toolbar-dropdown-menu {
+  display: block;
+}
+.toolbar-dropdown-trigger[aria-expanded="true"] {
+  background-color: #388e3c;
+}
+
+/* Dropdown items - shared for button and label */
+.toolbar-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: #222;
+  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+.toolbar-dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+.toolbar-dropdown-item i {
+  width: 16px;
+  text-align: center;
+  color: #555;
+  font-size: 1em;
+  pointer-events: none;
 }
 .toolbar-icon {
-  height: clamp(24px, 3.5vh, 36px);
+  height: clamp(80.9px, 11vh, 106.6px);
   width: auto;
-  opacity: 0.82;
+  opacity: 1;
   pointer-events: none;
   flex-shrink: 0;
   border-radius: 4px;
+  transform: translateY(2px);
 }
 
 /* Buttons */

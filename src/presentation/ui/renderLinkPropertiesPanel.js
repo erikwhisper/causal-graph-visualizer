@@ -7,14 +7,14 @@ export function renderLinkPropertiesPanel(
   selectedLinks,
   svg,
   graph,
-  graphHistory
+  graphHistory,
 ) {
   const panel = document.getElementById("property-panel");
 
   //kann weg da eigentlich immer infoPanel angezeigt wird wenn nodes oder link length === 0 ist
   //nochmal checken
   if (selectedLinks.length === 0) {
-    panel.innerHTML = `<p>Keine Links ausgewählt.</p>`;
+    panel.innerHTML = `<p>No Link selected.</p>`;
     return;
   }
 
@@ -31,6 +31,6 @@ export function renderLinkPropertiesPanel(
     selectedLinks,
     svg,
     graph,
-    graphHistory
+    graphHistory,
   );
 }

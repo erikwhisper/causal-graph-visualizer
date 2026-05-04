@@ -6,66 +6,44 @@
     <title>Causal Graph Visualizer</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="templates/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Lora&family=Source+Code+Pro&family=Merriweather&family=Roboto+Mono&display=swap" rel="stylesheet" />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <!-- HEADER -->
     <header id="header-bar" role="banner">
-      <!-- App Icon -->
-      <img
-        src="/assets/icon_name.png"
-        class="toolbar-icon"
-        alt=""
-        aria-hidden="true"
-      />
-      <div class="toolbar-left">
-        <!-- CSV Loader -->
-        <input type="file" id="pag-matrix-file" accept=".csv,.txt" />
-        <label
-          for="pag-matrix-file"
-          class="file-button"
-          title="Load Matrix File (.csv)"
-          aria-label="Load Matrix File"
-        >
-          <i class="fa fa-file-csv"></i>
-        </label>
-        <!-- JSON Loader -->
-        <input type="file" id="graph-file" accept=".json" />
-        <label
-          for="graph-file"
-          class="file-button"
-          title="Load Graph File (.json)"
-          aria-label="Load Graph File"
-        >
-          <i class="fa fa-project-diagram"></i>
-        </label>
-      </div>
-      <div class="toolbar-center">
+      <!-- Logo -->
+      <img src="/icon_name.svg" class="toolbar-icon" alt="" aria-hidden="true" />
+
+      <div class="toolbar-separator"></div>
+
+      <!-- History -->
+      <div class="toolbar-group">
         <button id="undo-btn" title="Undo (Ctrl+Z)" aria-label="Undo">
           <i class="fa fa-undo"></i>
         </button>
         <button id="redo-btn" title="Redo (Ctrl+Y)" aria-label="Redo">
           <i class="fa fa-redo"></i>
         </button>
-        <button
-          id="add-node-btn"
-          title="Add Node (Ctrl+Alt+N)"
-          aria-label="Add Node"
-        >
+      </div>
+
+      <div class="toolbar-separator"></div>
+
+      <!-- Editing -->
+      <div class="toolbar-group">
+        <button id="add-node-btn" title="Add Node (Ctrl+Alt+N)" aria-label="Add Node">
           <i class="fa fa-plus-circle"></i>
         </button>
-        <button
-          id="delete-btn"
-          title="Delete Selection (Del)"
-          aria-label="Delete"
-        >
+        <button id="delete-btn" title="Delete Selection (Del)" aria-label="Delete">
           <i class="fa fa-trash"></i>
         </button>
-        <button
-          id="grid-toggle-btn"
-          title="Toggle Grid (G)"
-          aria-label="Toggle Grid"
-        >
+      </div>
+
+      <div class="toolbar-separator"></div>
+
+      <!-- View / Canvas -->
+      <div class="toolbar-group">
+        <button id="grid-toggle-btn" title="Toggle Grid (G)" aria-label="Toggle Grid">
           <i class="fa fa-th"></i>
         </button>
         <button
@@ -90,35 +68,121 @@
           <i class="fa fa-share-alt"></i>
         </button>
       </div>
-      <div class="toolbar-right">
-        <button
-          id="download-graph"
-          title="Save as Graph (.json)"
-          aria-label="Save as Graph"
-        >
-          <i class="fa fa-file-download"></i>
-        </button>
-        <button
-          id="download-matrix"
-          title="Save as Matrix (.csv)"
-          aria-label="Save as Matrix"
-        >
-          <i class="fa fa-table"></i>
-        </button>
-        <button
-          id="download-pdf"
-          title="Export as PDF"
-          aria-label="Export as PDF"
-        >
-          <i class="fa fa-file-pdf"></i>
-        </button>
-        <button
-          id="download-png"
-          title="Export as PNG"
-          aria-label="Export as PNG"
-        >
-          <i class="fa fa-image"></i>
-        </button>
+
+      <!-- Spacer -->
+      <div class="toolbar-spacer"></div>
+
+      <!-- File I/O: three dropdowns -->
+      <div class="toolbar-group">
+        <!-- Import Dropdown -->
+        <div class="toolbar-dropdown" id="dropdown-import">
+          <button
+            class="toolbar-dropdown-trigger"
+            aria-haspopup="true"
+            aria-expanded="false"
+            title="Import"
+            aria-label="Import"
+          >
+            <i class="fa fa-file-import"></i>
+            <i class="fa fa-caret-down toolbar-caret"></i>
+          </button>
+          <div class="toolbar-dropdown-menu" role="menu">
+            <input type="file" id="pag-matrix-file" accept=".csv,.txt" />
+            <label
+              for="pag-matrix-file"
+              class="toolbar-dropdown-item"
+              role="menuitem"
+              title="Load Matrix File (.csv)"
+              aria-label="Load Matrix File"
+            >
+              <i class="fa fa-file-csv"></i>
+              <span>Load Matrix</span>
+            </label>
+            <input type="file" id="graph-file" accept=".json" />
+            <label
+              for="graph-file"
+              class="toolbar-dropdown-item"
+              role="menuitem"
+              title="Load Graph File (.json)"
+              aria-label="Load Graph File"
+            >
+              <i class="fa fa-project-diagram"></i>
+              <span>Load Graph</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Save Dropdown -->
+        <div class="toolbar-dropdown" id="dropdown-save">
+          <button
+            class="toolbar-dropdown-trigger"
+            aria-haspopup="true"
+            aria-expanded="false"
+            title="Save"
+            aria-label="Save"
+          >
+            <i class="fa fa-save"></i>
+            <i class="fa fa-caret-down toolbar-caret"></i>
+          </button>
+          <div class="toolbar-dropdown-menu" role="menu">
+            <button
+              id="download-graph"
+              class="toolbar-dropdown-item"
+              role="menuitem"
+              title="Save as Graph (.json)"
+              aria-label="Save as Graph"
+            >
+              <i class="fa fa-file-download"></i>
+              <span>Save as Graph</span>
+            </button>
+            <button
+              id="download-matrix"
+              class="toolbar-dropdown-item"
+              role="menuitem"
+              title="Save as Matrix (.csv)"
+              aria-label="Save as Matrix"
+            >
+              <i class="fa fa-table"></i>
+              <span>Save as Matrix</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Export Dropdown -->
+        <div class="toolbar-dropdown" id="dropdown-export">
+          <button
+            class="toolbar-dropdown-trigger"
+            aria-haspopup="true"
+            aria-expanded="false"
+            title="Export"
+            aria-label="Export"
+          >
+            <i class="fa fa-file-export"></i>
+            <i class="fa fa-caret-down toolbar-caret"></i>
+          </button>
+          <div class="toolbar-dropdown-menu" role="menu">
+            <button
+              id="download-pdf"
+              class="toolbar-dropdown-item"
+              role="menuitem"
+              title="Export as PDF"
+              aria-label="Export as PDF"
+            >
+              <i class="fa fa-file-pdf"></i>
+              <span>Export as PDF</span>
+            </button>
+            <button
+              id="download-png"
+              class="toolbar-dropdown-item"
+              role="menuitem"
+              title="Export as PNG"
+              aria-label="Export as PNG"
+            >
+              <i class="fa fa-image"></i>
+              <span>Export as PNG</span>
+            </button>
+          </div>
+        </div>
       </div>
     </header>
     <!-- MAIN -->
@@ -135,9 +199,9 @@
       >
         <div id="info-panel" class="panel active">
           <p>
-            Import a graph, or add the first node.
+            Import a graph, or add the first node.<br>
             <small
-              >(Left-click the canvas and press Ctrl+Alt+N to add a node)</small
+              > (Press Ctrl+Alt+N to add your first node)</small
             >
           </p>
         </div>

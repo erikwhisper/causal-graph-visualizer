@@ -13,6 +13,8 @@ export function fitToScreen(svg, graph, graphHistory, gridManager) {
     id: node.getNodeId(),
     x: node.getXValue(),
     y: node.getYValue(),
+    radius: node.getRadius(),
+    strokeWidth: node.getStrokeWidth(),
   }));
 
   const rescaled = rescaleToCanvas(positions, width, height, gridManager);

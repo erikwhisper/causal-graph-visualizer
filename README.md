@@ -58,7 +58,7 @@ Download the latest version for your operating system from the [Releases](../../
 ### Web App
 
 1. Open the [web application](https://causal-graph-visualizer-014f12.pages.imims.de/)
-2. Left-click the canvas and press **`Ctrl+Alt+N`** to add your first node
+2. Press **`Ctrl+Alt+N`** to add your first node
 3. Hold **`Ctrl+Alt`** and click two nodes to connect them with a directed edge
 4. Or import an existing file — see [File Formats](#file-formats) below
 

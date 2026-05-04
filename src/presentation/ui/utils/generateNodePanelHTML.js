@@ -8,11 +8,11 @@ export function generateNodePanelHTML(node, isMultiple) {
     "sans-serif",
     "serif",
     "monospace",
-    "Arial",
-    "Georgia",
-    "Courier New",
-    "Times New Roman",
-    "Verdana",
+    "Inter",
+    "Lora",
+    "Merriweather",
+    "Source Code Pro",
+    "Roboto Mono",
   ];
 
   const currentFont = isMultiple ? "sans-serif" : node.getLabelFontFamily();

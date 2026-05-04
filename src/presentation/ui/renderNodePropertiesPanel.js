@@ -7,14 +7,14 @@ export function renderNodePropertiesPanel(
   selectedNodes,
   svg,
   graph,
-  graphHistory
+  graphHistory,
 ) {
   const panel = document.getElementById("property-panel");
 
   //kann weg da eigentlich immer infoPanel angezeigt wird wenn nodes oder link length === 0 ist
   //nomma checken
   if (selectedNodes.length === 0) {
-    panel.innerHTML = `<p>Keine Knoten ausgewählt.</p>`;
+    panel.innerHTML = `<p>No Node selected.</p>`;
     return;
   }
 
@@ -31,6 +31,6 @@ export function renderNodePropertiesPanel(
     selectedNodes,
     svg,
     graph,
-    graphHistory
+    graphHistory,
   );
 }

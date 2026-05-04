@@ -40,8 +40,12 @@ export function computeLinkPath(link, nodes) {
     const dx1 = actualCx - source.x;
     const dy1 = actualCy - source.y;
     const len1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
-    const normX1 = dx1 / len1;
-    const normY1 = dy1 / len1;
+    let normX1 = 0;
+    let normY1 = 0;
+    if (len1 !== 0) {
+      normX1 = dx1 / len1;
+      normY1 = dy1 / len1;
+    }
     sourceX =
       source.x +
       normX1 * (sourceRadius + sourceStrokeWidth + arrowtailWidth + puffer);
@@ -52,8 +56,12 @@ export function computeLinkPath(link, nodes) {
     const dx2 = actualCx - target.x;
     const dy2 = actualCy - target.y;
     const len2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-    const normX2 = dx2 / len2;
-    const normY2 = dy2 / len2;
+    let normX2 = 0;
+    let normY2 = 0;
+    if (len2 !== 0) {
+      normX2 = dx2 / len2;
+      normY2 = dy2 / len2;
+    }
     targetX =
       target.x +
       normX2 * (targetRadius + targetStrokeWidth + arrowheadWidth + puffer);
@@ -66,8 +74,12 @@ export function computeLinkPath(link, nodes) {
     const dx = target.x - source.x;
     const dy = target.y - source.y;
     const length = Math.sqrt(dx * dx + dy * dy);
-    const normX = dx / length;
-    const normY = dy / length;
+    let normX = 0;
+    let normY = 0;
+    if (length !== 0) {
+      normX = dx / length;
+      normY = dy / length;
+    }
     sourceX =
       source.x +
       normX * (sourceRadius + sourceStrokeWidth + arrowtailWidth + puffer);

@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-let currentMousePos = { x: 0, y: 0 };
+let currentMousePos = [100, 100];
 
 export function addMouseMoveListener(svg) {
   svg.on("mousemove", function (event) {
@@ -11,4 +11,3 @@ export function addMouseMoveListener(svg) {
 export function getCurrentMousePosition() {
   return currentMousePos;
 }
-

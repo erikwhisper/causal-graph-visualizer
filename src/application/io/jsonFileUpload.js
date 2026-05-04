@@ -6,7 +6,7 @@ export function jsonFileUpload(svg, graph, graphHistory, gridManager) {
   if (!fileInput) {
     ErrorHandler.warn(
       "Graph file input element not found",
-      "JSON Upload Setup"
+      "JSON Upload Setup",
     );
     return;
   }
@@ -27,9 +27,21 @@ export function jsonFileUpload(svg, graph, graphHistory, gridManager) {
 
       if (!Array.isArray(nodes) || !Array.isArray(links)) {
         throw new Error(
-          "Invalid graph format: 'nodes' and 'links' must be arrays"
+          "Invalid graph format: 'nodes' and 'links' must be arrays",
         );
       }
+
+      nodes.forEach((node, index) => {
+        if (!node || typeof node !== "object") {
+          throw new Error(`Invalid node at index ${index}`);
+        }
+      });
+
+      links.forEach((link, index) => {
+        if (!link || typeof link !== "object") {
+          throw new Error(`Invalid link at index ${index}`);
+        }
+      });
 
       graph.deleteEverything();
       nodes.forEach((node) => graph.addNode(node));
@@ -39,7 +51,7 @@ export function jsonFileUpload(svg, graph, graphHistory, gridManager) {
 
       ErrorHandler.info(
         `Loaded ${nodes.length} nodes and ${links.length} links`,
-        "JSON Upload"
+        "JSON Upload",
       );
     } catch (error) {
       ErrorHandler.handle(error, "JSON File Upload");

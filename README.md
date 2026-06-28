@@ -18,9 +18,9 @@ Download the latest version for your operating system from the [Releases](../../
 
 | Platform | File |
 |----------|------|
-| Windows | `.exe` installer |
-| macOS | `.dmg` package |
-| Linux | `.AppImage` |
+| Windows | `.exe` files; the one with `Setup` in the name is the NSIS installer, the other `.exe` is portable |
+| macOS | `.dmg` package; use the file with `-arm64` for Apple Silicon (M1-M4), and the file without that suffix for Intel Macs |
+| Linux | `.AppImage`; if it does not start because `libfuse2` / `libfuse.so.2` is missing, run `chmod +x` on the file and start it with `--appimage-extract-and-run`, or install `libfuse2` |
 
 ---
 

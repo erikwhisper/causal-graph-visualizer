@@ -30,7 +30,8 @@
       "dist/**/*",
       "electron/**/*"
     ],
-  "win": {
+    "afterSign": "electron/afterSignAdhoc.cjs",
+    "win": {
     "target": [
      {
        "target": "nsis",

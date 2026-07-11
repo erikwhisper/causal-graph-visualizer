@@ -69,7 +69,7 @@ export function generateLinkPanelHTML(link, isMultiple) {
       </div>
 
       <div class="thickness-item">
-        <span class="thickness-label">Stroke</span>
+        <span class="thickness-label">Stroke Width</span>
         <input type="number" id="link-stroke-width" value="${getValue(() =>
           link.getStrokeWidth()
         )}" step="0.5" min="1" max="999" />

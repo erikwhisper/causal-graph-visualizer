@@ -11,8 +11,6 @@ export function renderLinkPropertiesPanel(
 ) {
   const panel = document.getElementById("property-panel");
 
-  //kann weg da eigentlich immer infoPanel angezeigt wird wenn nodes oder link length === 0 ist
-  //nochmal checken
   if (selectedLinks.length === 0) {
     panel.innerHTML = `<p>No Link selected.</p>`;
     return;

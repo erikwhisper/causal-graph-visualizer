@@ -50,7 +50,7 @@ export function generateNodePanelHTML(node, isMultiple) {
       <input type="color" id="node-fill" value="${getValue(() => node.getFillColor(), "#FFFFFF")}" class="color-circle" />
     </div>
     <div class="color-row">
-      <span class="color-label">Stroke Color</span>
+      <span class="color-label">Border Color</span>
       <input type="color" id="node-stroke" value="${getValue(() => node.getStrokeColor(), "#000000")}" class="color-circle" />
     </div>
     <div class="panel-section-header">
@@ -58,7 +58,7 @@ export function generateNodePanelHTML(node, isMultiple) {
       <span>Node Properties</span>
     </div>
     <div class="node-stroke-field">
-      <span class="field-label">Stroke</span>
+      <span class="field-label">Border Width</span>
       <input type="number" id="node-stroke-width" value="${getValue(() => node.getStrokeWidth())}" step="0.1" min="0.1" max="999" />
     </div>
     <div class="panel-section-header">

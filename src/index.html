@@ -12,176 +12,228 @@
     <a href="#main-content" class="skip-link">Skip to content</a>
     <!-- HEADER -->
     <header id="header-bar" role="banner">
-      <!-- Logo -->
-      <img src="/icon_name.svg" class="toolbar-icon" alt="" aria-hidden="true" />
+      <div class="toolbar-row-primary">
+        <!-- Logo -->
+        <img src="/icon_name.svg" class="toolbar-icon" alt="" aria-hidden="true" />
 
-      <div class="toolbar-separator"></div>
+        <div class="toolbar-separator"></div>
 
-      <!-- History -->
-      <div class="toolbar-group">
-        <button id="undo-btn" title="Undo (Ctrl+Z)" aria-label="Undo">
-          <i class="fa fa-undo"></i>
-        </button>
-        <button id="redo-btn" title="Redo (Ctrl+Y)" aria-label="Redo">
-          <i class="fa fa-redo"></i>
-        </button>
-      </div>
-
-      <div class="toolbar-separator"></div>
-
-      <!-- Editing -->
-      <div class="toolbar-group">
-        <button id="add-node-btn" title="Add Node (Ctrl+Alt+N)" aria-label="Add Node">
-          <i class="fa fa-plus-circle"></i>
-        </button>
-        <button id="delete-btn" title="Delete Selection (Del)" aria-label="Delete">
-          <i class="fa fa-trash"></i>
-        </button>
-      </div>
-
-      <div class="toolbar-separator"></div>
-
-      <!-- View / Canvas -->
-      <div class="toolbar-group">
-        <button id="grid-toggle-btn" title="Toggle Grid (G)" aria-label="Toggle Grid">
-          <i class="fa fa-th"></i>
-        </button>
-        <button
-          id="fit-to-screen-btn"
-          title="Fit to Screen (Ctrl+Shift+F)"
-          aria-label="Fit to Screen"
-        >
-          <i class="fa fa-compress-arrows-alt"></i>
-        </button>
-        <button
-          id="select-all-nodes-btn"
-          title="Select All Nodes (Ctrl+A)"
-          aria-label="Select All Nodes"
-        >
-          <i class="fa fa-circle"></i>
-        </button>
-        <button
-          id="select-all-links-btn"
-          title="Select All Links (Ctrl+Shift+A)"
-          aria-label="Select All Links"
-        >
-          <i class="fa fa-share-alt"></i>
-        </button>
-      </div>
-
-      <!-- Spacer -->
-      <div class="toolbar-spacer"></div>
-
-      <!-- File I/O: three dropdowns -->
-      <div class="toolbar-group">
-        <!-- Import Dropdown -->
-        <div class="toolbar-dropdown" id="dropdown-import">
-          <button
-            class="toolbar-dropdown-trigger"
-            aria-haspopup="true"
-            aria-expanded="false"
-            title="Import"
-            aria-label="Import"
-          >
-            <i class="fa fa-file-import"></i>
-            <i class="fa fa-caret-down toolbar-caret"></i>
+        <!-- History -->
+        <div class="toolbar-group" id="group-history">
+          <button id="undo-btn" title="Undo (Ctrl+Z)" aria-label="Undo">
+            <i class="fa fa-undo"></i>
+            <span class="toolbar-label">Undo</span>
           </button>
-          <div class="toolbar-dropdown-menu" role="menu">
-            <input type="file" id="pag-matrix-file" accept=".csv,.txt" />
-            <label
-              for="pag-matrix-file"
-              class="toolbar-dropdown-item"
-              role="menuitem"
-              title="Load Matrix File (.csv)"
-              aria-label="Load Matrix File"
+          <button id="redo-btn" title="Redo (Ctrl+Y)" aria-label="Redo">
+            <i class="fa fa-redo"></i>
+            <span class="toolbar-label">Redo</span>
+          </button>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <!-- Editing -->
+        <div class="toolbar-group" id="group-editing">
+          <button id="add-node-btn" title="Add Node (Ctrl+Alt+N)" aria-label="Add Node">
+            <i class="fa fa-plus-circle"></i>
+            <span class="toolbar-label">Add Node</span>
+          </button>
+          <button id="delete-btn" title="Delete Selection (Del)" aria-label="Delete">
+            <i class="fa fa-trash"></i>
+            <span class="toolbar-label">Delete</span>
+          </button>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <!-- Canvas -->
+        <div class="toolbar-group" id="group-canvas">
+          <button id="grid-toggle-btn" title="Toggle Grid (G)" aria-label="Toggle Grid">
+            <i class="fa fa-th"></i>
+            <span class="toolbar-label">Toggle Grid</span>
+          </button>
+          <button
+            id="fit-to-screen-btn"
+            title="Fit to Screen (Ctrl+Shift+F)"
+            aria-label="Fit to Screen"
+          >
+            <i class="fa fa-compress-arrows-alt"></i>
+            <span class="toolbar-label">Fit to Screen</span>
+          </button>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <!-- Selection -->
+        <div class="toolbar-group" id="group-selection">
+          <button
+            id="select-all-nodes-btn"
+            title="Select All Nodes (Ctrl+A)"
+            aria-label="Select All Nodes"
+          >
+            <i class="fa fa-circle"></i>
+            <span class="toolbar-label">Select All Nodes</span>
+          </button>
+          <button
+            id="select-all-links-btn"
+            title="Select All Links (Ctrl+Shift+A)"
+            aria-label="Select All Links"
+          >
+            <i class="fa fa-share-alt"></i>
+            <span class="toolbar-label">Select All Edges</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="toolbar-row-secondary">
+        <!-- File I/O: three dropdowns -->
+        <div class="toolbar-group" id="group-fileio">
+          <!-- Import Dropdown -->
+          <div class="toolbar-dropdown" id="dropdown-import">
+            <button
+              class="toolbar-dropdown-trigger"
+              aria-haspopup="true"
+              aria-expanded="false"
+              title="Import"
+              aria-label="Import"
             >
-              <i class="fa fa-file-csv"></i>
-              <span>Load Matrix</span>
-            </label>
-            <input type="file" id="graph-file" accept=".json" />
-            <label
-              for="graph-file"
-              class="toolbar-dropdown-item"
-              role="menuitem"
-              title="Load Graph File (.json)"
-              aria-label="Load Graph File"
+              <i class="fa fa-file-import"></i>
+              <span class="toolbar-label">Import</span>
+              <i class="fa fa-caret-down toolbar-caret"></i>
+            </button>
+            <div class="toolbar-dropdown-menu" role="menu">
+              <input type="file" id="pag-matrix-file" accept=".csv,.txt" />
+              <label
+                for="pag-matrix-file"
+                class="toolbar-dropdown-item"
+                role="menuitem"
+                title="Load Matrix File (.csv)"
+                aria-label="Load Matrix File"
+              >
+                <i class="fa fa-file-csv"></i>
+                <span>Load Matrix</span>
+              </label>
+              <input type="file" id="graph-file" accept=".json" />
+              <label
+                for="graph-file"
+                class="toolbar-dropdown-item"
+                role="menuitem"
+                title="Load Graph File (.json)"
+                aria-label="Load Graph File"
+              >
+                <i class="fa fa-project-diagram"></i>
+                <span>Load Graph</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Save Dropdown -->
+          <div class="toolbar-dropdown" id="dropdown-save">
+            <button
+              class="toolbar-dropdown-trigger"
+              aria-haspopup="true"
+              aria-expanded="false"
+              title="Save"
+              aria-label="Save"
             >
-              <i class="fa fa-project-diagram"></i>
-              <span>Load Graph</span>
-            </label>
+              <i class="fa fa-save"></i>
+              <span class="toolbar-label">Save</span>
+              <i class="fa fa-caret-down toolbar-caret"></i>
+            </button>
+            <div class="toolbar-dropdown-menu" role="menu">
+              <button
+                id="download-graph"
+                class="toolbar-dropdown-item"
+                role="menuitem"
+                title="Save as Graph (.json)"
+                aria-label="Save as Graph"
+              >
+                <i class="fa fa-file-download"></i>
+                <span>Save as Graph</span>
+              </button>
+              <button
+                id="download-matrix"
+                class="toolbar-dropdown-item"
+                role="menuitem"
+                title="Save as Matrix (.csv)"
+                aria-label="Save as Matrix"
+              >
+                <i class="fa fa-table"></i>
+                <span>Save as Matrix</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Export Dropdown -->
+          <div class="toolbar-dropdown" id="dropdown-export">
+            <button
+              class="toolbar-dropdown-trigger"
+              aria-haspopup="true"
+              aria-expanded="false"
+              title="Export"
+              aria-label="Export"
+            >
+              <i class="fa fa-file-export"></i>
+              <span class="toolbar-label">Export</span>
+              <i class="fa fa-caret-down toolbar-caret"></i>
+            </button>
+            <div class="toolbar-dropdown-menu" role="menu">
+              <button
+                id="download-pdf"
+                class="toolbar-dropdown-item"
+                role="menuitem"
+                title="Export as PDF"
+                aria-label="Export as PDF"
+              >
+                <i class="fa fa-file-pdf"></i>
+                <span>Export as PDF</span>
+              </button>
+              <button
+                id="download-png"
+                class="toolbar-dropdown-item"
+                role="menuitem"
+                title="Export as PNG"
+                aria-label="Export as PNG"
+              >
+                <i class="fa fa-image"></i>
+                <span>Export as PNG</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Save Dropdown -->
-        <div class="toolbar-dropdown" id="dropdown-save">
+        <div class="toolbar-separator"></div>
+
+        <!-- Help -->
+        <div class="toolbar-group" id="group-help">
           <button
-            class="toolbar-dropdown-trigger"
+            id="help-btn"
+            title="Help"
+            aria-label="Help"
             aria-haspopup="true"
             aria-expanded="false"
-            title="Save"
-            aria-label="Save"
+            aria-controls="help-panel"
           >
-            <i class="fa fa-save"></i>
-            <i class="fa fa-caret-down toolbar-caret"></i>
+            <i class="fa fa-question-circle"></i>
+            <span class="toolbar-label">Help</span>
           </button>
-          <div class="toolbar-dropdown-menu" role="menu">
-            <button
-              id="download-graph"
-              class="toolbar-dropdown-item"
-              role="menuitem"
-              title="Save as Graph (.json)"
-              aria-label="Save as Graph"
-            >
-              <i class="fa fa-file-download"></i>
-              <span>Save as Graph</span>
-            </button>
-            <button
-              id="download-matrix"
-              class="toolbar-dropdown-item"
-              role="menuitem"
-              title="Save as Matrix (.csv)"
-              aria-label="Save as Matrix"
-            >
-              <i class="fa fa-table"></i>
-              <span>Save as Matrix</span>
-            </button>
-          </div>
         </div>
 
-        <!-- Export Dropdown -->
-        <div class="toolbar-dropdown" id="dropdown-export">
+        <div class="toolbar-separator" id="overflow-separator" hidden></div>
+
+        <!-- Overflow menu: befüllt sich zur Laufzeit über registerToolbarOverflow.js -->
+        <div class="toolbar-dropdown" id="toolbar-overflow" hidden>
           <button
             class="toolbar-dropdown-trigger"
+            id="overflow-btn"
             aria-haspopup="true"
             aria-expanded="false"
-            title="Export"
-            aria-label="Export"
+            title="More"
+            aria-label="More actions"
           >
-            <i class="fa fa-file-export"></i>
-            <i class="fa fa-caret-down toolbar-caret"></i>
+            <i class="fa fa-ellipsis-h"></i>
           </button>
-          <div class="toolbar-dropdown-menu" role="menu">
-            <button
-              id="download-pdf"
-              class="toolbar-dropdown-item"
-              role="menuitem"
-              title="Export as PDF"
-              aria-label="Export as PDF"
-            >
-              <i class="fa fa-file-pdf"></i>
-              <span>Export as PDF</span>
-            </button>
-            <button
-              id="download-png"
-              class="toolbar-dropdown-item"
-              role="menuitem"
-              title="Export as PNG"
-              aria-label="Export as PNG"
-            >
-              <i class="fa fa-image"></i>
-              <span>Export as PNG</span>
-            </button>
-          </div>
+          <div class="toolbar-dropdown-menu" id="overflow-menu" role="menu"></div>
         </div>
       </div>
     </header>
@@ -197,14 +249,7 @@
         role="complementary"
         aria-label="Properties Panel"
       >
-        <div id="info-panel" class="panel active">
-          <p>
-            Import a graph, or add the first node.<br>
-            <small
-              > (Press Ctrl+Alt+N to add your first node)</small
-            >
-          </p>
-        </div>
+        <div id="info-panel" class="panel active"></div>
         <div id="node-panel" class="panel">
           <p>Select a node to view details.</p>
         </div>
@@ -212,7 +257,10 @@
           <p>Select an edge to view details.</p>
         </div>
       </aside>
+
+      <aside id="help-panel" aria-label="Help" aria-hidden="true"></aside>
     </main>
+
     <script type="module" src="main.js"></script>
   </body>
 </html>

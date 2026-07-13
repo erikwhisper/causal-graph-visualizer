@@ -7,6 +7,8 @@ import { handleFitToScreen } from "../interactions/keydown/handleFitToScreen.js"
 import { handleSelectAllNodes } from "../interactions/keydown/handleSelectAllNodes.js";
 import { handleSelectAllLinks } from "../interactions/keydown/handleSelectAllLinks.js";
 import { registerDropdownToggles } from "./utils/registerDropdownToggles.js";
+import { renderHelpPanel } from "./renderHelpPanel.js";
+import { registerToolbarOverflow } from "./registerToolbarOverflow.js";
 
 export function registerToolbarButtons(svg, graph, graphHistory, gridManager) {
   const addNodeBtn = document.getElementById("add-node-btn");
@@ -60,4 +62,6 @@ export function registerToolbarButtons(svg, graph, graphHistory, gridManager) {
   }
 
   registerDropdownToggles();
+  renderHelpPanel();
+  registerToolbarOverflow();
 }

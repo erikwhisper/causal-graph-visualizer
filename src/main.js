@@ -24,6 +24,8 @@ import { registerMarqueeLinkSelection } from "./presentation/interactions/select
 
 import { handleCanvasResize } from "./visualization/handleCanvasResize.js";
 
+import { renderInfoPanel } from "./presentation/ui/renderInfoPanel.js";
+
 const graph = new GraphModel();
 
 const graphHistory = new GraphHistoryManager(graph.getEverything());
@@ -33,6 +35,8 @@ const gridManager = new GridManager();
 let svg = initializeSvgCanvas();
 
 drawGraph(svg, graph, graphHistory, gridManager);
+
+renderInfoPanel(graph);
 
 registerClickHandlers(svg, graph, graphHistory, gridManager);
 

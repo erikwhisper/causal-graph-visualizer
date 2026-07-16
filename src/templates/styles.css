@@ -909,3 +909,24 @@ input[type="file"] {
   stroke-dasharray: 6 4;
   pointer-events: none;
 }
+
+/* Coloris Colorpicker make the buttons circles again*/
+.clr-field {
+  width: 32px;
+  height: 32px;
+  border: 2px solid black;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.clr-field .color-circle {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.clr-field button {
+  width: 100%;
+  border-radius: 50%;
+}

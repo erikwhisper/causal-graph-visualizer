@@ -43,15 +43,15 @@ export function generateNodePanelHTML(node, isMultiple) {
     </div>
     <div class="color-row">
       <span class="color-label">Label Color</span>
-      <input type="color" id="node-label-color" value="${getValue(() => node.getLabelColor(), "#000000")}" class="color-circle" />
+      <input type="text" id="node-label-color" value="${getValue(() => node.getLabelColor(), "#000000")}" class="color-circle coloris" />
     </div>
     <div class="color-row">
       <span class="color-label">Fill Color</span>
-      <input type="color" id="node-fill" value="${getValue(() => node.getFillColor(), "#FFFFFF")}" class="color-circle" />
+      <input type="text" id="node-fill" value="${getValue(() => node.getFillColor(), "#FFFFFF")}" class="color-circle coloris" />
     </div>
     <div class="color-row">
       <span class="color-label">Border Color</span>
-      <input type="color" id="node-stroke" value="${getValue(() => node.getStrokeColor(), "#000000")}" class="color-circle" />
+      <input type="text" id="node-stroke" value="${getValue(() => node.getStrokeColor(), "#000000")}" class="color-circle coloris" />
     </div>
     <div class="panel-section-header">
       <i class="fas fa-project-diagram"></i>

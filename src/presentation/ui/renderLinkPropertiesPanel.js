@@ -1,5 +1,6 @@
 import { generateLinkPanelHTML } from "./utils/generateLinkPanelHTML.js";
 import { registerLinkInputListeners } from "./utils/registerLinkInputListeners.js";
+import Coloris from "@melloware/coloris";
 
 let cleanupListeners = null;
 
@@ -24,6 +25,7 @@ export function renderLinkPropertiesPanel(
   const link = selectedLinks[0];
 
   panel.innerHTML = generateLinkPanelHTML(link, isMultiple);
+  Coloris.wrap(".coloris");
 
   cleanupListeners = registerLinkInputListeners(
     selectedLinks,

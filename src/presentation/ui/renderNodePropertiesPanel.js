@@ -1,5 +1,6 @@
 import { generateNodePanelHTML } from "./utils/generateNodePanelHTML";
 import { registerNodeInputListeners } from "./utils/registerNodeInputListeners";
+import Coloris from "@melloware/coloris";
 
 let cleanupListeners = null;
 
@@ -24,6 +25,7 @@ export function renderNodePropertiesPanel(
   const node = selectedNodes[0];
 
   panel.innerHTML = generateNodePanelHTML(node, isMultiple);
+  Coloris.wrap(".coloris");
 
   cleanupListeners = registerNodeInputListeners(
     selectedNodes,

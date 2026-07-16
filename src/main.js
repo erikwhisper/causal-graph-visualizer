@@ -1,5 +1,15 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
+import "@melloware/coloris/dist/coloris.css";
+import Coloris from "@melloware/coloris";
+Coloris.init();
+Coloris({
+  el: ".coloris",
+  alpha: false,
+  format: "hex",
+  formatToggle: true,
+});
+
 import { GraphHistoryManager } from "./domain/service/GraphHistoryManager.js";
 
 import { GridManager } from "./utils/GridManager.js";

@@ -34,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Build web application
-        run: npm run build
+        run: npx vite build --mode electron
 
       - name: Build Electron app (Windows)
         if: matrix.platform == 'win'

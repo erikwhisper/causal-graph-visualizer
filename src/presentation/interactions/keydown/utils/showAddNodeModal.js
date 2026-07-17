@@ -15,7 +15,7 @@ export function showAddNodeModal(onConfirm) {
       <h3>Add New Node</h3>
       <label>
         <span>Please enter the name for the new node:</span>
-        <input type="text" id="add-node-input" autofocus />
+        <textarea type="text" id="add-node-input" autofocus rows="3"></textarea>
       </label>
       <div class="modal-actions">
         <button id="add-node-confirm" class="btn-export">
@@ -47,7 +47,8 @@ export function showAddNodeModal(onConfirm) {
   closeBtn.addEventListener("click", cleanup);
 
   input.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault();
       confirmBtn.click();
     }
     if (event.key === "Escape") {

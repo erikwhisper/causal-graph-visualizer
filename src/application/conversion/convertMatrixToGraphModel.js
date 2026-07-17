@@ -1,4 +1,5 @@
 import GraphModel from "../../domain/model/GraphModel.js";
+import {cleanLabel} from "@/application/validation/utils/cleanLabel.js";
 
 const edgePairMap = {
   /*----------Keine Kante----------*/
@@ -26,18 +27,9 @@ const edgePairMap = {
   ],
 };
 
-export function convertMatrixToGraphModel(text) {
-  const lines = text.trim().split(/\r?\n/);
+export function convertMatrixToGraphModel(rows) {
 
-  const nodeLabels = lines[0]
-    .split(",")
-    .slice(1)
-    .map((label) => {
-      const trimmed = label.trim();
-      return trimmed.startsWith('"') && trimmed.endsWith('"')
-        ? trimmed.slice(1, -1)
-        : trimmed;
-    });
+  const nodeLabels = rows[0].slice(1).map(cleanLabel);
 
   const tempGraph = new GraphModel();
   nodeLabels.forEach((label) => tempGraph.addNode({ label }));
@@ -46,9 +38,9 @@ export function convertMatrixToGraphModel(text) {
   const getNodeIdByLabel = (label) =>
     nodes.find((node) => node.label === label).nodeId;
 
-  for (let i = 1; i < lines.length; i++) {
-    const row = lines[i].split(",");
-    const fromLabel = row[0].replace(/"/g, "").trim();
+  for (let i = 1; i < rows.length; i++) {
+    const row = rows[i];
+    const fromLabel = row[0].trim();
     const fromNodeId = getNodeIdByLabel(fromLabel);
 
     for (let j = i + 1; j < row.length; j++) {
@@ -56,7 +48,7 @@ export function convertMatrixToGraphModel(text) {
       const toNodeId = getNodeIdByLabel(toLabel);
 
       const v1 = parseInt(row[j], 10); // i -> j
-      const v2 = parseInt(lines[j].split(",")[i], 10); // j -> i
+      const v2 = parseInt(rows[j][i], 10); // j -> i
 
       if (v1 === 0 && v2 === 0) continue;
 

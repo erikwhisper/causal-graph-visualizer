@@ -18,6 +18,7 @@ export default class GraphModel {
       newNode.strokeColor,
       newNode.strokeWidth,
       newNode.labelFontSize,
+      newNode.labelLineHeight,
       newNode.labelOffsetX,
       newNode.labelOffsetY,
       newNode.labelColor,

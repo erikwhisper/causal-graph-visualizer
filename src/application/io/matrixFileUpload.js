@@ -20,9 +20,9 @@ export function matrixFileUpload(svg, graph, graphHistory, gridManager) {
 
     try {
       const text = await file.text();
-      validateMatrixForMatrixImport(text);
+      const rows = validateMatrixForMatrixImport(text);
 
-      const { nodes, links } = convertMatrixToGraphModel(text);
+      const { nodes, links } = convertMatrixToGraphModel(rows);
 
       if (!Array.isArray(nodes) || !Array.isArray(links)) {
         throw new Error("Conversion failed: Invalid graph structure");

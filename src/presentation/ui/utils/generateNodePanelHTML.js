@@ -68,11 +68,19 @@ export function generateNodePanelHTML(node, isMultiple) {
     <div class="label-grid">
       <div class="form-field form-field--label">
         <label for="node-label" class="field-label">Label</label>
-        <input type="text" id="node-label" value="${escapeHtml(getValue(() => node.getLabel()))}" />
+        <textarea id="node-label" rows="3">${escapeHtml(getValue(() => node.getLabel()))}</textarea>
       </div>
-      <div class="form-field form-field--size">
-        <label for="node-label-font-size" class="field-label">Size</label>
-        <input type="number" id="node-label-font-size" value="${getValue(() => node.getLabelFontSize())}" min="1" max="999" />
+      <div class="form-field form-field--line-height">
+        <label for="node-label-line-height" class="field-label">
+          Line Height
+        </label>
+        <input 
+          type="number" 
+          id="node-label-line-height" 
+          value="${getValue(() => node.getLabelLineHeight())}" 
+          min="0.1" 
+          step="0.1" 
+        />
       </div>
       <div class="offsets-grid">
         <div class="form-field">
@@ -83,6 +91,10 @@ export function generateNodePanelHTML(node, isMultiple) {
           <label for="node-label-offset-y" class="field-label">Y-Offset</label>
           <input type="number" id="node-label-offset-y" value="${getValue(() => node.getLabelOffsetY())}" />
         </div>
+      </div>
+      <div class="form-field form-field--size">
+        <label for="node-label-font-size" class="field-label">Size</label>
+        <input type="number" id="node-label-font-size" value="${getValue(() => node.getLabelFontSize())}" min="1" max="999" />
       </div>
       <div class="form-field form-field--font-family">
         <label for="node-label-font-family" class="field-label">Font</label>

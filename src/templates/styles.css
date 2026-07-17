@@ -603,6 +603,7 @@ input[type="file"] {
   margin-bottom: 0.2rem;
 }
 
+.label-grid textarea,
 .label-grid input[type="text"],
 .label-grid input[type="number"],
 .offsets-grid input[type="number"] {
@@ -619,6 +620,7 @@ input[type="file"] {
   text-align: center;
 }
 
+.form-field--label textarea,
 .form-field--label input[type="text"] {
   width: 100%;
 }

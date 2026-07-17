@@ -1,3 +1,5 @@
+import {renderLabelLines} from "@/visualization/utils/renderLabelLines.js";
+
 export function drawLabels(svg, graph) {
   const labelGroup = svg.select("#label-layer");
 
@@ -5,7 +7,7 @@ export function drawLabels(svg, graph) {
 
   const nodes = graph.getAllNodes();
 
-  labelGroup
+  const labels = labelGroup
     .selectAll(".node-label")
     .data(nodes)
     .enter()
@@ -16,10 +18,11 @@ export function drawLabels(svg, graph) {
     .attr("y", (d) => d.getYValue() + d.getLabelOffsetY())
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "central")
-    .text((d) => d.getLabel())
     .attr("fill", (d) => d.getLabelColor())
     .style("font-size", (d) => `${d.getLabelFontSize()}px`)
     .style("font-family", (d) => d.getLabelFontFamily())
     .style("pointer-events", "none")
     .style("user-select", "none");
+
+  renderLabelLines(labels)
 }

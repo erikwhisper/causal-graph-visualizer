@@ -8,16 +8,17 @@
   "homepage": "./",
   "scripts": {
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --mode web",
+    "build": "vite build --mode web",
     "preview": "vite preview",
-    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron:build": "npm run build && electron .",
+    "electron:serve": "vite --mode electron",
+    "electron:dev": "concurrently \"npm run electron:serve\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron:build": "vite build --mode electron && electron .",
     "start": "npm run electron:build",
-    "dist": "npm run build && electron-builder",
-    "dist:win": "npm run build && electron-builder --win",
-    "dist:mac": "npm run build && electron-builder --mac",
-    "dist:linux": "npm run build && electron-builder --linux"
+    "dist": "vite build --mode electron && electron-builder",
+    "dist:win": "vite build --mode electron && electron-builder --win",
+    "dist:mac": "vite build --mode electron && electron-builder --mac",
+    "dist:linux": "vite build --mode electron && electron-builder --linux"
   },
   "build": {
     "appId": "com.erik.causal-graph-visualizer",

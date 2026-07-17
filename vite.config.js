@@ -4,6 +4,7 @@ import { copyFileSync } from 'fs';
 
 export default defineConfig({
   root: 'src',
+  envDir: resolve(__dirname),
   base: './',
   publicDir: '../assets',
   build: {

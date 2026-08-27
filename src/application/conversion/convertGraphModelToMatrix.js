@@ -1,3 +1,5 @@
+import { csvFormatRows } from "d3";
+
 export function convertGraphModelToMatrix(graphData) {
   const { nodes, links } = graphData;
   const idToLabel = {};
@@ -22,10 +24,12 @@ export function convertGraphModelToMatrix(graphData) {
       matrix[toIndex][fromIndex] + edgeMap[link.arrowtail] ?? 0;
   });
 
-  const header = [`""`, ...nodes.map((n) => `"${n.label}"`)].join(",");
-  const rows = matrix.map((row, i) =>
-    [`"${nodes[i].label}"`, ...row].join(",")
-  );
+  const csvRows = [
+      ["", ...nodes.map((node) => node.label)],
+      ...matrix.map((row, index) => [
+          nodes[index].label, ...row
+      ])
+  ]
 
-  return [header, ...rows].join("\n");
+  return csvFormatRows(csvRows);
 }

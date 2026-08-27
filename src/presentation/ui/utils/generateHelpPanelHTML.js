@@ -1,4 +1,18 @@
+const SHOW_IMPRESSUM = import.meta.env.VITE_SHOW_IMPRESSUM === 'true'
+
 export function generateHelpPanelHTML() {
+  const impressumHTML = SHOW_IMPRESSUM ? `
+      <div class="impressum">
+        <div class="panel-section-header">
+          <i class="fas fa-info-circle"></i>
+          <span>Impressum</span>
+        </div>
+        <p>
+            <a href="https://www.medizin.uni-muenster.de/imi/impressum.html " rel="noopener noreferrer" target="_blank"> Disclosure</a><br>
+            <a href="https://www.medizin.uni-muenster.de/fakultaet/datenschutz.html" rel="noopener noreferrer" target="_blank"> Privacy Statement</a>
+        </p>
+      </div>`
+      : "";
   return `
     <div class="help-panel-header">
       <h2>Help</h2>
@@ -52,14 +66,7 @@ export function generateHelpPanelHTML() {
           GitHub repository
         </a>.
       </p>
-
-      <div class="impressum">
-        <div class="panel-section-header">
-          <i class="fas fa-balance-scale"></i>
-          <span>Impressum</span>
-        </div>
-        <p><!-- TODO: Impressum-Text einfügen --></p>
-      </div>
+      ${impressumHTML}
     </div>
   `;
 }

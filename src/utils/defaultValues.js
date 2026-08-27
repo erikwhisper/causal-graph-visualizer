@@ -5,6 +5,7 @@ export const NODE_DEFAULT_STROKE_WIDTH = 1.5;
 export const NODE_DEFAULT_FILL_COLOR = "white";
 export const NODE_DEFAULT_STROKE_COLOR = "black";
 export const NODE_DEFAULT_LABEL = "undefined";
+export const NODE_DEFAULT_LABEL_LINE_HEIGHT = 1.2;
 export const NODE_DEFAULT_LABEL_FONT_SIZE = 15;
 export const NODE_DEFAULT_LABEL_OFFSET_X = 0;
 export const NODE_DEFAULT_LABEL_OFFSET_Y = 0;

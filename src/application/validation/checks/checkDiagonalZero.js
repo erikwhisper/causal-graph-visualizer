@@ -4,7 +4,7 @@ export function checkDiagonalZero(lines) {
   for (let i = 0; i < n; i++) {
     const value = Number(lines[i + 1][i + 1]);
     if (value !== 0) {
-      const label = lines[0][i + 1].replace(/"/g, "");
+      const label = lines[0][i + 1];
       throw new Error(
         `Diagonal entry for node "${label}" at [${i + 1}, ${
           i + 1

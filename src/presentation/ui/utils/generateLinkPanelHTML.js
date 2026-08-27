@@ -13,23 +13,23 @@ export function generateLinkPanelHTML(link, isMultiple) {
 
     <div class="color-row">
       <span class="color-label">Edge Color</span>
-      <input type="color" id="link-stroke" value="${getColor(() =>
+      <input type="text" id="link-stroke" value="${getColor(() =>
         link.getStrokeColor()
-      )}" class="color-circle" />
+      )}" class="color-circle coloris" />
     </div>
 
     <div class="color-row">
       <span class="color-label">Arrowhead Color</span>
-      <input type="color" id="arrowhead-color" value="${getColor(() =>
+      <input type="text" id="arrowhead-color" value="${getColor(() =>
         link.getArrowheadColor()
-      )}" class="color-circle" />
+      )}" class="color-circle coloris" />
     </div>
 
     <div class="color-row">
       <span class="color-label">Arrowtail Color</span>
-      <input type="color" id="arrowtail-color" value="${getColor(() =>
+      <input type="text" id="arrowtail-color" value="${getColor(() =>
         link.getArrowtailColor()
-      )}" class="color-circle" />
+      )}" class="color-circle coloris" />
     </div>
 
     <div class="panel-section-header">

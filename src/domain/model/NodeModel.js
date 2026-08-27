@@ -9,6 +9,7 @@ import {
   NODE_DEFAULT_STROKE_COLOR,
   NODE_DEFAULT_STROKE_WIDTH,
   NODE_DEFAULT_LABEL_FONT_SIZE,
+  NODE_DEFAULT_LABEL_LINE_HEIGHT,
   NODE_DEFAULT_LABEL_OFFSET_X,
   NODE_DEFAULT_LABEL_OFFSET_Y,
   NODE_DEFAULT_LABEL_COLOR,
@@ -29,6 +30,7 @@ export default class NodeModel {
     strokeColor = NODE_DEFAULT_STROKE_COLOR,
     strokeWidth = NODE_DEFAULT_STROKE_WIDTH,
     labelFontSize = NODE_DEFAULT_LABEL_FONT_SIZE,
+    labelLineHeight = NODE_DEFAULT_LABEL_LINE_HEIGHT,
     labelOffsetX = NODE_DEFAULT_LABEL_OFFSET_X,
     labelOffsetY = NODE_DEFAULT_LABEL_OFFSET_Y,
     labelColor = NODE_DEFAULT_LABEL_COLOR,
@@ -46,6 +48,7 @@ export default class NodeModel {
     this.highlighted = highlighted;
 
     this.label = label;
+    this.labelLineHeight = labelLineHeight;
     this.labelFontSize = labelFontSize;
     this.labelOffsetX = labelOffsetX;
     this.labelOffsetY = labelOffsetY;
@@ -148,6 +151,10 @@ export default class NodeModel {
     this.label = newLabel;
   }
 
+  setLabelLineHeight(labelLineHeight) {
+    this.labelLineHeight = Math.max(0.1, labelLineHeight);
+  }
+
   setLabelFontSize(labelFontSize) {
     this.labelFontSize = labelFontSize;
   }
@@ -175,6 +182,10 @@ export default class NodeModel {
 
   getLabel() {
     return this.label;
+  }
+
+  getLabelLineHeight() {
+    return this.labelLineHeight;
   }
 
   getLabelFontSize() {

@@ -20,6 +20,7 @@ export function registerNodeInputListeners(
     { id: "node-x", setter: "setXValue" },
     { id: "node-y", setter: "setYValue" },
     { id: "node-stroke-width", setter: "setStrokeWidth" },
+    { id: "node-label-line-height", setter: "setLabelLineHeight" },
     { id: "node-label-font-size", setter: "setLabelFontSize" },
     { id: "node-label-offset-x", setter: "setLabelOffsetX" },
     { id: "node-label-offset-y", setter: "setLabelOffsetY" },

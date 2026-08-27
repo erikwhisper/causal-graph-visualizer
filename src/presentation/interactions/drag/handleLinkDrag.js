@@ -1,8 +1,14 @@
 import * as d3 from "d3";
 import { computeLinkPath } from "../../../visualization/utils/computeLinkPath.js";
 
-export function handleLinkDrag(graph, graphHistory, gridManager) {
+export function handleLinkDrag(svg, graph, graphHistory, gridManager) {
   const nodes = graph.getAllNodes();
+
+  function updateLinkPaths(d) {
+    const path = computeLinkPath(d, nodes);
+    svg.select(`#link-${d.getLinkId()}`).attr("d", path);
+    svg.select(`#link-hit-${d.getLinkId()}`).attr("d", path);
+  }
 
   return d3
     .drag()
@@ -11,12 +17,8 @@ export function handleLinkDrag(graph, graphHistory, gridManager) {
     })
     .on("drag", function (event, d) {
       d.wasDragged = true;
-      const mouseX = event.x;
-      const mouseY = event.y;
-
-      d.setLinkCurvature(mouseX, mouseY);
-
-      d3.select(this).attr("d", computeLinkPath(d, nodes));
+      d.setLinkCurvature(event.x, event.y);
+      updateLinkPaths(d);
     })
     .on("end", function (event, d) {
       if (!d.wasDragged) return;
@@ -27,8 +29,7 @@ export function handleLinkDrag(graph, graphHistory, gridManager) {
         const snappedY = Math.round(event.y / spacing) * spacing;
 
         d.setLinkCurvature(snappedX, snappedY);
-
-        d3.select(this).attr("d", computeLinkPath(d, nodes));
+        updateLinkPaths(d);
       }
 
       graphHistory.setNewState(graph.getEverything());

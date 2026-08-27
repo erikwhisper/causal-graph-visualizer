@@ -1,5 +1,6 @@
 export const LINK_DASH_ARRAY = "6,4";
 export const LINK_ENDPOINT_PUFFER = 1;
+export const LINK_HIT_AREA_PADDING = 15;
 export const ODOT_STROKE_WIDTH = 2;
 
 export const HIGHLIGHT_STROKE_OFFSET = 2;

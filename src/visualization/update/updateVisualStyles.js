@@ -10,17 +10,17 @@ export function updateVisualStyles(svg, graph) {
     const base = node.strokeWidth;
     el.attr(
       "stroke-width",
-      node.getHighlighted() ? base + highlightOffset : base
+      node.getHighlighted() ? base + highlightOffset : base,
     );
   });
 
-  svg.selectAll(".link").each(function () {
+  svg.selectAll(".link:not(.link-hit)").each(function () {
     const el = d3.select(this);
     const link = el.datum();
     const base = link.strokeWidth;
     el.attr(
       "stroke-width",
-      link.getHighlighted() ? base + highlightOffset : base
+      link.getHighlighted() ? base + highlightOffset : base,
     );
   });
 }

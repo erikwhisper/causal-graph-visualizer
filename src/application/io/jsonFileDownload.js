@@ -1,8 +1,3 @@
-//hier ist ein validate vermutlich unnötig, da das interne graph modell ja
-//zwangsweise korrekt sein muss
-//entsprechend brauch die funktion im vergleich zu matrixFileDownload
-//auf keinen try / carch block.
-
 export function jsonFileDownload(graph) {
   const button = document.getElementById("download-graph");
 

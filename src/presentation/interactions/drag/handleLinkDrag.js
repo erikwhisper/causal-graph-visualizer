@@ -1,5 +1,7 @@
 import * as d3 from "d3";
 import { computeLinkPath } from "../../../visualization/utils/computeLinkPath.js";
+import { computeCurvatureSnapCandidates } from "../../../visualization/utils/computeCurvatureSnapCandidates.js";
+import { CURVATURE_SNAP_TOLERANCE } from "../../../utils/visualConstants.js";
 
 export function handleLinkDrag(svg, graph, graphHistory, gridManager) {
   const nodes = graph.getAllNodes();
@@ -10,10 +12,31 @@ export function handleLinkDrag(svg, graph, graphHistory, gridManager) {
     svg.select(`#link-hit-${d.getLinkId()}`).attr("d", path);
   }
 
+  function findNearestSnapCandidate(d, x, y) {
+    const sourceNode = nodes.find((n) => n.getNodeId() === d.getSourceNodeId());
+    const targetNode = nodes.find((n) => n.getNodeId() === d.getTargetNodeId());
+    if (!sourceNode || !targetNode) return null;
+
+    const source = { x: sourceNode.getXValue(), y: sourceNode.getYValue() };
+    const target = { x: targetNode.getXValue(), y: targetNode.getYValue() };
+    const candidates = computeCurvatureSnapCandidates(source, target);
+
+    let best = null;
+    let bestDist = Infinity;
+    candidates.forEach((c) => {
+      const dist = Math.hypot(c.x - x, c.y - y);
+      if (dist <= CURVATURE_SNAP_TOLERANCE && dist < bestDist) {
+        best = c;
+        bestDist = dist;
+      }
+    });
+    return best;
+  }
+
   return d3
     .drag()
     .on("start", function (event, d) {
-      d.wasDragged = false; //reset bei start
+      d.wasDragged = false;
     })
     .on("drag", function (event, d) {
       d.wasDragged = true;
@@ -24,11 +47,17 @@ export function handleLinkDrag(svg, graph, graphHistory, gridManager) {
       if (!d.wasDragged) return;
 
       if (gridManager.isGridEnabled()) {
-        const spacing = gridManager.getGridSpacing() / 2;
-        const snappedX = Math.round(event.x / spacing) * spacing;
-        const snappedY = Math.round(event.y / spacing) * spacing;
+        const magnetMatch = findNearestSnapCandidate(d, event.x, event.y);
 
-        d.setLinkCurvature(snappedX, snappedY);
+        if (magnetMatch) {
+          d.setLinkCurvature(magnetMatch.x, magnetMatch.y);
+        } else {
+          const spacing = gridManager.getGridSpacing() / 2;
+          const snappedX = Math.round(event.x / spacing) * spacing;
+          const snappedY = Math.round(event.y / spacing) * spacing;
+          d.setLinkCurvature(snappedX, snappedY);
+        }
+
         updateLinkPaths(d);
       }
 

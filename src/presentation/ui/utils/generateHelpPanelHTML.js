@@ -8,7 +8,7 @@ export function generateHelpPanelHTML() {
           <span>Impressum</span>
         </div>
         <p>
-            <a href="https://www.medizin.uni-muenster.de/imi/impressum.html " rel="noopener noreferrer" target="_blank"> Disclosure</a><br>
+            <a href="https://www.medizin.uni-muenster.de/imi/impressum.html" rel="noopener noreferrer" target="_blank"> Disclosure</a><br>
             <a href="https://www.medizin.uni-muenster.de/fakultaet/datenschutz.html" rel="noopener noreferrer" target="_blank"> Privacy Statement</a>
         </p>
       </div>`

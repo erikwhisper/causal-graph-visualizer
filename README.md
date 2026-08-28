@@ -135,15 +135,8 @@ npm install
 ### Commands
 
 ```bash
-npm run dev           # Web development server (Vite)
-npm run electron      # Electron desktop app
-npm run build         # Build web version
-npm run dist          # Build desktop installers
+npm run dev             # Web development server (Vite)
+npm run electron:dev    # Electron desktop app (dev mode, auto-opens window)
+npm run build           # Build web version
+npm run dist            # Build desktop installers
 ```
-
----
-
-## Roadmap
-
-- [ ] Copy / Paste and Duplicate nodes
-- [ ] Align nodes horizontally / vertically

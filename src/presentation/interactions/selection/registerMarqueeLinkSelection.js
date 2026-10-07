@@ -5,6 +5,7 @@ import { updateMarqueeRect } from "./utils/updateMarqueeRect.js";
 import { getRectBounds } from "./utils/getRectBounds.js";
 import { selectLinksInRect } from "./selectLinksInRect.js";
 import * as d3 from "d3";
+import {getCanvasPoint} from "@/presentation/utils/getCanvasPoint.js";
 
 export function registerMarqueeLinkSelection(svg, graph, graphHistory) {
   let isDragging = false;
@@ -20,24 +21,26 @@ export function registerMarqueeLinkSelection(svg, graph, graphHistory) {
     if (target.closest?.(".node") || target.closest?.(".link")) return;
 
     isDragging = true;
-    start = d3.pointer(event, svg.node());
+    start = getCanvasPoint(svg, event);
 
-    let layer = svg.select("#marquee-layer-links");
+    const viewport = svg.select("#viewport");
+
+    let layer = viewport.select("#marquee-layer-links");
     if (layer.empty())
-      layer = svg.append("g").attr("id", "marquee-layer-links");
+      layer = viewport.append("g").attr("id", "marquee-layer-links");
 
     rect = createMarqueeRect(layer, start);
 
     const onMove = (ev) => {
       if (!isDragging) return;
-      const current = d3.pointer(ev, svg.node());
+      const current = getCanvasPoint(svg, ev);
       updateMarqueeRect(rect, start, current);
     };
 
     const onUp = (ev) => {
       if (!isDragging) return;
 
-      const end = d3.pointer(ev, svg.node());
+      const end = getCanvasPoint(svg, ev);
       const bounds = getRectBounds(start, end);
 
       const newlySelectedLinks = selectLinksInRect(graph, bounds, true);

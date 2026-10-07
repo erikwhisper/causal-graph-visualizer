@@ -56,6 +56,7 @@ export function generateHelpPanelHTML() {
           <tr><td>Multi-select Nodes</td><td><kbd>Ctrl</kbd>+Click / <kbd>Ctrl</kbd>+Drag</td></tr>
           <tr><td>Multi-select Edges</td><td><kbd>Ctrl</kbd>+Click / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+Drag</td></tr>
           <tr><td>Toggle Grid &amp; Snapping</td><td><kbd>G</kbd></td></tr>
+          <tr><td>Zoom / Pan</td><td>Scroll or pinch / Drag empty canvas</td></tr>
           <tr><td>Fit to Screen</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd></td></tr>
         </tbody>
       </table>

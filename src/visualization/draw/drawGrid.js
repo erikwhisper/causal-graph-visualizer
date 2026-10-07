@@ -1,3 +1,5 @@
+import {updateGridViewport} from "@/visualization/update/updateGridViewport.js";
+
 export function drawGrid(svg, gridSpacing) {
   removeGrid(svg);
 
@@ -55,6 +57,8 @@ export function drawGrid(svg, gridSpacing) {
     .attr("height", height)
     .attr("fill", "url(#grid-pattern-big)")
     .style("pointer-events", "none");
+
+  updateGridViewport(svg)
 }
 
 export function removeGrid(svg) {

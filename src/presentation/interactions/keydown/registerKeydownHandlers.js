@@ -15,7 +15,7 @@ export function registerKeydownHandlers(svg, graph, graphHistory, gridManager) {
   addMouseMoveListener(svg);
 
   document.addEventListener("keydown", (event) => {
-    const currentMousePos = getCurrentMousePosition();
+    const currentMousePos = getCurrentMousePosition(svg);
     const xCoor = currentMousePos[0];
     const yCoor = currentMousePos[1];
 

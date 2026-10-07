@@ -7,6 +7,7 @@ import { createGhostLink } from "./utils/createGhostLink.js";
 import { updateGhostLink } from "./utils/updateGhostLink.js";
 import { removeGhostLink } from "./utils/removeGhostLink.js";
 import { computeMultiEdgeCurvature } from "./utils/computeMultiEdgeCurvature.js";
+import {getCanvasPoint} from "@/presentation/utils/getCanvasPoint.js";
 
 export function handleLinkCreation(svg, graph, graphHistory, gridManager) {
   let firstNode = null;
@@ -19,7 +20,7 @@ export function handleLinkCreation(svg, graph, graphHistory, gridManager) {
         ensureGhostArrowhead(svg);
         createGhostLink(svg, firstNode);
         svg.on("mousemove.ghost", function (event) {
-          const [mx, my] = d3.pointer(event);
+          const [mx, my] = getCanvasPoint(svg, event);
           updateGhostLink(svg, mx, my, firstNode);
         });
         return;

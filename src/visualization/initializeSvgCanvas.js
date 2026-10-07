@@ -15,9 +15,12 @@ export function initializeSvgCanvas() {
     .attr("height", height);
   //optional das browser contextmenü hier ausstellen
 
-  svg.append("g").attr("id", "link-layer");
-  svg.append("g").attr("id", "node-layer");
-  svg.append("g").attr("id", "label-layer");
+  //add an control layer for canvas navigation (like zoom etc)
+  const viewport = svg.append("g").attr("id", "viewport");
+
+  viewport.append("g").attr("id", "link-layer");
+  viewport.append("g").attr("id", "node-layer");
+  viewport.append("g").attr("id", "label-layer");
 
   return svg;
 }

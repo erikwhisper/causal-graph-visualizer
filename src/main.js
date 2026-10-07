@@ -35,6 +35,7 @@ import { registerMarqueeLinkSelection } from "./presentation/interactions/select
 import { handleCanvasResize } from "./visualization/handleCanvasResize.js";
 
 import { renderInfoPanel } from "./presentation/ui/renderInfoPanel.js";
+import {registerCanvasNavigation} from "@/presentation/interactions/zoom/registerCanvasNavigation.js";
 
 const graph = new GraphModel();
 
@@ -43,6 +44,8 @@ const graphHistory = new GraphHistoryManager(graph.getEverything());
 const gridManager = new GridManager();
 
 let svg = initializeSvgCanvas();
+
+registerCanvasNavigation(svg);
 
 drawGraph(svg, graph, graphHistory, gridManager);
 

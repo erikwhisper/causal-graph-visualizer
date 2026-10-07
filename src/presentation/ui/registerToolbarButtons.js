@@ -1,3 +1,5 @@
+import * as d3 from "d3";
+
 import { handleAddNode } from "../interactions/keydown/handleAddNode.js";
 import { handleUndo } from "../interactions/keydown/handleUndo.js";
 import { handleRedo } from "../interactions/keydown/handleRedo.js";
@@ -20,11 +22,21 @@ export function registerToolbarButtons(svg, graph, graphHistory, gridManager) {
   const selectAllNodesBtn = document.getElementById("select-all-nodes-btn");
   const selectAllLinksBtn = document.getElementById("select-all-links-btn");
 
-  if (addNodeBtn) {
-    addNodeBtn.addEventListener("click", () => {
-      handleAddNode(svg, graph, graphHistory, 100, 100, gridManager);
-    });
-  }
+if (addNodeBtn) {
+  addNodeBtn.addEventListener("click", () => {
+    const svgNode = svg.node();
+    const visibleCenter = [
+      svgNode.clientWidth / 2,
+      svgNode.clientHeight / 2,
+    ];
+
+    const [x, y] = d3
+      .zoomTransform(svgNode)
+      .invert(visibleCenter);
+
+    handleAddNode(svg, graph, graphHistory, x, y, gridManager,);
+  });
+}
   if (undoBtn) {
     undoBtn.addEventListener("click", () => {
       handleUndo(svg, graph, graphHistory, gridManager);

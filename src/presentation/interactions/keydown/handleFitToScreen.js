@@ -1,6 +1,6 @@
 import { fitToScreen } from "../../../application/layout/utils/fitToScreen.js";
-import {resetCanvasNavigation} from "@/presentation/interactions/zoom/registerCanvasNavigation.js";
-export function handleFitToScreen(svg, graph, graphHistory, gridManager) {
-  resetCanvasNavigation(svg);
-  fitToScreen(svg, graph, graphHistory, gridManager);
+import { FIT_TO_SCREEN_DURATION } from "../../../utils/visualConstants.js";
+
+export function handleFitToScreen(svg) {
+  fitToScreen(svg, { duration: FIT_TO_SCREEN_DURATION });
 }

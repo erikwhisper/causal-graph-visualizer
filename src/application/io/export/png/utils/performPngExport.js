@@ -1,4 +1,6 @@
 import { ErrorHandler } from "../../../../../utils/ErrorHandler";
+import * as d3 from "d3";
+import { fitToScreen } from "../../../../layout/utils/fitToScreen.js";
 
 export function performPngExport(transparent, scale = 2) {
   const svg = document.querySelector("#graph-container svg");
@@ -11,6 +13,8 @@ export function performPngExport(transparent, scale = 2) {
   }
 
   try {
+    fitToScreen(d3.select(svg));
+
     const svgString = new XMLSerializer().serializeToString(svg);
     const svgBlob = new Blob([svgString], {
       type: "image/svg+xml;charset=utf-8",
@@ -48,7 +52,7 @@ export function performPngExport(transparent, scale = 2) {
 
         ErrorHandler.info(
           `PNG exported: ${canvas.width}×${canvas.height}px`,
-          "PNG Export"
+          "PNG Export",
         );
       } catch (error) {
         ErrorHandler.handle(error, "PNG Canvas Rendering", {

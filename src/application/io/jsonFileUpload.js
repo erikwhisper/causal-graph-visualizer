@@ -1,5 +1,6 @@
 import { ErrorHandler } from "../../utils/ErrorHandler.js";
 import { redrawGraph } from "../../visualization/redrawGraph.js";
+import { fitToScreen } from "../layout/utils/fitToScreen.js";
 
 export function jsonFileUpload(svg, graph, graphHistory, gridManager) {
   const fileInput = document.getElementById("graph-file");
@@ -48,6 +49,7 @@ export function jsonFileUpload(svg, graph, graphHistory, gridManager) {
       links.forEach((link) => graph.addLink(link));
 
       redrawGraph(svg, graph, graphHistory, gridManager);
+      fitToScreen(svg);
 
       ErrorHandler.info(
         `Loaded ${nodes.length} nodes and ${links.length} links`,

@@ -1,35 +1,36 @@
-import { rescaleToCanvas } from "./rescaleToCanvas.js";
-import { redrawGraph } from "../../../visualization/redrawGraph.js";
+import * as d3 from "d3";
+import { setCanvasTransform } from "../../../presentation/interactions/zoom/registerCanvasNavigation.js";
+import {
+  FIT_TO_SCREEN_PADDING,
+  FIT_TO_SCREEN_MAX_SCALE,
+} from "../../../utils/visualConstants.js";
 
-export function fitToScreen(svg, graph, graphHistory, gridManager) {
-  const nodes = graph.getAllNodes();
-  if (nodes.length === 0) return;
+export function fitToScreen(svg, { duration = 0 } = {}) {
+  const viewport = svg.select("#viewport");
+  if (viewport.empty()) return;
 
-  const svgEl = svg.node();
-  const width = svgEl.clientWidth;
-  const height = svgEl.clientHeight;
+  const bbox = viewport.node().getBBox();
+  if (bbox.width === 0 && bbox.height === 0) return;
 
-  const positions = nodes.map((node) => ({
-    id: node.getNodeId(),
-    x: node.getXValue(),
-    y: node.getYValue(),
-    radius: node.getRadius(),
-    strokeWidth: node.getStrokeWidth(),
-  }));
+  const width = svg.node().clientWidth;
+  const height = svg.node().clientHeight;
+  if (!width || !height) return;
 
-  const rescaled = rescaleToCanvas(positions, width, height, gridManager);
+  const availableWidth = Math.max(width - 2 * FIT_TO_SCREEN_PADDING, 1);
+  const availableHeight = Math.max(height - 2 * FIT_TO_SCREEN_PADDING, 1);
 
-  const hasChanges = rescaled.some(({ id, x, y }) => {
-    const node = graph.getNodeById(id);
-    return node && (node.getXValue() !== x || node.getYValue() !== y);
-  });
+  const scale = Math.min(
+    availableWidth / Math.max(bbox.width, 1),
+    availableHeight / Math.max(bbox.height, 1),
+    FIT_TO_SCREEN_MAX_SCALE,
+  );
 
-  if (!hasChanges) return;
+  const centerX = bbox.x + bbox.width / 2;
+  const centerY = bbox.y + bbox.height / 2;
 
-  rescaled.forEach(({ id, x, y }) => {
-    const node = graph.getNodeById(id);
-    if (node) node.setPosition(x, y);
-  });
+  const transform = d3.zoomIdentity
+    .translate(width / 2 - scale * centerX, height / 2 - scale * centerY)
+    .scale(scale);
 
-  redrawGraph(svg, graph, graphHistory, gridManager);
+  setCanvasTransform(svg, transform, duration);
 }

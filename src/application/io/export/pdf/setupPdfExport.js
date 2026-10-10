@@ -1,6 +1,8 @@
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { ErrorHandler } from "../../../../utils/ErrorHandler";
+import * as d3 from "d3";
+import { fitToScreen } from "../../../layout/utils/fitToScreen.js";
 
 export function setupPdfExport(buttonId = "download-pdf") {
   const downloadPdfBtn = document.getElementById(buttonId);
@@ -16,6 +18,9 @@ export function setupPdfExport(buttonId = "download-pdf") {
     }
 
     try {
+      const svgEl = container.querySelector("svg");
+      if (svgEl) fitToScreen(d3.select(svgEl));
+
       const canvas = await html2canvas(container, {
         scale: 4,
         backgroundColor: "#ffffff",

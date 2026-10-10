@@ -20,3 +20,7 @@ export const LAYOUT_EDGE_PADDING = 16;
 
 export const CURVATURE_SNAP_TOLERANCE = 20;
 export const CURVATURE_SNAP_MAX_EXTENSION_FACTOR = 1.5;
+
+export const FIT_TO_SCREEN_PADDING = 40;
+export const FIT_TO_SCREEN_MAX_SCALE = 1;
+export const FIT_TO_SCREEN_DURATION = 300;

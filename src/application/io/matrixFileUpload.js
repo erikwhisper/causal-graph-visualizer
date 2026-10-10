@@ -3,6 +3,7 @@ import { validateMatrixForMatrixImport } from "../validation/validateMatrixForMa
 import { layoutHierarchical } from "../layout/layoutHierarchical.js";
 import { ErrorHandler } from "../../utils/ErrorHandler.js";
 import { redrawGraph } from "../../visualization/redrawGraph.js";
+import { fitToScreen } from "../layout/utils/fitToScreen.js";
 
 export function matrixFileUpload(svg, graph, graphHistory, gridManager) {
   const fileInput = document.getElementById("pag-matrix-file");
@@ -37,6 +38,7 @@ export function matrixFileUpload(svg, graph, graphHistory, gridManager) {
       links.forEach((link) => graph.addLink(link));
 
       redrawGraph(svg, graph, graphHistory, gridManager);
+      fitToScreen(svg);
 
       ErrorHandler.info(
         `Imported ${nodes.length} nodes and ${links.length} links from matrix`,

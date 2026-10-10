@@ -1,6 +1,6 @@
 export function createGhostLink(svg, node) {
   svg
-      .select("viewport")
+      .select("#viewport")
       .append("line")
       .attr("id", "ghost-link")
       .attr("x1", node.getXValue())

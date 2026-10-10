@@ -7,7 +7,7 @@ import { createGhostLink } from "./utils/createGhostLink.js";
 import { updateGhostLink } from "./utils/updateGhostLink.js";
 import { removeGhostLink } from "./utils/removeGhostLink.js";
 import { computeMultiEdgeCurvature } from "./utils/computeMultiEdgeCurvature.js";
-import {getCanvasPoint} from "@/presentation/utils/getCanvasPoint.js";
+import { getCanvasPoint } from "@/presentation/utils/getCanvasPoint.js";
 
 export function handleLinkCreation(svg, graph, graphHistory, gridManager) {
   let firstNode = null;
@@ -46,6 +46,10 @@ export function handleLinkCreation(svg, graph, graphHistory, gridManager) {
       drawLinks(svg, graph, graphHistory, gridManager);
       renderInfoPanel(graph);
       graphHistory.setNewState(graph.getEverything());
+      firstNode = null;
+    },
+    reset() {
+      removeGhostLink(svg);
       firstNode = null;
     },
   };

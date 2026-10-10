@@ -37,5 +37,5 @@ export function registerClickHandlers(svg, graph, graphHistory, gridManager) {
     }
   });
 
-  handleBackgroundClick(svg, graph);
+    handleBackgroundClick(svg, graph, linkCreationHandler);
 }

@@ -10,7 +10,7 @@ export function matrixFileUpload(svg, graph, graphHistory, gridManager) {
   if (!fileInput) {
     ErrorHandler.warn(
       "Matrix file input element not found",
-      "Matrix Upload Setup"
+      "Matrix Upload Setup",
     );
     return;
   }
@@ -31,7 +31,7 @@ export function matrixFileUpload(svg, graph, graphHistory, gridManager) {
 
       const width = +svg.attr("width");
       const height = +svg.attr("height");
-      layoutHierarchical(nodes, links, width, height, gridManager);
+      layoutHierarchical(nodes, links, gridManager);
 
       graph.deleteEverything();
       nodes.forEach((node) => graph.addNode(node));
@@ -42,7 +42,7 @@ export function matrixFileUpload(svg, graph, graphHistory, gridManager) {
 
       ErrorHandler.info(
         `Imported ${nodes.length} nodes and ${links.length} links from matrix`,
-        "Matrix Upload"
+        "Matrix Upload",
       );
     } catch (error) {
       ErrorHandler.handle(error, "Matrix File Import");

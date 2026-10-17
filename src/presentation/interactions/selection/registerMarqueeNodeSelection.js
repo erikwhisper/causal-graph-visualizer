@@ -5,7 +5,8 @@ import { updateMarqueeRect } from "./utils/updateMarqueeRect.js";
 import { getRectBounds } from "./utils/getRectBounds.js";
 import { selectNodesInRect } from "./selectNodesInRect.js";
 import * as d3 from "d3";
-import {getCanvasPoint} from "@/presentation/utils/getCanvasPoint.js";
+import { getCanvasPoint } from "@/presentation/utils/getCanvasPoint.js";
+import { isPrimaryModifier } from "../../utils/platform.js";
 
 export function registerMarqueeNodeSelection(svg, graph, graphHistory) {
   let isDragging = false;
@@ -15,7 +16,7 @@ export function registerMarqueeNodeSelection(svg, graph, graphHistory) {
   svg.on("mousedown.marqueeNodes", function (event) {
     if (event.button !== 0) return;
 
-    if (!event.ctrlKey || event.shiftKey) return; //Ctrl ohne Shift für Nodes
+    if (!isPrimaryModifier(event) || event.shiftKey) return; //⌘/Strg ohne Shift für Nodes
 
     const target = event.target;
     if (target.closest?.(".node") || target.closest?.(".link")) return;

@@ -1,13 +1,23 @@
 import * as d3 from "d3";
 import Coloris from "@melloware/coloris";
 import { updateGridViewport } from "../../../visualization/update/updateGridViewport.js";
+import { isPrimaryModifier } from "../../utils/platform.js";
 
-const zoom = d3.zoom().on("zoom", function (event) {
-  const svg = d3.select(this);
 
-  svg.select("#viewport").attr("transform", event.transform);
-  updateGridViewport(svg, event.transform);
-});
+export function canvasZoomFilter(event) {
+  if (event.type === "wheel") return !event.button;
+  return !isPrimaryModifier(event) && !event.button;
+}
+
+const zoom = d3
+  .zoom()
+  .filter(canvasZoomFilter)
+  .on("zoom", function (event) {
+    const svg = d3.select(this);
+
+    svg.select("#viewport").attr("transform", event.transform);
+    updateGridViewport(svg, event.transform);
+  });
 
 export function registerCanvasNavigation(svg) {
   const svgEl = svg.node();

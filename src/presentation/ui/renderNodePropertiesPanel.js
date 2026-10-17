@@ -21,10 +21,8 @@ export function renderNodePropertiesPanel(
     cleanupListeners();
   }
 
-  const isMultiple = selectedNodes.length > 1;
-  const node = selectedNodes[0];
 
-  panel.innerHTML = generateNodePanelHTML(node, isMultiple);
+  panel.innerHTML = generateNodePanelHTML(selectedNodes);
   Coloris.wrap(".coloris");
 
   cleanupListeners = registerNodeInputListeners(

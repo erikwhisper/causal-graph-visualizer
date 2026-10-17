@@ -1,8 +1,9 @@
 import { unhighlightAll } from "../../utils/unhighlightAll.js";
+import { isPrimaryModifier } from "../../utils/platform.js";
 
 export function handleBackgroundClick(svg, graph, linkCreationHandler) {
   svg.on("click", function (event) {
-    if (event.ctrlKey) return;
+    if (isPrimaryModifier(event)) return;
 
     const target = event.target;
 

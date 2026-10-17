@@ -89,6 +89,11 @@
     "wait-on": "^8.0.1"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/lora": "^5.3.0",
+    "@fontsource/merriweather": "^5.3.0",
+    "@fontsource/roboto-mono": "^5.3.0",
+    "@fontsource/source-code-pro": "^5.3.1",
     "@fortawesome/fontawesome-free": "^7.0.1",
     "@melloware/coloris": "^0.25.0",
     "d3": "^7.9.0",

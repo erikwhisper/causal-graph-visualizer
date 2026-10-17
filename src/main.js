@@ -1,5 +1,13 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/lora/400.css";
+import "@fontsource/merriweather/400.css";
+import "@fontsource/source-code-pro/400.css";
+import "@fontsource/roboto-mono/400.css";
+
 import "@melloware/coloris/dist/coloris.css";
 import Coloris from "@melloware/coloris";
 Coloris.init();
@@ -35,7 +43,7 @@ import { registerMarqueeLinkSelection } from "./presentation/interactions/select
 import { handleCanvasResize } from "./visualization/handleCanvasResize.js";
 
 import { renderInfoPanel } from "./presentation/ui/renderInfoPanel.js";
-import {registerCanvasNavigation} from "@/presentation/interactions/zoom/registerCanvasNavigation.js";
+import { registerCanvasNavigation } from "@/presentation/interactions/zoom/registerCanvasNavigation.js";
 
 const graph = new GraphModel();
 

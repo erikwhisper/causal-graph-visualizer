@@ -1,325 +1,115 @@
-.input-invalid {
-  outline: 2px solid #e53e3e;
-  background-color: #fff5f5;
+
+:root {
+  /* Marke */
+  --brand-green: #4caf50;
+  --brand-green-dark: #25632d;
+  --brand-magenta: #8e0152;
+
+  /* Akzent für Buttons und Links mit weißem Text */
+  --accent: #2e7d32;
+  --accent-hover: #27692b;
+  --accent-active: #1f5223;
+  --accent-soft: #e6f4e7;
+
+  /* Neutrale Flächen und Linien */
+  --surface: #ffffff;
+  --surface-muted: #f4f5f6;
+  --border: #dcdfe3;
+  --border-strong: #b9bec5;
+
+  /* Text */
+  --text: #1d2125;
+  --text-muted: #5b616a;
+
+  /* Gefahr / Validierung */
+  --danger: #c62828;
+  --danger-soft: #fff5f5;
+
+  /* Schrift */
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, Consolas, monospace;
+  --fs-xs: 0.75rem; /* 12px */
+  --fs-sm: 0.8125rem; /* 13px */
+  --fs-md: 0.875rem; /* 14px, Basisgröße */
+  --fs-lg: 1rem; /* 16px */
+  --fs-xl: 1.25rem; /* 20px */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  /* Abstände */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+
+  /* Form */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+  --shadow-float: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-panel: -2px 0 8px rgba(0, 0, 0, 0.12);
+  --shadow-modal: 0 12px 40px rgba(0, 0, 0, 0.25);
+
+  /* Layout */
+  --panel-width: 340px; /* Property- und Help-Panel teilen sich diese Breite */
+  --panel-pad: var(--space-4);
+  --control-h: 2rem; /* Höhe aller Eingabefelder und Segmented Controls */
+
+  /* Ebenen: Help-Panel (550) bleibt UNTER dem Header (600), damit dessen
+     Dropdowns nie verdeckt werden */
+  --z-dropdown: 500;
+  --z-help: 550;
+  --z-header: 600;
+  --z-modal: 1000;
+  --z-skip: 2000;
 }
 
-/* Reset */
+/* ==========================================================================
+   Reset und Basis
+   ========================================================================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html,
-body {
+/* Ohne diese Regel überschreibt z.B. .toolbar-group { display: flex } das
+   hidden-Attribut, das registerToolbarOverflow.js setzt */
+[hidden] {
+  display: none !important;
+}
+
+html {
   height: 100%;
   width: 100%;
-  font-family: sans-serif;
   font-size: 16px;
 }
 
-/* Layout */
 body {
+  height: 100%;
+  width: 100%;
+  font-family: var(--font-ui);
+  font-size: var(--fs-md);
+  color: var(--text);
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: 100%;
 }
 
-#header-bar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: clamp(0.3rem, 0.8vw, 0.6rem);
-  background-color: #ececec;
-  border-bottom: 1px solid #ccc;
-  padding: 0 clamp(0.5rem, 2vw, 1.5rem);
-  height: clamp(56px, 8vh, 80px);
-  min-width: 0;
-  position: relative;
-  z-index: 600;
-  overflow: visible;
+h2 {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
 }
 
-main {
-  position: relative;
-  display: grid;
-  grid-template-columns: 70% 30%;
-  grid-template-rows: 100%;
-  height: 100%;
-  overflow: hidden;
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-#graph-container {
-  grid-column: 1;
-  grid-row: 1;
-  border-right: 1px solid #ccc;
-  overflow: hidden;
-  padding: 0;
-}
-
-#property-panel {
-  grid-column: 2;
-  grid-row: 1;
-  background: #f9f9f9;
-  border-left: 1px solid #ccc;
-  overflow-y: auto;
-  padding: clamp(0.75rem, 1.5vw, 1.5rem);
-  font-size: clamp(0.875rem, 1.2vw, 1rem);
-}
-
-/* Toolbar */
-.toolbar-group {
-  display: flex;
-  align-items: center;
-  gap: clamp(0.25rem, 0.6vw, 0.5rem);
-  flex-shrink: 0;
-}
-
-.toolbar-separator {
-  width: 1px;
-  height: clamp(24px, 3.5vh, 36px);
-  background-color: #ccc;
-  flex-shrink: 0;
-}
-
-.toolbar-row-primary {
-  display: flex;
-  align-items: center;
-  gap: clamp(0.3rem, 0.8vw, 0.6rem);
-  min-width: 0;
-  flex-shrink: 0;
-}
-
-.toolbar-row-secondary {
-  display: flex;
-  align-items: center;
-  gap: clamp(0.3rem, 0.8vw, 0.6rem);
-  flex-shrink: 0;
-  margin-left: auto; /* schiebt die Gruppe an den rechten Rand der jeweiligen Zeile —
-                         funktioniert unverändert, wenn die Gruppe in eine zweite
-                         Headerzeile umbricht */
-}
-
-/* Dropdown trigger button - same look as normal buttons */
-.toolbar-dropdown {
-  position: relative;
-  flex-shrink: 0;
-}
-
-.toolbar-dropdown-trigger {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: clamp(0.5rem, 1.2vh, 0.75rem) clamp(0.6rem, 1.5vw, 0.9rem);
-  cursor: pointer;
-  font-size: clamp(0.95rem, 1.8vh, 1.1rem);
-  min-width: 40px;
-  min-height: 40px;
-}
-.toolbar-dropdown-trigger:hover {
-  background-color: #45a049;
-}
-.toolbar-caret {
-  font-size: 0.7em;
-  opacity: 0.85;
-  pointer-events: none;
-}
-
-/* Dropdown menu - hidden until .open */
-.toolbar-dropdown-menu {
-  display: none;
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  min-width: 180px;
-  z-index: 500;
-  padding: 4px 0;
-}
-.toolbar-dropdown.open .toolbar-dropdown-menu {
-  display: block;
-}
-.toolbar-dropdown-trigger[aria-expanded="true"] {
-  background-color: #388e3c;
-}
-
-#help-btn[aria-expanded="true"] {
-  background-color: #388e3c;
-}
-
-/* Dropdown items - shared for button and label */
-.toolbar-dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  background: none;
-  border: none;
-  color: #222;
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
-  cursor: pointer;
-  text-align: left;
-  white-space: nowrap;
-  box-sizing: border-box;
-}
-.toolbar-dropdown-item:hover {
-  background-color: #f0f0f0;
-}
-.toolbar-dropdown-item i {
-  width: 16px;
-  text-align: center;
-  color: #555;
-  font-size: 1em;
-  pointer-events: none;
-}
-
-/* Toolbar-Labels: im normalen Header unsichtbar (nur Icon), im Overflow-Menü sichtbar */
-.toolbar-label {
-  display: none;
-}
-
-#overflow-menu .toolbar-label {
-  display: inline;
-}
-
-/* Verschobene Buttons/Dropdown-Trigger im Overflow-Menü wie .toolbar-dropdown-item aussehen lassen,
-   statt wie grüne Quadrat-Buttons — nur direkte Kinder, damit verschachtelte Import/Save/Export-
-   Untermenüs ihre bestehende .toolbar-dropdown-item-Optik unangetastet behalten */
-#overflow-menu > button,
-#overflow-menu > .toolbar-dropdown > .toolbar-dropdown-trigger {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  background: none;
-  border: none;
-  border-radius: 0;
-  color: #222;
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
-  cursor: pointer;
-  text-align: left;
-  white-space: nowrap;
-  box-sizing: border-box;
-  min-width: 0;
-  min-height: 0;
-  justify-content: flex-start;
-}
-#overflow-menu > button:hover,
-#overflow-menu > .toolbar-dropdown > .toolbar-dropdown-trigger:hover {
-  background-color: #f0f0f0;
-}
-#overflow-menu > button i,
-#overflow-menu > .toolbar-dropdown > .toolbar-dropdown-trigger i {
-  width: 16px;
-  text-align: center;
-  color: #555;
-  font-size: 1em;
-  pointer-events: none;
-}
-#overflow-menu > .toolbar-dropdown {
-  width: 100%;
-}
-#overflow-menu > .toolbar-dropdown > .toolbar-dropdown-trigger .toolbar-caret {
-  display: none; /* kein Aufklapp-Indikator mehr — Untermenü ist permanent sichtbar */
-}
-
-/* Verschachtelte Untermenüs (Import/Save/Export) im Overflow-Kontext: kein Flyout mehr,
-   stattdessen permanent sichtbar als eingerückte Liste direkt unter ihrem Trigger.
-   Löst das Positionierungs-/Hover-Problem der vorherigen Variante komplett. */
-#overflow-menu .toolbar-dropdown-menu {
-  display: block;
-  position: static;
-  box-shadow: none;
-  border: none;
-  border-radius: 0;
-  min-width: 0;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-#overflow-menu .toolbar-dropdown-menu .toolbar-dropdown-item {
-  padding-left: 2.5rem; /* Einrückung zeigt die Zugehörigkeit zum übergeordneten Trigger */
-}
-.toolbar-icon {
-  height: clamp(80.9px, 11vh, 106.6px);
-  width: auto;
-  opacity: 1;
-  pointer-events: none;
-  flex-shrink: 0;
-  border-radius: 4px;
-  transform: translateY(2px);
-}
-
-/* Buttons */
-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: clamp(0.5rem, 1.2vh, 0.75rem) clamp(0.6rem, 1.5vw, 0.9rem);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(0.95rem, 1.8vh, 1.1rem);
-  min-width: 40px;
-  min-height: 40px;
-}
-button:hover {
-  background-color: #45a049;
-}
-button i {
-  pointer-events: none;
-  font-size: clamp(1rem, 2vh, 1.3rem);
-}
-
-input[type="file"] {
-  cursor: pointer;
-  display: none;
-}
-
-.file-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: clamp(0.5rem, 1.2vh, 0.75rem) clamp(0.6rem, 1.5vw, 0.9rem);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  font-size: clamp(0.95rem, 1.8vh, 1.1rem);
-  min-width: 40px;
-  min-height: 40px;
-}
-.file-button:hover {
-  background-color: #45a049;
-}
-.file-button i {
-  pointer-events: none;
-  font-size: clamp(1rem, 2vh, 1.3rem);
-}
-
-/* Panels */
-.panel {
-  display: none;
-}
-.panel.active {
-  display: block;
-}
-.panel p {
-  font-size: clamp(0.9rem, 1.2vw, 1rem);
-  line-height: 1.5;
+#graph-container:focus-visible {
+  outline-offset: -2px;
 }
 
 .visually-hidden {
@@ -337,48 +127,451 @@ input[type="file"] {
   left: 0;
   background: #000;
   color: #fff;
-  padding: 8px;
-  z-index: 100;
+  padding: var(--space-2);
+  z-index: var(--z-skip);
 }
 .skip-link:focus {
   top: 0;
 }
 
-
-/* Color rows */
-.color-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0.4rem 0;
+/* ==========================================================================
+   Formularelemente (Basis mit :where() → Spezifität 0, Klassen gewinnen immer,
+   z.B. .color-circle und Coloris-Felder)
+   ========================================================================== */
+:where(input[type="number"], input[type="text"], textarea, select) {
+  font: inherit;
+  font-size: var(--fs-md);
+  color: var(--text);
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-2);
+  height: var(--control-h);
+}
+:where(textarea) {
+  height: auto;
+  padding: 0.4rem var(--space-2);
+  line-height: 1.4;
+  resize: vertical;
+}
+:where(select) {
+  cursor: pointer;
+}
+:where(input[type="number"], input[type="text"], textarea, select):hover {
+  border-color: var(--text-muted);
 }
 
-.color-row-enhanced {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0.4rem 0;
-  gap: 0.5rem;
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline-offset: 0;
+  border-color: var(--accent);
 }
 
-.color-inputs {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+input[type="file"] {
+  cursor: pointer;
+  display: none;
 }
 
-.color-label {
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
-  color: #333;
+/* Muss nach der Basis stehen, damit der Fehlerzustand gewinnt */
+.input-invalid {
+  outline: 2px solid var(--danger);
+  background-color: var(--danger-soft);
+}
+
+/* ==========================================================================
+   Buttons
+   Achtung: Das ist die globale Basis (grün, 40px). Spezielle Buttons
+   (Segmented, Modal, Help-Close, Overflow-Items, btn-primary/-secondary)
+   überschreiben sie weiter unten. Wird in Schritt 2 (Toolbar) aufgelöst.
+   ========================================================================== */
+button {
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: var(--fs-md);
+  min-width: 40px;
+  min-height: 40px;
+}
+button:hover {
+  background-color: var(--accent-hover);
+}
+button i {
+  pointer-events: none;
+  font-size: 1.125rem;
+}
+
+/* Primär- und Sekundärbutton für Panels und Dialoge */
+.btn-primary,
+.btn-secondary,
+.btn-export {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 0;
+  min-height: var(--control-h);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+}
+.btn-primary i,
+.btn-secondary i,
+.btn-export i {
+  font-size: var(--fs-md);
+}
+.btn-primary,
+.btn-export {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+}
+.btn-primary:hover,
+.btn-export:hover {
+  background: var(--accent-hover);
+}
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+.btn-secondary:hover {
+  background: var(--surface-muted);
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+#header-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--surface-muted);
+  border-bottom: 1px solid var(--border);
+  padding: 0 var(--space-4);
+  /* Höhe und Logo bleiben bis Schritt 2 unverändert */
+  height: clamp(56px, 8vh, 80px);
+  min-width: 0;
+  position: relative;
+  z-index: var(--z-header);
+  overflow: visible;
+}
+
+main {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr var(--panel-width);
+  grid-template-rows: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#graph-container {
+  grid-column: 1;
+  grid-row: 1;
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+  padding: 0;
+}
+
+#property-panel {
+  grid-column: 2;
+  grid-row: 1;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  padding: var(--panel-pad);
+  font-size: var(--fs-md);
+}
+
+/* ==========================================================================
+   Toolbar
+   Wichtig für registerToolbarOverflow.js: Gruppen müssen flex-shrink: 0
+   behalten, sonst schrumpfen sie statt zu kollabieren.
+   ========================================================================== */
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   flex-shrink: 0;
 }
 
+.toolbar-separator {
+  width: 1px;
+  height: 28px;
+  background-color: var(--border-strong);
+  flex-shrink: 0;
+}
+
+.toolbar-row-primary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.toolbar-row-secondary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.toolbar-icon {
+  height: clamp(80.9px, 11vh, 106.6px);
+  width: auto;
+  opacity: 1;
+  pointer-events: none;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  transform: translateY(2px);
+}
+
+/* Toolbar-Labels: im normalen Header unsichtbar (nur Icon), im Overflow-Menü sichtbar */
+.toolbar-label {
+  display: none;
+}
+#overflow-menu .toolbar-label {
+  display: inline;
+}
+
+/* Dropdowns (Import / Save / Export) */
+.toolbar-dropdown {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.toolbar-dropdown-trigger {
+  gap: 0.3rem;
+}
+.toolbar-dropdown-trigger[aria-expanded="true"],
+#help-btn[aria-expanded="true"] {
+  background-color: var(--accent-active);
+}
+
+.toolbar-caret {
+  font-size: 0.7em;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.toolbar-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-float);
+  min-width: 180px;
+  z-index: var(--z-dropdown);
+  padding: var(--space-1) 0;
+}
+.toolbar-dropdown.open .toolbar-dropdown-menu {
+  display: block;
+}
+
+/* Menüeinträge: gemeinsames Aussehen für Dropdown-Items sowie für die in den
+   Overflow-Kontext verschobenen Buttons und Dropdown-Trigger. */
+.toolbar-dropdown-item,
+#overflow-menu > button,
+#overflow-menu > .toolbar-dropdown > .toolbar-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.6rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: var(--space-2) var(--space-4);
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: var(--text);
+  font-size: var(--fs-md);
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+}
+.toolbar-dropdown-item:hover,
+#overflow-menu > button:hover,
+#overflow-menu > .toolbar-dropdown > .toolbar-dropdown-trigger:hover {
+  background-color: var(--surface-muted);
+}
+.toolbar-dropdown-item i,
+#overflow-menu > button i,
+#overflow-menu > .toolbar-dropdown > .toolbar-dropdown-trigger i {
+  width: 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1em;
+  pointer-events: none;
+}
+
+#overflow-menu > .toolbar-dropdown {
+  width: 100%;
+}
+#overflow-menu > .toolbar-dropdown > .toolbar-dropdown-trigger .toolbar-caret {
+  display: none;
+}
+
+/* Verschachtelte Untermenüs im Overflow-Kontext: permanent sichtbare,
+   eingerückte Liste direkt unter ihrem Trigger */
+#overflow-menu .toolbar-dropdown-menu {
+  display: block;
+  position: static;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+#overflow-menu .toolbar-dropdown-menu .toolbar-dropdown-item {
+  padding-left: 2.5rem;
+}
+
+/* ==========================================================================
+   Panels: Grundbausteine
+   ========================================================================== */
+.panel {
+  display: none;
+}
+.panel.active {
+  display: block;
+}
+.panel p {
+  font-size: var(--fs-md);
+  line-height: 1.5;
+}
+
+/* Titel des Property-Panels ("Node" / "Edge" + optional Chip) */
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+}
+.panel-chip {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+}
+
+/* Abschnittstitel: dezente Trennlinie statt grauem Vollbreiten-Balken.
+   Klasse bleibt .panel-section-header, weil das Help-Panel sie ebenfalls nutzt. */
+.panel-section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-4) 0 var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+}
+.panel-section-header i {
+  width: 1rem;
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+/* Der erste Abschnitt direkt unter dem Titel braucht keine Linie */
+.panel-title + .panel-section-header,
+.help-panel-content > .panel-section-header:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* Felder */
+.field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.field-label {
+  margin-bottom: 0.25rem;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-regular);
+  line-height: 1.2;
+  color: var(--text-muted);
+}
+.field > input[type="number"],
+.field > select,
+.field > textarea {
+  width: 100%;
+}
+
+/* Zeilen: Grid mit 1, 2 oder 3 gleich breiten Spalten, oder flexibel (inline) */
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.field-row--single {
+  --cols: 1;
+}
+.field-row--3 {
+  --cols: 3;
+}
+.field-row--font {
+  grid-template-columns: 2fr 1fr;
+}
+.field-row--inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-4);
+}
+.field--narrow {
+  width: 5.5rem;
+}
+.field--grow {
+  flex: 1;
+  min-width: 6rem;
+}
+.field--swatch {
+  align-items: flex-start;
+}
+
+.panel-actions {
+  margin-top: var(--space-4);
+}
+.panel-actions .btn-secondary {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Farbfelder und Coloris
+   ========================================================================== */
 .color-circle {
   -webkit-appearance: none;
   appearance: none;
-  border: 2px solid black;
-  width: clamp(24px, 3vw, 32px);
-  height: clamp(24px, 3vw, 32px);
+  border: 1px solid var(--border-strong);
+  width: var(--control-h);
+  height: var(--control-h);
   border-radius: 50%;
   padding: 0;
   cursor: pointer;
@@ -396,333 +589,607 @@ input[type="file"] {
   border-radius: 50%;
 }
 
-.color-hex-input {
-  width: clamp(70px, 15vw, 90px);
-  padding: clamp(0.2rem, 0.5vw, 0.3rem) clamp(0.3rem, 0.7vw, 0.4rem);
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: clamp(0.8rem, 1vw, 0.9rem);
-  font-family: monospace;
-  text-align: center;
+/* Coloris umhüllt das Feld mit .clr-field und legt einen Button darüber.
+   Die Geometrie legen wir hier komplett selbst fest (inset: 0, kein transform)
+   und mit #property-panel-Präfix, damit sie unabhängig von der Ladereihenfolge
+   des Coloris-CSS gewinnt. Der Ring ist ein Inset-Schatten auf der Farbfläche
+   selbst: Rand und Füllung sind dasselbe Element und damit immer konzentrisch. */
+#property-panel .clr-field {
+  position: relative;
+  z-index: 1; /* über der Verbindungslinie der Farbketten */
+  display: block;
+  width: var(--control-h);
+  height: var(--control-h);
+  border: none;
+  border-radius: 50%;
+  overflow: hidden;
 }
-.color-hex-input:focus {
-  outline: 2px solid #4caf50;
-  border-color: #4caf50;
-}
-
-/* Edge controls */
-.edge-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+#property-panel .clr-field .color-circle {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  margin-bottom: 1rem;
+  height: 100%;
+  margin: 0;
+  border: none;
+  opacity: 0;
+  cursor: pointer;
+}
+#property-panel .clr-field button {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  transform: none;
+  border-radius: 50%;
+}
+#property-panel .clr-field button::after {
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--border-strong);
 }
 
-#arrowhead-buttons {
-  justify-content: flex-start;
-}
-#arrowtail-buttons {
-  justify-content: flex-end;
-}
-
-#link-style {
-  padding: clamp(0.3rem, 0.8vw, 0.5rem) clamp(0.6rem, 1.2vw, 1rem);
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  text-align: center;
-  flex-shrink: 0;
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
-}
-
-.arrow-buttons {
+/* ==========================================================================
+   Farbketten: Farbfelder, die über Connector-Buttons verbunden werden können.
+   Verbunden (aria-pressed="true"): grüne Linie + Kettensymbol.
+   Getrennt: graue Linie + durchgestrichene Kette.
+   ========================================================================== */
+.color-chain {
   display: flex;
-  gap: 0.3rem;
+  align-items: flex-end;
+  position: relative;
+  isolation: isolate; /* eigener Stacking-Kontext: Linie (0) < Kreise und Chips (1) */
+}
+.color-chain .field--swatch {
+  align-items: center;
+}
+
+.color-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: var(--control-h);
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.color-link::before {
+  /* Verbindungslinie zwischen den Kreisen. Sie läuft unter die Nachbarkreise
+     (die liegen darüber), damit sie unabhängig von der Breite der Beschriftungen
+     immer von Kreisrand zu Kreisrand reicht. 2px und calc(50% - 1px) statt
+     1px und 50%, damit sie exakt auf der Mittelachse sitzt. */
+  content: "";
+  position: absolute;
+  left: -1.25rem;
+  right: -1.25rem;
+  top: calc(50% - 1px);
+  height: 2px;
+  z-index: 0;
+  background: var(--border-strong);
+}
+.color-link-chip {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+}
+.color-link svg {
+  width: 1rem;
+  height: auto;
+  overflow: visible; /* Striche dürfen nie am viewBox-Rand abgeschnitten werden */
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.color-link:hover {
+  background: transparent;
+  color: var(--text);
+}
+.color-link:hover .color-link-chip {
+  border-color: var(--text-muted);
+}
+.color-link[aria-pressed="true"] {
+  color: var(--accent);
+}
+.color-link[aria-pressed="true"]::before {
+  background: var(--accent);
+}
+.color-link[aria-pressed="true"] .color-link-chip {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.color-link[aria-pressed="true"] .color-link-icon--off,
+.color-link[aria-pressed="false"] .color-link-icon--on {
+  display: none;
+}
+
+/* Mehrfachauswahl mit unterschiedlichen Werten: gestreiftes Farbfeld */
+.field--mixed .clr-field {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--surface) 0 4px,
+    var(--border) 4px 8px
+  );
+  box-shadow: inset 0 0 0 1px var(--border-strong);
+}
+.field--mixed .clr-field button {
+  opacity: 0;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   Link-Panel: Segmented Control für den Pfeiltyp
+   JS setzt/entfernt .active auf den Buttons und liest data-value.
+   ========================================================================== */
+.arrow-buttons {
+  display: inline-flex;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--surface);
 }
 .arrow-buttons button {
-  padding: clamp(0.3rem, 0.7vw, 0.5rem) clamp(0.4rem, 1vw, 0.6rem);
-  border: 1px solid #ccc;
-  background: #f0f0f0;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: clamp(0.85rem, 1vw, 1rem);
+  width: 2rem;
+  height: calc(var(--control-h) - 2px);
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  border-radius: 0;
+}
+.arrow-buttons button + button {
+  border-left: 1px solid var(--border);
+}
+.arrow-buttons button i {
+  font-size: var(--fs-md);
 }
 .arrow-buttons button:hover {
-  background: #e0e0e0;
+  background: var(--surface-muted);
+  color: var(--text);
 }
 .arrow-buttons button.active {
-  background-color: #4caf50;
-  color: white;
-  border: 1px solid #2e7d32;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.arrow-buttons button:focus-visible {
+  outline-offset: -2px;
 }
 
-/* Thickness controls */
-.thickness-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-  width: 100%;
-}
-.thickness-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-}
-.thickness-label {
-  font-weight: normal;
-  font-size: clamp(0.75rem, 1vw, 0.875rem);
-  color: #555;
-  margin-bottom: 0.2rem;
-}
-.thickness-item input[type="number"] {
-  width: clamp(3rem, 8vw, 4rem);
-  text-align: center;
-  padding: clamp(0.25rem, 0.6vw, 0.4rem);
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
-}
-
-/* Panel section headers */
-.panel-section-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #e0e0e0;
-  padding: clamp(0.4rem, 1vw, 0.6rem) clamp(0.75rem, 1.5vw, 1.5rem);
-  margin: 0.8rem calc(-1 * clamp(0.75rem, 1.5vw, 1.5rem)) 0.6rem
-    calc(-1 * clamp(0.75rem, 1.5vw, 1.5rem));
-  font-weight: bold;
-  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-}
-.panel-section-header i {
-  color: #555;
-  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
-}
-
-/* Reset curvature button */
-#reset-curvature {
-  display: block;
-  width: calc(100% - 2rem);
-  margin: 1rem auto;
-  background: #f0f0f0;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: clamp(0.5rem, 1.2vw, 0.75rem);
-  text-align: center;
-  font-weight: bold;
-  font-size: clamp(0.9rem, 1.2vw, 1rem);
-  cursor: pointer;
-}
-#reset-curvature:hover {
-  background: #e0e0e0;
-}
-
-/* Field labels */
-.field-label {
-  font-weight: normal;
-  font-size: clamp(0.75rem, 1vw, 0.875rem);
-  color: #555;
-  margin-bottom: 0.2rem;
-}
-
-/* Bounds grid */
-.bounds-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.6rem 1rem;
-  margin-left: 0.4rem;
-}
-.bounds-field {
-  display: flex;
-  flex-direction: column;
-}
-.bounds-field--left {
-  grid-column: 1;
-}
-.bounds-field--right {
-  grid-column: 2;
-}
-.radius-field {
-  grid-column: 1;
-}
-.bounds-field input[type="number"] {
-  width: clamp(4.5rem, 12vw, 6rem);
-  text-align: center;
-  padding: clamp(0.25rem, 0.6vw, 0.4rem);
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
-}
-
-/* Stroke field */
-.node-stroke-field {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 0.4rem 0 0.4rem 0.4rem;
-}
-.node-stroke-field input[type="number"] {
-  width: clamp(3rem, 8vw, 4rem);
-  text-align: center;
-  padding: clamp(0.25rem, 0.6vw, 0.4rem);
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
-}
-
-/* Label Properties */
-.label-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.6rem 1rem;
-  margin-left: 0.4rem;
-  align-items: start;
-}
-
-.offsets-grid {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.6rem 1rem;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-}
-.form-field .field-label {
-  font-weight: normal;
-  font-size: clamp(0.75rem, 1vw, 0.875rem);
-  color: #555;
-  margin-bottom: 0.2rem;
-}
-
-.label-grid textarea,
-.label-grid input[type="text"],
-.label-grid input[type="number"],
-.offsets-grid input[type="number"] {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
-  box-sizing: border-box;
-  padding: clamp(0.25rem, 0.6vw, 0.4rem);
-}
-
-.label-grid input[type="number"],
-.offsets-grid input[type="number"] {
-  width: clamp(4.5rem, 12vw, 6rem);
-  text-align: center;
-}
-
-.form-field--label textarea,
-.form-field--label input[type="text"] {
-  width: 100%;
-}
-
-/* Font-Family select — passend zu anderen Panel-Inputs */
-.form-field--font-family {
-  grid-column: 1 / -1;
-}
-.form-field--font-family select {
-  width: 100%;
-  padding: clamp(0.25rem, 0.6vw, 0.4rem);
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
-  background-color: white;
-  cursor: pointer;
-  color: #333;
-}
-
-/* Shared left margin for panel content */
-.node-stroke-field,
-.color-row,
-.bounds-grid,
-.label-grid {
-  margin-left: 0.4rem;
-}
-
-@media (max-width: 520px) {
-  .label-grid,
-  .offsets-grid {
-    grid-template-columns: 1fr;
-  }
-  .label-grid input[type="number"],
-  .offsets-grid input[type="number"] {
-    width: 100%;
-  }
-}
-
-/* Info panel */
-#info-panel .info-row {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: clamp(0.9rem, 1.2vw, 1rem);
-  margin: 0.5rem 0;
-  margin-left: 0.4rem;
-}
-#info-panel i {
-  color: #555;
-  font-size: clamp(1rem, 1.3vw, 1.15rem);
-}
-
+/* ==========================================================================
+   Info-Panel
+   ========================================================================== */
 .info-row {
   display: flex;
   align-items: center;
   gap: 0.6rem;
   padding: 0.45rem 0;
-  color: #333;
-  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  color: var(--text);
+  font-size: var(--fs-md);
 }
-.info-row i {
+.info-row i,
+#info-panel i {
   width: 20px;
   text-align: center;
-  color: #555;
-  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  color: var(--text-muted);
+  font-size: var(--fs-lg);
+}
+#info-panel .info-row {
+  margin: var(--space-2) 0 var(--space-2) 0.4rem;
 }
 
-/* Help panel */
- 
+/* ==========================================================================
+   Help-Panel
+   ========================================================================== */
 #help-panel {
-  /* Absolut positioniert statt Grid-Zelle mit #property-panel zu teilen — dadurch
-     beeinflusst der Inhalt (z.B. die Shortcut-Tabelle) nie die Grid-Track-Breite */
+  /* Absolut positioniert statt Grid-Zelle, damit der Inhalt nie die Grid-Track-
+     Breite beeinflusst. Liegt über dem Property-Panel. */
   position: absolute;
   top: 0;
   bottom: 0;
-  /* right (nicht transform!) steuert den Slide — right-Prozente sind relativ zum
-     Containing Block (main), nicht zur eigenen (bei Breakpoints wechselnden) Breite.
-     -100% = eine volle Container-Breite außerhalb des sichtbaren Bereichs, unabhängig
-     davon ob das Panel gerade 30% (Desktop) oder 100% (Mobile) breit ist. */
-  right: -100%;
-  width: 30%; /* entspricht main's zweiter Spalte (70% / 30%) */
+  /* right (nicht transform!) steuert den Slide. Zusätzliche 24px verstecken auch
+     den Schatten. */
+  right: calc(-1 * (var(--panel-width) + 24px));
+  width: var(--panel-width);
   min-width: 0;
-  background: #f9f9f9;
-  border-left: 1px solid #ccc;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow-panel);
   transition: right 0.25s ease;
-  z-index: 550; /* unter #header-bar (600), damit dessen Dropdown-/Overflow-Menüs
-                    immer über dem Help-Panel liegen und nicht verdeckt werden */
+  z-index: var(--z-help);
   overflow-y: auto;
   overflow-x: hidden;
-  padding: clamp(0.75rem, 1.5vw, 1.5rem);
-  font-size: clamp(0.875rem, 1.2vw, 1rem);
+  padding: var(--panel-pad);
+  font-size: var(--fs-md);
 }
- 
 #help-panel.open {
   right: 0;
 }
 
+.help-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+.help-panel-header h2 {
+  margin: 0;
+}
+
+#help-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--fs-lg);
+  color: var(--text-muted);
+  min-width: 0;
+  min-height: 0;
+}
+#help-close-btn:hover {
+  color: var(--text);
+}
+
+/* Tastenkappe (Help-Panel, Dialog-Hinweise) */
+kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  line-height: 1;
+  color: var(--text);
+}
+
+.help-panel-content code {
+  padding: 0.05rem 0.3rem;
+  background: var(--surface-muted);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Quick start: nummerierte Schritte */
+.help-steps {
+  list-style: none;
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.help-steps li {
+  position: relative;
+  padding-left: 2rem;
+  counter-increment: step;
+}
+.help-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+}
+.help-step-title {
+  display: block;
+  font-weight: var(--fw-semibold);
+}
+.help-step-text {
+  display: block;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.help-step-text kbd {
+  height: 1.25rem;
+  min-width: 1.25rem;
+  vertical-align: middle;
+}
+
+/* Shortcuts: Gruppen mit Zeilen (Aktion links, Tasten rechts) */
+.help-group-title {
+  margin: var(--space-4) 0 var(--space-1);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+}
+.help-group-title:first-of-type {
+  margin-top: 0;
+}
+.shortcut-list {
+  list-style: none;
+}
+.shortcut-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.shortcut-row:last-child {
+  border-bottom: none;
+}
+.shortcut-action {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.shortcut-hint {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+.shortcut-keys {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  max-width: 55%;
+}
+.combo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.plus,
+.or {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+/* Mausgesten sehen anders aus als Tasten */
+.gesture {
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  line-height: 1.2;
+}
+
+/* Einklappbarer Abschnitt "File formats" */
+.help-details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.help-details > summary::-webkit-details-marker {
+  display: none;
+}
+.help-details .chevron {
+  margin-left: auto;
+  transition: transform 0.15s;
+}
+.help-details[open] .chevron {
+  transform: rotate(180deg);
+}
+.help-details-body p,
+.help-about {
+  line-height: 1.6;
+}
+.help-details-body p + p {
+  margin-top: var(--space-3);
+}
+
+.help-panel-content a,
+.impressum a {
+  color: var(--accent);
+  text-underline-offset: 2px;
+}
+
+.impressum {
+  font-size: 0.8em;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Dialoge (PNG-Export, Add-Node-Popup)
+   .modal-content ist die Karte; .modal-close sitzt absolut oben rechts, damit
+   Popups ohne eigenen Header weiter funktionieren.
+   ========================================================================== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 24, 28, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+}
+.modal-content {
+  position: relative;
+  background: var(--surface);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  width: 24rem;
+  max-width: calc(100% - 2rem);
+  box-shadow: var(--shadow-modal);
+}
+.modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.modal-close:hover {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+.modal-close i {
+  font-size: var(--fs-lg);
+}
+.modal-content h3 {
+  margin: 0 2rem var(--space-4) 0;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+}
+
+/* Optionszeilen (Label links, Schalter rechts) */
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
+  color: var(--text);
+}
+.option i {
+  min-width: 18px;
+  text-align: center;
+  color: var(--text-muted);
+}
+.option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.option-title {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  color: var(--text);
+}
+.option-hint {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+.option--stacked {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+}
+.option-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+.option-head span {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.option--stacked input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+/* Checkbox als Schalter */
+.option input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  background: var(--border-strong);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.option input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(1.25rem - 4px);
+  height: calc(1.25rem - 4px);
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.15s;
+}
+.option input[type="checkbox"]:checked {
+  background: var(--accent);
+}
+.option input[type="checkbox"]:checked::after {
+  transform: translateX(1rem);
+}
+
+.modal-hint {
+  margin-top: var(--space-2);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+.modal-hint kbd {
+  height: 1.25rem;
+  min-width: 1.25rem;
+  vertical-align: middle;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+/* ==========================================================================
+   Canvas-Overlays
+   ========================================================================== */
+.marquee-rect {
+  fill: var(--brand-green);
+  fill-opacity: 0.08;
+  stroke: var(--brand-green);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Responsive (Stapel-Layout auf schmalen Fenstern)
+   ========================================================================== */
 @media (max-width: 768px) {
-  body {
-    grid-template-rows: auto 1fr;
-  }
   main {
     grid-template-columns: 100%;
     grid-template-rows: 50% 50%;
@@ -731,204 +1198,20 @@ input[type="file"] {
     grid-column: 1;
     grid-row: 1;
     border-right: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--border);
   }
   #property-panel {
     grid-column: 1;
     grid-row: 2;
     border-left: none;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--border);
   }
   #help-panel {
     top: 50%;
     bottom: 0;
     width: 100%;
+    right: -100%;
     border-left: none;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--border);
   }
-}
- 
-.help-panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
- 
-.help-panel-header h2 {
-  margin: 0;
-}
- 
-#help-close-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-  color: inherit;
-}
- 
-.help-panel-content ol {
-  padding-left: 1.2rem;
-  margin: 0.5rem 0;
-}
- 
-.help-shortcut-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0.5rem 0 1rem;
-}
- 
-.help-shortcut-table td {
-  padding: 0.3rem 0.4rem;
-  border-bottom: 1px solid #e0e0e0;
-}
- 
-.help-shortcut-table td:last-child {
-  text-align: right;
-}
- 
-.help-panel-content kbd {
-  background: #eee;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  padding: 0.05rem 0.35rem;
-  font-family: "Roboto Mono", monospace;
-  font-size: 0.85em;
-}
- 
-.impressum {
-  font-size: 0.8em;
-  color: #555;
-}
- 
-/* PNG Export Modal */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-.modal-content {
-  position: relative;
-  background: #fff;
-  padding: clamp(1.2rem, 2.5vw, 1.8rem);
-  border-radius: 10px;
-  width: clamp(300px, 50vw, 380px);
-  max-width: 95%;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-  font-family: sans-serif;
-}
-.modal-close {
-  position: absolute;
-  top: 0.4rem;
-  right: 0;
-  border: none;
-  background: transparent;
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
-  cursor: pointer;
-  color: #666;
-}
-.modal-close:hover {
-  color: #000;
-  background: transparent;
-}
-.modal-content h3 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
-  font-weight: 600;
-  color: #222;
-}
-.option {
-  display: flex;
-  align-items: center;
-  margin: 0.8rem 0;
-  gap: 0.6rem;
-  font-size: clamp(0.9rem, 1.4vw, 1rem);
-  color: #333;
-}
-.option i {
-  color: #555;
-  min-width: 18px;
-  text-align: center;
-  font-size: clamp(1rem, 1.5vw, 1.1rem);
-}
-.option input[type="checkbox"] {
-  margin-left: auto;
-  transform: scale(clamp(1.1, 1.5vw, 1.3));
-  cursor: pointer;
-  accent-color: #4caf50;
-}
-.scale-control {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-top: 0.3rem;
-}
-.scale-control input[type="range"] {
-  flex: 1;
-  accent-color: #4caf50;
-}
-.scale-control span {
-  min-width: 120px;
-  text-align: right;
-  font-size: clamp(0.85rem, 1.3vw, 0.95rem);
-  color: #444;
-  white-space: nowrap;
-}
-.modal-actions {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 1.2rem;
-}
-.btn-export {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: #4caf50;
-  color: #fff;
-  border: none;
-  padding: clamp(0.5rem, 1.2vw, 0.7rem) clamp(0.9rem, 2vw, 1.3rem);
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: clamp(0.9rem, 1.4vw, 1rem);
-}
-.btn-export:hover {
-  background: #2e7d32;
-}
-
-/* Marquee selection */
-.marquee-rect {
-  fill: rgba(76, 175, 80, 0.08);
-  stroke: #4caf50;
-  stroke-width: 1.5;
-  stroke-dasharray: 6 4;
-  pointer-events: none;
-}
-
-/* Coloris Colorpicker make the buttons circles again*/
-.clr-field {
-  width: 32px;
-  height: 32px;
-  border: 2px solid black;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.clr-field .color-circle {
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.clr-field button {
-  width: 100%;
-  border-radius: 50%;
 }

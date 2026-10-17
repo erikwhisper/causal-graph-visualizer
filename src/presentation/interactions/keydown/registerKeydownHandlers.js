@@ -10,47 +10,41 @@ import {
   addMouseMoveListener,
   getCurrentMousePosition,
 } from "./utils/mousePosition.js";
+import { isEditableTarget } from "../../utils/platform.js";
+import {
+  KEYBOARD_SHORTCUTS,
+  applyShortcutTooltips,
+} from "../../utils/shortcuts.js";
 
 export function registerKeydownHandlers(svg, graph, graphHistory, gridManager) {
   addMouseMoveListener(svg);
 
-  document.addEventListener("keydown", (event) => {
-    const currentMousePos = getCurrentMousePosition(svg);
-    const xCoor = currentMousePos[0];
-    const yCoor = currentMousePos[1];
+  applyShortcutTooltips();
 
-    if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "n") {
+  const actions = {
+    "add-node": () => {
+      const [xCoor, yCoor] = getCurrentMousePosition(svg);
       handleAddNode(svg, graph, graphHistory, xCoor, yCoor, gridManager);
-    }
+    },
+    undo: () => handleUndo(svg, graph, graphHistory, gridManager),
+    redo: () => handleRedo(svg, graph, graphHistory, gridManager),
+    delete: () => handleDelete(svg, graph, graphHistory, gridManager),
+    "toggle-grid": () => handleGridToggle(svg, gridManager),
+    "fit-to-screen": () => handleFitToScreen(svg),
+    "select-all-nodes": () => handleSelectAllNodes(svg, graph, graphHistory),
+    "select-all-links": () => handleSelectAllLinks(svg, graph, graphHistory),
+  };
 
-    if (event.ctrlKey && event.key.toLowerCase() === "z") {
-      handleUndo(svg, graph, graphHistory, gridManager);
-    }
+  const handler = (event) => {
+    if (isEditableTarget(event.target)) return;
 
-    if (event.ctrlKey && event.key.toLowerCase() === "y") {
-      handleRedo(svg, graph, graphHistory, gridManager);
-    }
+    const shortcut = KEYBOARD_SHORTCUTS.find((s) => s.match(event));
+    if (!shortcut) return;
 
-    if (event.key === "Delete") {
-      handleDelete(svg, graph, graphHistory, gridManager);
-    }
+    if (shortcut.preventDefault) event.preventDefault();
+    actions[shortcut.id]?.();
+  };
 
-    if (event.altKey && event.key.toLowerCase() === "g") {
-      handleGridToggle(svg, gridManager);
-    }
-
-    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "f") {
-      handleFitToScreen(svg, graph, graphHistory, gridManager);
-    }
-
-    if (event.ctrlKey && !event.shiftKey && event.key.toLowerCase() === "a") {
-      event.preventDefault();
-      handleSelectAllNodes(svg, graph, graphHistory);
-    }
-
-    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "a") {
-      event.preventDefault();
-      handleSelectAllLinks(svg, graph, graphHistory);
-    }
-  });
+  document.addEventListener("keydown", handler);
+  return () => document.removeEventListener("keydown", handler);
 }

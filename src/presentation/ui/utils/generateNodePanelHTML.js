@@ -1,112 +1,123 @@
-import { escapeHtml } from "../../../utils/escapeHtml.js";
+import {
+  esc,
+  getCommon,
+  normalizeColor,
+  numberAttrs,
+  swatchFieldHTML,
+} from "./panelFieldHelpers.js";
+import { colorLinkButtonHTML } from "./panelInteractions.js";
 
-export function generateNodePanelHTML(node, isMultiple) {
-  const getValue = (getter, defaultValue = "") =>
-    isMultiple ? defaultValue : getter();
+const FONT_FAMILY_OPTIONS = [
+  "sans-serif",
+  "serif",
+  "monospace",
+  "Inter",
+  "Lora",
+  "Merriweather",
+  "Source Code Pro",
+  "Roboto Mono",
+];
 
-  const fontFamilyOptions = [
-    "sans-serif",
-    "serif",
-    "monospace",
-    "Inter",
-    "Lora",
-    "Merriweather",
-    "Source Code Pro",
-    "Roboto Mono",
-  ];
+export function generateNodePanelHTML(nodes) {
+  const common = (getter, normalize) => getCommon(nodes, getter, normalize);
 
-  const currentFont = isMultiple ? "sans-serif" : node.getLabelFontFamily();
+  const x = common((n) => n.getXValue());
+  const y = common((n) => n.getYValue());
+  const radius = common((n) => n.getRadius());
+
+  const fill = common((n) => n.getFillColor(), normalizeColor);
+  const stroke = common((n) => n.getStrokeColor(), normalizeColor);
+  const labelColor = common((n) => n.getLabelColor(), normalizeColor);
+  const strokeWidth = common((n) => n.getStrokeWidth());
+
+  const label = common((n) => n.getLabel());
+  const fontFamily = common((n) => n.getLabelFontFamily());
+  const fontSize = common((n) => n.getLabelFontSize());
+  const lineHeight = common((n) => n.getLabelLineHeight());
+  const offsetX = common((n) => n.getLabelOffsetX());
+  const offsetY = common((n) => n.getLabelOffsetY());
 
   return `
-    <h2>${isMultiple ? "Multi-Select" : "Single-Select"}</h2>
+    <div class="panel-title">
+      <span>Node</span>
+      ${nodes.length > 1 ? `<span class="panel-chip">${nodes.length} selected</span>` : ""}
+    </div>
+
     <div class="panel-section-header">
       <i class="fas fa-arrows-alt"></i>
-      <span>Bounds</span>
+      <span>Geometry</span>
     </div>
-    <div class="bounds-grid">
-      <div class="bounds-field bounds-field--left">
-        <span class="field-label">X-Position</span>
-        <input type="number" id="node-x" value="${getValue(() => node.getXValue())}" />
+    <div class="field-row field-row--3">
+      <div class="field">
+        <label class="field-label" for="node-x">X</label>
+        <input type="number" id="node-x" ${numberAttrs(x)} />
       </div>
-      <div class="bounds-field bounds-field--right">
-        <span class="field-label">Y-Position</span>
-        <input type="number" id="node-y" value="${getValue(() => node.getYValue())}" />
+      <div class="field">
+        <label class="field-label" for="node-y">Y</label>
+        <input type="number" id="node-y" ${numberAttrs(y)} />
       </div>
-      <div class="bounds-field radius-field">
-        <span class="field-label">Radius</span>
-        <input type="number" id="node-radius" value="${getValue(() => node.getRadius())}" />
+      <div class="field">
+        <label class="field-label" for="node-radius">Radius</label>
+        <input type="number" id="node-radius" ${numberAttrs(radius)} />
       </div>
     </div>
+
     <div class="panel-section-header">
       <i class="fas fa-palette"></i>
-      <span>Color</span>
+      <span>Style</span>
     </div>
-    <div class="color-row">
-      <span class="color-label">Label Color</span>
-      <input type="text" id="node-label-color" value="${getValue(() => node.getLabelColor(), "#000000")}" class="color-circle coloris" />
+    <div class="field-row field-row--inline">
+      <div class="color-chain">
+        ${swatchFieldHTML({ id: "node-fill", label: "Fill", common: fill })}
+        ${colorLinkButtonHTML("node:fill-border", "fill", "border")}
+        ${swatchFieldHTML({ id: "node-stroke", label: "Border", common: stroke })}
+        ${colorLinkButtonHTML("node:border-text", "border", "text")}
+        ${swatchFieldHTML({ id: "node-label-color", label: "Text", common: labelColor })}
+      </div>
+      <div class="field field--narrow">
+        <label class="field-label" for="node-stroke-width">Border width</label>
+        <input type="number" id="node-stroke-width" ${numberAttrs(strokeWidth)} step="0.1" min="0.1" max="999" />
+      </div>
     </div>
-    <div class="color-row">
-      <span class="color-label">Fill Color</span>
-      <input type="text" id="node-fill" value="${getValue(() => node.getFillColor(), "#FFFFFF")}" class="color-circle coloris" />
-    </div>
-    <div class="color-row">
-      <span class="color-label">Border Color</span>
-      <input type="text" id="node-stroke" value="${getValue(() => node.getStrokeColor(), "#000000")}" class="color-circle coloris" />
-    </div>
-    <div class="panel-section-header">
-      <i class="fas fa-project-diagram"></i>
-      <span>Node Properties</span>
-    </div>
-    <div class="node-stroke-field">
-      <span class="field-label">Border Width</span>
-      <input type="number" id="node-stroke-width" value="${getValue(() => node.getStrokeWidth())}" step="0.1" min="0.1" max="999" />
-    </div>
+
     <div class="panel-section-header">
       <i class="fas fa-pencil"></i>
-      <span>Label Properties</span>
+      <span>Label</span>
     </div>
-    <div class="label-grid">
-      <div class="form-field form-field--label">
-        <label for="node-label" class="field-label">Label</label>
-        <textarea id="node-label" rows="3">${escapeHtml(getValue(() => node.getLabel()))}</textarea>
+    <div class="field-row field-row--single">
+      <div class="field">
+        <label class="field-label" for="node-label">Text</label>
+        <textarea id="node-label" rows="2"${label.mixed ? ' placeholder="Mixed"' : ""}>${label.mixed ? "" : esc(label.value)}</textarea>
       </div>
-      <div class="form-field form-field--line-height">
-        <label for="node-label-line-height" class="field-label">
-          Line Height
-        </label>
-        <input 
-          type="number" 
-          id="node-label-line-height" 
-          value="${getValue(() => node.getLabelLineHeight())}" 
-          min="0.1" 
-          step="0.1" 
-        />
-      </div>
-      <div class="offsets-grid">
-        <div class="form-field">
-          <label for="node-label-offset-x" class="field-label">X-Offset</label>
-          <input type="number" id="node-label-offset-x" value="${getValue(() => node.getLabelOffsetX())}" />
-        </div>
-        <div class="form-field">
-          <label for="node-label-offset-y" class="field-label">Y-Offset</label>
-          <input type="number" id="node-label-offset-y" value="${getValue(() => node.getLabelOffsetY())}" />
-        </div>
-      </div>
-      <div class="form-field form-field--size">
-        <label for="node-label-font-size" class="field-label">Size</label>
-        <input type="number" id="node-label-font-size" value="${getValue(() => node.getLabelFontSize())}" min="1" max="999" />
-      </div>
-      <div class="form-field form-field--font-family">
-        <label for="node-label-font-family" class="field-label">Font</label>
+    </div>
+    <div class="field-row field-row--font">
+      <div class="field">
+        <label class="field-label" for="node-label-font-family">Font</label>
         <select id="node-label-font-family">
-          ${fontFamilyOptions
-            .map(
-              (font) => `
-          <option value="${font}" ${currentFont === font ? "selected" : ""}>${font}</option>
-          `,
-            )
-            .join("")}
+          ${fontFamily.mixed ? '<option value="" disabled selected hidden>Mixed</option>' : ""}
+          ${FONT_FAMILY_OPTIONS.map(
+            (font) =>
+              `<option value="${font}"${!fontFamily.mixed && fontFamily.value === font ? " selected" : ""}>${font}</option>`,
+          ).join("")}
         </select>
+      </div>
+      <div class="field">
+        <label class="field-label" for="node-label-font-size">Size</label>
+        <input type="number" id="node-label-font-size" ${numberAttrs(fontSize)} min="1" max="999" />
+      </div>
+    </div>
+    <div class="field-row field-row--3">
+      <div class="field">
+        <label class="field-label" for="node-label-line-height">Line height</label>
+        <input type="number" id="node-label-line-height" ${numberAttrs(lineHeight)} min="0.1" step="0.1" />
+      </div>
+      <div class="field">
+        <label class="field-label" for="node-label-offset-x">Offset X</label>
+        <input type="number" id="node-label-offset-x" ${numberAttrs(offsetX)} />
+      </div>
+      <div class="field">
+        <label class="field-label" for="node-label-offset-y">Offset Y</label>
+        <input type="number" id="node-label-offset-y" ${numberAttrs(offsetY)} />
       </div>
     </div>
   `;

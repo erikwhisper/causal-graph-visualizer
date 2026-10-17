@@ -4,9 +4,15 @@ import { handleNodeSingleHighlight } from "./handleNodeSingleHighlight.js";
 import { handleLinkMultiHighlight } from "./handleLinkMultiHighlight.js";
 import { handleLinkSingleHighlight } from "./handleLinkSingleHighlight.js";
 import { handleBackgroundClick } from "./handleBackgroundClick.js";
+import { isPrimaryModifier } from "../../utils/platform.js";
 
 export function registerClickHandlers(svg, graph, graphHistory, gridManager) {
-  const linkCreationHandler = handleLinkCreation(svg, graph, graphHistory, gridManager);
+  const linkCreationHandler = handleLinkCreation(
+    svg,
+    graph,
+    graphHistory,
+    gridManager,
+  );
 
   const nodeLayer = svg.select("#node-layer");
   const linkLayer = svg.select("#link-layer");
@@ -15,9 +21,9 @@ export function registerClickHandlers(svg, graph, graphHistory, gridManager) {
     const target = event.target;
 
     if (target.classList.contains("node")) {
-      if (event.ctrlKey && event.altKey) {
+      if (isPrimaryModifier(event) && event.altKey) {
         linkCreationHandler.handleClick(target);
-      } else if (event.ctrlKey) {
+      } else if (isPrimaryModifier(event)) {
         handleNodeMultiHighlight(target, graph, svg, graphHistory);
       } else {
         handleNodeSingleHighlight(target, graph, svg, graphHistory);
@@ -29,7 +35,7 @@ export function registerClickHandlers(svg, graph, graphHistory, gridManager) {
     const target = event.target;
 
     if (target.classList.contains("link")) {
-      if (event.ctrlKey) {
+      if (isPrimaryModifier(event)) {
         handleLinkMultiHighlight(target, graph, svg, graphHistory);
       } else {
         handleLinkSingleHighlight(target, graph, svg, graphHistory);
@@ -37,5 +43,5 @@ export function registerClickHandlers(svg, graph, graphHistory, gridManager) {
     }
   });
 
-    handleBackgroundClick(svg, graph, linkCreationHandler);
+  handleBackgroundClick(svg, graph, linkCreationHandler);
 }

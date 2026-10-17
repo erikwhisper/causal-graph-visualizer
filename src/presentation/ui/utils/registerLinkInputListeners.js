@@ -1,5 +1,7 @@
 import { updateLinkVisual } from "../../../visualization/update/updateLinkVisual.js";
 import { updateVisualStyles } from "../../../visualization/update/updateVisualStyles.js";
+import { ensurePanelInteractions } from "./panelInteractions.js";
+import { getCommon } from "./panelFieldHelpers.js";
 
 export function registerLinkInputListeners(
   selectedLinks,
@@ -7,6 +9,9 @@ export function registerLinkInputListeners(
   graph,
   graphHistory
 ) {
+  // Farb-Connectoren, Select-on-Focus, Mixed-Zustand (einmalig, delegiert)
+  ensurePanelInteractions();
+
   const colorInputs = [
     { id: "link-stroke", setter: "setStrokeColor" },
     { id: "arrowhead-color", setter: "setArrowheadColor" },
@@ -63,7 +68,8 @@ export function registerLinkInputListeners(
     };
 
     const changeHandler = () => {
-      input.classList.remove("input-invalid");
+
+      if (input.classList.contains("input-invalid")) return;
       graphHistory.setNewState(graph.getEverything());
     };
 
@@ -129,10 +135,13 @@ export function registerLinkInputListeners(
     listeners.push(() => resetBtn.removeEventListener("click", handler));
   }
 
-  if (selectedLinks.length === 1) {
-    setActiveButton("#arrowhead-buttons", selectedLinks[0].getArrowhead());
-    setActiveButton("#arrowtail-buttons", selectedLinks[0].getArrowtail());
-  }
+  // Aktiven Pfeiltyp markieren: bei Mehrfachauswahl nur, wenn alle Links denselben haben
+  setActiveButtonIfCommon("#arrowhead-buttons", selectedLinks, (l) =>
+    l.getArrowhead(),
+  );
+  setActiveButtonIfCommon("#arrowtail-buttons", selectedLinks, (l) =>
+    l.getArrowtail(),
+  );
 
   return () => listeners.forEach((cleanup) => cleanup());
 }
@@ -167,6 +176,11 @@ function registerArrowButtons(
     btn.addEventListener("click", handler);
     listeners.push(() => btn.removeEventListener("click", handler));
   });
+}
+
+function setActiveButtonIfCommon(selector, links, getter) {
+  const { value, mixed } = getCommon(links, getter);
+  setActiveButton(selector, mixed ? null : value);
 }
 
 function setActiveButton(selector, activeValue) {

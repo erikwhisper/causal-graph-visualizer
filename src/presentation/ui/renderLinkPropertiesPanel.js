@@ -21,10 +21,8 @@ export function renderLinkPropertiesPanel(
     cleanupListeners();
   }
 
-  const isMultiple = selectedLinks.length > 1;
-  const link = selectedLinks[0];
 
-  panel.innerHTML = generateLinkPanelHTML(link, isMultiple);
+  panel.innerHTML = generateLinkPanelHTML(selectedLinks);
   Coloris.wrap(".coloris");
 
   cleanupListeners = registerLinkInputListeners(

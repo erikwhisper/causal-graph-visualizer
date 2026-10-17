@@ -1,5 +1,6 @@
 import { updateNodeVisual } from "../../../visualization/update/updateNodeVisual";
 import { updateVisualStyles } from "../../../visualization/update/updateVisualStyles";
+import { ensurePanelInteractions } from "./panelInteractions.js";
 
 export function registerNodeInputListeners(
   selectedNodes,
@@ -7,6 +8,9 @@ export function registerNodeInputListeners(
   graph,
   graphHistory,
 ) {
+  // Farb-Connectoren, Select-on-Focus, Mixed-Zustand (einmalig, delegiert)
+  ensurePanelInteractions();
+
   const stringInputs = [
     { id: "node-label", setter: "setLabel" },
     { id: "node-fill", setter: "setFillColor" },
@@ -68,7 +72,9 @@ export function registerNodeInputListeners(
     };
 
     const changeHandler = () => {
-      input.classList.remove("input-invalid");
+      // Ungültiger Wert: der Graph wurde nicht verändert → kein History-Eintrag.
+      // Die rote Markierung bleibt stehen, bis der Wert korrigiert ist.
+      if (input.classList.contains("input-invalid")) return;
       graphHistory.setNewState(graph.getEverything());
     };
 

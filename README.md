@@ -158,12 +158,10 @@ npm run dist            # Build desktop installers
 
 ### Unsigned builds
 
-```bash
 The desktop builds are not code-signed, so your operating system may warn you on first start.
 
 - **Windows:** if SmartScreen shows "Windows protected your PC", click **More info**, then **Run anyway**.
 - **macOS:** if Gatekeeper refuses to open the app, right-click (or Ctrl-click) the app and choose **Open**. Alternatively, remove the quarantine flag in a terminal: `xattr -dr com.apple.quarantine "/Applications/Causal Graph Visualizer.app"`.
-```
 
 ---
 

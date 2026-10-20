@@ -72,6 +72,8 @@ Download the latest version for your operating system from the [Releases](../../
 
 ## Keyboard Shortcuts & Toolbar Buttons
 
+On macOS, use **⌘** instead of `Ctrl` and **⌥** instead of `Alt`; Redo is `⌘⇧Z`, and `⌫` deletes the selection.
+
 | Action | Button | Shortcut |
 |--------|:------:|----------|
 | Import CSV Matrix | ✓ | – |
@@ -87,6 +89,8 @@ Download the latest version for your operating system from the [Releases](../../
 | Delete Selection | ✓ | `Delete` |
 | Toggle Grid & Snapping | ✓ | `Alt+G` |
 | Fit to Screen | ✓ | `Ctrl+Shift+F` |
+| Zoom | – | Mouse wheel or pinch |
+| Pan | – | Drag on an empty part of the canvas |
 | Export CSV Matrix | ✓ | – |
 | Export JSON Graph | ✓ | – |
 | Export PDF | ✓ | – |
@@ -103,17 +107,28 @@ Recommended for saving and reopening work, and for sharing with collaborators.
 
 ### CSV Matrix (`.csv`)
 
-Encodes the graph as an adjacency matrix. Useful for interoperability with causal discovery tools.
+Encodes the graph as an adjacency matrix. Useful for interoperability with causal discovery tools. The encoding follows the PAG convention of the R package [pcalg](https://cran.r-project.org/package=pcalg) (`amat.pag`), extended to support ADMGs as well.
 
-**Edge encoding:**
+**How to read it:** the entry in row *i*, column *j* is the **edge mark at the end of node *j*** of the edge between *i* and *j*. For example, `A → B` (tail at A, arrowhead at B) is stored as `2` in row A / column B and `3` in row B / column A.
 
-| Value | Meaning |
-|-------|---------|
+| Value | Edge mark |
+|:-----:|-----------|
 | `0` | No edge |
-| `1` | Circle endpoint (`o`) |
+| `1` | Circle (`o`) |
 | `2` | Arrowhead (`>`) |
 | `3` | Tail (`—`) |
-| `4–5` | ADMG bidirected combinations |
+| `4`, `5` | Only as a pair, see below (ADMG: directed + bidirected edge between the same nodes) |
+
+**Accepted combinations** for a node pair *(i, j)*, given as *(row i / column j, row j / column i)*:
+
+| Cells | Edge | | Cells | Edge |
+|:-----:|------|-|:-----:|------|
+| `0, 0` | no edge | | `1, 1` | *i* o–o *j* |
+| `2, 3` | *i* → *j* | | `1, 2` | *i* ←o *j* |
+| `3, 2` | *i* ← *j* | | `2, 1` | *i* o→ *j* |
+| `2, 2` | *i* ↔ *j* | | `1, 3` | *i* –o *j* |
+| `3, 3` | *i* — *j* | | `3, 1` | *i* o– *j* |
+| `4, 5` | *i* → *j* and dashed *i* ↔ *j* | | `5, 4` | *i* ← *j* and dashed *i* ↔ *j* |
 
 ---
 
@@ -121,7 +136,7 @@ Encodes the graph as an adjacency matrix. Useful for interoperability with causa
 
 ### Prerequisites
 
-- [Node.js 18+](https://nodejs.org/)
+- [Node.js 22.12 or newer](https://nodejs.org/) (required by Electron 44; with older Node versions `npm install` finishes without an error, but the desktop app cannot start)
 - npm
 
 ### Setup
@@ -140,3 +155,18 @@ npm run electron:dev    # Electron desktop app (dev mode, auto-opens window)
 npm run build           # Build web version
 npm run dist            # Build desktop installers
 ```
+
+### Unsigned builds
+
+```bash
+The desktop builds are not code-signed, so your operating system may warn you on first start.
+
+- **Windows:** if SmartScreen shows "Windows protected your PC", click **More info**, then **Run anyway**.
+- **macOS:** if Gatekeeper refuses to open the app, right-click (or Ctrl-click) the app and choose **Open**. Alternatively, remove the quarantine flag in a terminal: `xattr -dr com.apple.quarantine "/Applications/Causal Graph Visualizer.app"`.
+```
+
+---
+
+## License
+
+Released under the [MIT License](LICENSE).

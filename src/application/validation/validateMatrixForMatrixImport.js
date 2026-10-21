@@ -1,6 +1,5 @@
 import { extractLabels } from "./utils/extractLabels.js";
 import { checkCornerCell } from "./checks/checkCornerCell.js";
-//import { checkLabelSyntax } from "./checks/checkLabelSyntax.js";
 import { checkSquare } from "./checks/checkSquare.js";
 import { checkRowColumnMatch } from "./checks/checkRowColumnMatch.js";
 import { checkAllCellsFilled } from "./checks/checkAllCellsFilled.js";
@@ -14,7 +13,6 @@ export function validateMatrixForMatrixImport(text) {
   const labels = extractLabels(rows);
 
   checkCornerCell(rows);
-  //checkLabelSyntax(rows);
   checkSquare(rows);
   checkRowColumnMatch(rows, labels);
   checkAllCellsFilled(rows);

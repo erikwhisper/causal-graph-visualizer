@@ -1,6 +1,6 @@
 # Causal Graph Visualizer
 
-<img src="assets/icon_name.png" alt="Causal Graph Visualizer" width="80"/>
+<img src="assets/icon_name.svg" alt="Causal Graph Visualizer" width="80"/>
 
 An interactive tool for visualizing and editing causal graphs — available as both a **web application** and a **desktop application**.
 
@@ -14,7 +14,7 @@ An interactive tool for visualizing and editing causal graphs — available as b
 
 ## Download Desktop App
 
-Download the latest version for your operating system from the [Releases](../../releases) page:
+Download the latest version for your operating system from the [Releases](https://github.com/erikwhisper/causal-graph-visualizer/releases) page:
 
 | Platform | File |
 |----------|------|
@@ -64,7 +64,7 @@ Download the latest version for your operating system from the [Releases](../../
 
 ### Desktop App
 
-1. Download the installer for your OS from [Releases](../../releases)
+1. Download the installer for your OS from [Releases](https://github.com/erikwhisper/causal-graph-visualizer/releases)
 2. Install and launch — the app works fully offline
 3. Same workflow as the web version
 

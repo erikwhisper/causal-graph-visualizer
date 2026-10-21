@@ -9,9 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/erikwhisper/causal-graph-visualizer.git"
   },
-  "bugs": {
-    "url": "https://github.com/erikwhisper/causal-graph-visualizer/issues"
-  },
+
   "keywords": [
     "causal inference",
     "causal graph",

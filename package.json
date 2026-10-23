@@ -9,7 +9,6 @@
     "type": "git",
     "url": "git+https://github.com/erikwhisper/causal-graph-visualizer.git"
   },
-
   "keywords": [
     "causal inference",
     "causal graph",
@@ -19,7 +18,9 @@
     "adjacency matrix"
   ],
   "type": "module",
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "main": "electron/electron-main.cjs",
   "homepage": "./",
   "scripts": {
@@ -98,7 +99,7 @@
   "devDependencies": {
     "concurrently": "^9.1.0",
     "electron": "^44.9.0",
-    "electron-builder": "^25.1.8",
+    "electron-builder": "^26.15.3",
     "vite": "^6.3.6",
     "wait-on": "^8.0.1"
   },
